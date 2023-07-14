@@ -26,7 +26,7 @@ if ($actual_link != "/saargummi/profile.php") {
 $db1 = mysqli_connect('localhost', 'root', '', 'server');
 $mysqli = new mysqli('localhost', 'root', '', 'server');
 
-$sitename = "SaarGummi";
+$sitename = "iot";
 
 //error class
 $_SESSION['alert_success_class'] = 'alert-success';
@@ -42,7 +42,7 @@ $_SESSION['error_3'] = "Error: Incorrect Mail-id...!";
 //security question error
 $_SESSION['error_4'] = "Error: Incorrect Security answers ...!";
 $_SESSION['error_5'] = "Error: Incorrect Mail-id ...!";
-$scriptName = "http://localhost/saargummi/";
+$scriptName = "http://localhost/iot/";
 
 date_default_timezone_set("America/chicago");
 ?>

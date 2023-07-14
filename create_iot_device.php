@@ -526,6 +526,6 @@ include("admin_menu.php");
     $('.select2').select2();
 </script>
 
-<?php include('../footer1.php') ?>
+<?php include('footer1.php') ?>
 </body>
 </html>

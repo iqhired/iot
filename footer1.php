@@ -1,7 +1,7 @@
 <!-- Footer opened -->
 <div class="main-footer">
     <div class="container-fluid pd-t-0-f ht-100p">
-        Copyright © <?php echo date("Y"); ?> <a href="<?php echo $siteURL; ?>" target="_BLANK" style="color: #060818!important;"><?php echo $sitename; ?></a> All Rights
+        Copyright <?php echo $sitename; ?> © <?php echo date("Y"); ?> <a href="<?php echo $siteURL; ?>" target="_BLANK" style="color: #060818!important;"></a> All Rights
         Reserved.
     </div>
 </div>
@@ -23,9 +23,7 @@
 
 <?php  //include the timing configuration file
 include("timings_config.php"); ?>
-<!--<script type="text/javascript" src="--><?php //echo $siteURL; ?><!--assets/js/time_display.js"></script>-->
-<!--<script type="text/javascript" src="--><?php //echo $siteURL; ?><!--assets/js/push.min.js"></script>-->
-<!--<script type="text/javascript" src="--><?php //echo $siteURL; ?><!--assets/js/serviceWorker.min.js"></script>-->
+
  <script>
 	<?php
 

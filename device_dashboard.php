@@ -334,7 +334,7 @@ $assign_by = $_SESSION["id"];
 
 </div>
 <!-- End Page -->
-<?php include ('../footer1.php'); ?>
+<?php include ('footer1.php'); ?>
 
 </body>
 </html>
