@@ -4,7 +4,7 @@ if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|c
 {
     header('Location: ./config/403.php');
 }
-require "vendor/autoload.php";
+require "./vendor/autoload.php";
 use Firebase\JWT\JWT;
 $status = '0';
 $message = "";
