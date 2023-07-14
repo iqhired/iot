@@ -53,7 +53,7 @@ $assign_by = $_SESSION["id"];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?php echo $sitename; ?> |Quality Alert</title>
+        <?php echo $sitename; ?> |Device dashboard</title>
     <!-- Global stylesheets -->
 
     <link href="assets/css/core.css" rel="stylesheet" type="text/css">
@@ -146,19 +146,73 @@ $assign_by = $_SESSION["id"];
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Events Module</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Quality Alert</li>
+                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Devices</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Device Dashboard</li>
             </ol>
-
         </div>
-
     </div>
-
-
-
+    <?php
+    $sql = "SELECT * FROM `iot_devices` where is_deleted != 1";
+    $result = mysqli_query($db, $sql);
+    while($row = mysqli_fetch_array($result)){
+    ?>
             <div class="row row-sm">
-
                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="card custom-card">
+                        <div class="card-header  d-flex custom-card-header border-bottom-0 ">
+                            <h5 class="card-title"><?php echo $row['device_name']; ?></h5>
+                        </div>
+                        <form action="" id="device_dashboard" enctype="multipart/form-data" method="post">
+                        <div class="card-body">
+                            <div class="d-flex custom-card-header border-bottom-0 ">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="2">Device ID : </td>
+                                        <td colspan="3"><?php echo $row['device_id']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Device Name</td>
+                                        <td colspan="3"><?php echo $row['device_name']; ?></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Device Desc</td>
+                                        <td colspan="3"><?php echo $row['device_description']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Device Loc</td>
+                                        <td colspan="3"><?php echo $row['device_location']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label class="custom-switch form-switch mb-0  p-0">
+                                                <input type="checkbox" name="custom-switch-radio" class="custom-switch-input">
+                                                <span class="custom-switch-indicator"></span>
+                                                <span class="custom-switch-description">Active</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <a href="del_iot_device.php?device_id=<?php echo  $row["device_id"]; ?>" class="btn btn-danger btn-sm br-5">
+                                                <i>
+                                                    <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
+                                                </i>
+                                            </a>
+                                            <!--<button type="button" class="btn btn-danger btn-sm br-5" onclick="submitForm('delete_quality_alert.php')">
+                                                <i>
+                                                    <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
+                                                </i>
+                                            </button>-->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+               <!-- <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
                     <div class="card custom-card">
                         <div class="card-header  d-flex custom-card-header border-bottom-0 ">
                             <h5 class="card-title">Device ID</h5>
@@ -263,79 +317,33 @@ $assign_by = $_SESSION["id"];
                         </div>
 
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                    <div class="card custom-card">
-                        <div class="card-header  d-flex custom-card-header border-bottom-0 ">
-                            <h5 class="card-title">Device ID</h5>
-
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex custom-card-header border-bottom-0 ">
-
-                                <table class="table table-borderless">
-
-                                    <tbody>
-                                    <tr>
-
-                                        <td colspan="2">Device ID</td>
-                                        <td colspan="3">Larry the Bird</td>
-
-                                        <td colspan="2">
-                                            <label class="custom-switch form-switch mb-0  p-0">
-                                                <input type="checkbox" name="custom-switch-radio" class="custom-switch-input">
-                                                <span class="custom-switch-indicator"></span>
-                                                <span class="custom-switch-description">Active</span>
-                                            </label>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td colspan="2">Device Name</td>
-                                        <td colspan="3">Larry the Bird</td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger btn-sm br-5" onclick="submitForm('delete_quality_alert.php')">
-                                                <i>
-                                                    <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                                                </i>
-                                            </button>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">Device Desc</td>
-                                        <td colspan="3">Larry the Bird</td>
-
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
+                </div>-->
             </div>
+    <?php } ?>
             <!-- End Row -->
-
-
-
-
-
-        </div>
+  </div>
         <!-- Container closed -->
     </div>
     <!-- main-content closed -->
-
-
-
 </div>
+<script>
+    function submitForm(url) {
+        $(':input[type="button"]').prop('disabled', true);
+        var data = $("#device_dashboard").serialize();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function (data) {
+                // window.location.href = window.location.href + "?aa=Line 1";
+                $(':input[type="button"]').prop('disabled', false);
+                location.reload();
+            }
+        });
+    }
+</script>
 <!-- End Page -->
 <?php include ('footer1.php'); ?>
-
 </body>
 </html>
 
