@@ -187,7 +187,7 @@ $assign_by = $_SESSION["id"];
                                     <tr>
                                         <td colspan="2">
                                             <label class="custom-switch form-switch mb-0  p-0">
-                                                <input type="checkbox" name="custom-switch-radio" class="custom-switch-input">
+                                                <input type="checkbox" class="custom-switch-input" name="devc_id" id="devc_id" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['device_id']==1 ? 'checked' : '');?>>
                                                 <span class="custom-switch-indicator"></span>
                                                 <span class="custom-switch-description">Active</span>
                                             </label>
@@ -326,6 +326,22 @@ $assign_by = $_SESSION["id"];
     </div>
     <!-- main-content closed -->
 </div>
+<script>
+    $("input#devc_id").click(function () {
+        var isChecked = $(this)[0].checked;
+        var val = $(this).val();
+        var data_1 = "&devc_id=" + val+ "&isChecked=" + isChecked;
+        $.ajax({
+            type: 'POST',
+            url: "device_backend.php",
+            data: data_1,
+            success: function (response) {
+
+            }
+        });
+
+    });
+</script>
 <script>
     function submitForm(url) {
         $(':input[type="button"]').prop('disabled', true);
