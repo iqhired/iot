@@ -157,7 +157,7 @@ $assign_by = $_SESSION["id"];
     while($row = mysqli_fetch_array($result)){
     ?>
             <div class="row row-sm">
-                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="deviceDB('<?php echo $row["device_id"] ?>')">
                     <div class="card custom-card">
                         <div class="card-header  d-flex custom-card-header border-bottom-0 ">
                             <h5 class="card-title"><?php echo $row['device_name']; ?></h5>
@@ -198,11 +198,6 @@ $assign_by = $_SESSION["id"];
                                                     <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
                                                 </i>
                                             </a>
-                                            <!--<button type="button" class="btn btn-danger btn-sm br-5" onclick="submitForm('delete_quality_alert.php')">
-                                                <i>
-                                                    <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                                                </i>
-                                            </button>-->
                                         </td>
                                     </tr>
                                     </tbody>
@@ -212,112 +207,6 @@ $assign_by = $_SESSION["id"];
                         </form>
                     </div>
                 </div>
-               <!-- <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                    <div class="card custom-card">
-                        <div class="card-header  d-flex custom-card-header border-bottom-0 ">
-                            <h5 class="card-title">Device ID</h5>
-
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex custom-card-header border-bottom-0 ">
-
-                                <table class="table table-borderless">
-
-                                    <tbody>
-                                    <tr>
-
-                                        <td colspan="2">Device ID</td>
-                                        <td colspan="3">Larry the Bird</td>
-
-                                        <td colspan="2">
-                                            <label class="custom-switch form-switch mb-0  p-0">
-                                                <input type="checkbox" name="custom-switch-radio" class="custom-switch-input">
-                                                <span class="custom-switch-indicator"></span>
-                                                <span class="custom-switch-description">Active</span>
-                                            </label>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td colspan="2">Device Name</td>
-                                        <td colspan="3">Larry the Bird</td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger btn-sm br-5" onclick="submitForm('delete_quality_alert.php')">
-                                                <i>
-                                                    <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                                                </i>
-                                            </button>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">Device Desc</td>
-                                        <td colspan="3">Larry the Bird</td>
-
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                    <div class="card custom-card">
-                        <div class="card-header  d-flex custom-card-header border-bottom-0 ">
-                            <h5 class="card-title">Device ID</h5>
-
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex custom-card-header border-bottom-0 ">
-
-                                <table class="table table-borderless">
-
-                                    <tbody>
-                                    <tr>
-
-                                        <td colspan="2">Device ID</td>
-                                        <td colspan="3">Larry the Bird</td>
-
-                                        <td colspan="2">
-                                            <label class="custom-switch form-switch mb-0  p-0">
-                                                <input type="checkbox" name="custom-switch-radio" class="custom-switch-input">
-                                                <span class="custom-switch-indicator"></span>
-                                                <span class="custom-switch-description">Active</span>
-                                            </label>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td colspan="2">Device Name</td>
-                                        <td colspan="3">Larry the Bird</td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger btn-sm br-5" onclick="submitForm('delete_quality_alert.php')">
-                                                <i>
-                                                    <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                                                </i>
-                                            </button>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">Device Desc</td>
-                                        <td colspan="3">Larry the Bird</td>
-
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>-->
             </div>
     <?php } ?>
             <!-- End Row -->
@@ -326,6 +215,11 @@ $assign_by = $_SESSION["id"];
     </div>
     <!-- main-content closed -->
 </div>
+<script>
+    function deviceDB(device_id) {
+        window.open("<?php echo site_URL . "iot_device_data.php?device_id=" ; ?>" + device_id , "_self")
+    }
+</script>
 <script>
     $("input#devc_id").click(function () {
         var isChecked = $(this)[0].checked;
