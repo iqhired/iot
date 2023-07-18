@@ -1,3 +1,8 @@
+<?php
+include("config.php");
+
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -33,9 +38,15 @@
 
 
             .bg-light {
-                background-color: #f8f9fa!important;
+                background-color: #f9fcff!important;
                 height: 930px;
             }
+        }
+
+
+        .logo_img{
+            height: auto;
+            width: 150px;
         }
 
 
@@ -44,6 +55,9 @@
     <link href="sidebars.css" rel="stylesheet">
 </head>
 <body>
+<?php
+include("header1.php");
+?>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
@@ -109,43 +123,26 @@
 
     <div class="b-example-divider"></div>
 
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; ">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-            <span class="fs-4">Sidebar</span>
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;margin-top: -81px; ">
+        <a href="#" class="logo">
+            <img src="<?php echo $siteURL; ?>assets/img/site_logo.png"  class = "logo_img" alt="logo">
         </a>
+
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
+                <a href="admin_menu1.php" class="nav-link active" aria-current="page">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
                     Home
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link link-dark">
+                <a href="create_iot_device.php" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-                    Dashboard
+                    Device
                 </a>
             </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                    Orders
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-                    Products
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                    Customers
-                </a>
-            </li>
+
         </ul>
 
     </div>
