@@ -169,7 +169,7 @@ $assign_by = $_SESSION["id"];
             <div class="card">
                 <div class="card-header pb-1" style="max-height: 39px;">
                     <h3 class="card-title mb-2"><?php echo $row["device_name"]; ?>
-                        <label class="custom-switch form-switch mb-0  p-0" style="margin-left: 255px;">
+                        <label class="custom-switch form-switch mb-0  p-0" style="margin-left: 235px!important;">
                             <input type="checkbox" class="custom-switch-input" name="is_active" id="is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['is_active']==1 ? 'checked' : '');?>>
                             <span class="custom-switch-indicator"></span>
                             <span class="custom-switch-description"></span>
