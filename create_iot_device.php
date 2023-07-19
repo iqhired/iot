@@ -263,30 +263,18 @@ $assign_by = $_SESSION["id"];
 <!-- Main navbar -->
 <body class="ltr main-body app horizontal">
 
-<?php
-$cust_cam_page_header = "Part Family";
-include("header.php");
-include("admin_menu.php");
-?>
 
 <!-----main content----->
 <div class="main-content horizontal-content">
     <div class="main-container container">
 
         <!---breadcrumb--->
-        <div class="breadcrumb-header justify-content-between">
-            <div class="left-content">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Devices</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Create IOT Device</li>
-                </ol>
-            </div>
-        </div>
+
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="">
-                        <div class="card-header">
+                        <div class="card-header"  style="background-color: black;">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Create Iot Device</span>
                         </div>
                         <form action="" id="device_settings" enctype="multipart/form-data" method="post">
