@@ -167,14 +167,16 @@ $assign_by = $_SESSION["id"];
     ?>
         <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
             <div class="card">
-                <div class="card-header pb-1">
-                    <h3 class="card-title mb-2"><?php echo $row["device_name"]; ?></h3>
-                    <label class="custom-switch form-switch mb-0  p-0" style="margin-left: 246px;">
-                        <input type="checkbox" class="custom-switch-input" name="is_active" id="is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['is_active']==1 ? 'checked' : '');?>>
-                        <span class="custom-switch-indicator"></span>
-                        <span class="custom-switch-description">Active</span>
-                    </label>
-                    <a href="del_iot_device.php?device_id=<?php echo  $row["device_id"]; ?>" class="btn btn-danger btn-sm br-5" style="height: 30px;margin-left: 20px;margin-top: -35px;">
+                <div class="card-header pb-1" style="max-height: 39px;">
+                    <h3 class="card-title mb-2"><?php echo $row["device_name"]; ?>
+                        <label class="custom-switch form-switch mb-0  p-0" style="margin-left: 255px;">
+                            <input type="checkbox" class="custom-switch-input" name="is_active" id="is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['is_active']==1 ? 'checked' : '');?>>
+                            <span class="custom-switch-indicator"></span>
+                            <span class="custom-switch-description"></span>
+                        </label>
+                    </h3>
+
+                    <a href="del_iot_device.php?device_id=<?php echo  $row["device_id"]; ?>" class="btn btn-danger btn-sm br-5" style="height: 30px;margin-left: 347px;margin-top: -53px;">
                         <i>
                             <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
                         </i>
