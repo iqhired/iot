@@ -19,6 +19,7 @@ if (!empty($_POST['dev_id'])){
     $device_name = $_POST["dev_name"];
     $device_desc = $_POST["dev_desc"];
     $device_loc = $_POST["dev_loc"];
+    $is_active = 1;
 
         $service_url = $rest_api_uri . "iot/iot_device.php";
         $curl = curl_init($service_url);
@@ -28,6 +29,7 @@ if (!empty($_POST['dev_id'])){
             'device_name' => $device_name,
             'device_description' => $device_desc,
             'device_location' => $device_loc,
+            'is_active' => $is_active,
             'created_by' => $user_id,
             'created_on' => $chicagotime
         );
@@ -443,7 +445,7 @@ include("admin_menu.php");
                                             ?>
                                             <?php echo  $fullname; ?>
                                         </td>
-                                        <td><?php echo  $rowc["created_on"]; ?></td>
+                                        <td><?php echo  dateReadFormat($rowc["created_on"]); ?></td>
                                     </tr>
                                     <?php } ?>
                                     </tbody>
