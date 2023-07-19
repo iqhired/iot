@@ -274,7 +274,7 @@ $assign_by = $_SESSION["id"];
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="">
-                        <div class="card-header"  style="background-color: black;">
+                        <div class="card-header"  style="background-color: #1F5D96;">
                             <span class="main-content-title mg-b-0 mg-b-lg-1">Create Iot Device</span>
                         </div>
                         <form action="" id="device_settings" enctype="multipart/form-data" method="post">

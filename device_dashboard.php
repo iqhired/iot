@@ -156,11 +156,128 @@ $assign_by = $_SESSION["id"];
     $result = mysqli_query($db, $sql);
     while($row = mysqli_fetch_array($result)){
     ?>
-            <div class="row row-sm">
-                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="deviceDB('<?php echo $row["device_id"] ?>')">
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="card">
+                <div class="card-header pb-1">
+                    <h3 class="card-title mb-2"><?php echo $row["device_name"]; ?></h3>
+                </div>
+                <div class="card-body">
+                        <div class="row">
+                            <div class="d-flex align-items-center item  border-bottom my-2" style="margin-top: -1.0rem!important;margin-bottom: 1.5rem!important;margin-left: 30px;">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                <tr>
+                                                    <td colspan="2" style="font-size: 16px;color: #4a4a69;">Device ID : </td>
+                                                    <td colspan="3" style="font-size: 16px;color: #4a4a69;"><?php echo $row['device_id']; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" style="font-size: 16px;color: #4a4a69;">Device Name : </td>
+                                                    <td colspan="3" style="font-size: 16px;color: #4a4a69;"><?php echo $row['device_name']; ?></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" style="font-size: 16px;color: #4a4a69;">Device Desc : </td>
+                                                    <td colspan="3" style="font-size: 16px;color: #4a4a69;"><?php echo $row['device_description']; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" style="font-size: 16px;color: #4a4a69;">Device Loc : </td>
+                                                    <td colspan="3" style="font-size: 16px;color: #4a4a69;"><?php echo $row['device_location']; ?></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                            </div>
+                    <div class="row">
+                        <div class="d-flex align-items-center item my-2">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+                                <h7 style="font-size: 14px;margin-left: -25px;margin-top: -10px;">Temperature</h7>
+                            </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+                                <h7 style="font-size: 14px;margin-left: 26px;margin-top: -10px;">Humidity</h7>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+                                <h7 style="font-size: 14px;margin-left: 65px;margin-top: -10px;">Procedure</h7>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center border-bottom item my-2" style="max-height: 82px">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                <div style="margin-top: -74px;margin-left: 10px;">
+                                    <div class="card-body">
+                                        <?php echo ''; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                                <div style="margin-top: -73px;margin-left: 26px;">
+                                    <div class="card-body">
+                                        <?php echo ''; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                <div style="margin-left: 30px;">
+                                    <div class="card-body">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex align-items-center item my-2">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+                                <h7 style="font-size: 14px;margin-left: -13px;margin-top: -10px;">IAQ</h7>
+                            </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+                                <h7 style="font-size: 14px;margin-left: 61px;margin-top: -10px;">VOC</h7>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+                                <h7 style="font-size: 14px;margin-left: 110px;margin-top: -10px;">CO2</h7>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center item my-2" style="max-height: 82px">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                <div style="margin-top: -74px;margin-left: 10px;">
+                                    <div class="card-body">
+                                        <?php echo ''; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                                <div class="text-justified align-items-center">
+                                    <div style="margin-top: -73px;margin-left: 10px;">
+                                        <?php echo ''; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                <div style="margin-left: 7px;">
+                                    <div class="card-body">
+                                        <div id="eff_container1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <!-- <a href="<?php /*echo $siteURL; */?>config_module/station_wise_dashboard.php?id=<?php /*echo $line */?>" id="details" target="_blank" style="margin-left: -205px;margin-top: 43px;">DETAILS</a>-->
+                        <a href="#" id="details" target="_blank" style="margin-left: -205px;margin-top: 43px;">DETAILS</a>
+                        <label class="custom-switch form-switch mb-0  p-0" style="margin-left: 30px;margin-top: 42px;">
+                            <input type="checkbox" class="custom-switch-input" name="is_active" id="is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['is_active']==1 ? 'checked' : '');?>>
+                            <span class="custom-switch-indicator"></span>
+                            <span class="custom-switch-description">Active</span>
+                        </label>
+                        <a href="del_iot_device.php?device_id=<?php echo  $row["device_id"]; ?>" class="btn btn-danger btn-sm br-5" style="height: 30px;margin-left: 20px;margin-top: 35px;">
+                            <i>
+                                <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
+                            </i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <!--  <div class="row row-sm">
+                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="deviceDB('<?php /*echo $row["device_id"] */?>')">
                     <div class="card custom-card">
                         <div class="card-header  d-flex custom-card-header border-bottom-0 ">
-                            <h5 class="card-title"><?php echo $row['device_name']; ?></h5>
+                            <h5 class="card-title"><?php /*echo $row['device_name']; */?></h5>
                         </div>
                         <form action="" id="device_dashboard" enctype="multipart/form-data" method="post">
                         <div class="card-body">
@@ -169,31 +286,31 @@ $assign_by = $_SESSION["id"];
                                     <tbody>
                                     <tr>
                                         <td colspan="2">Device ID : </td>
-                                        <td colspan="3"><?php echo $row['device_id']; ?></td>
+                                        <td colspan="3"><?php /*echo $row['device_id']; */?></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">Device Name</td>
-                                        <td colspan="3"><?php echo $row['device_name']; ?></td>
+                                        <td colspan="3"><?php /*echo $row['device_name']; */?></td>
 
                                     </tr>
                                     <tr>
                                         <td colspan="2">Device Desc</td>
-                                        <td colspan="3"><?php echo $row['device_description']; ?></td>
+                                        <td colspan="3"><?php /*echo $row['device_description']; */?></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">Device Loc</td>
-                                        <td colspan="3"><?php echo $row['device_location']; ?></td>
+                                        <td colspan="3"><?php /*echo $row['device_location']; */?></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">
+                                        <td colspan="1">
                                             <label class="custom-switch form-switch mb-0  p-0">
-                                                <input type="checkbox" class="custom-switch-input" name="devc_id" id="devc_id" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['device_id']==1 ? 'checked' : '');?>>
+                                                <input type="checkbox" class="custom-switch-input" name="devc_id" id="devc_id" value="<?php /*echo $row["device_id"]; */?>" <?php /*echo ($row['device_id']==1 ? 'checked' : '');*/?>>
                                                 <span class="custom-switch-indicator"></span>
                                                 <span class="custom-switch-description">Active</span>
                                             </label>
                                         </td>
                                         <td>
-                                            <a href="del_iot_device.php?device_id=<?php echo  $row["device_id"]; ?>" class="btn btn-danger btn-sm br-5">
+                                            <a href="del_iot_device.php?device_id=<?php /*echo  $row["device_id"]; */?>" class="btn btn-danger btn-sm br-5">
                                                 <i>
                                                     <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
                                                 </i>
@@ -207,7 +324,7 @@ $assign_by = $_SESSION["id"];
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>-->
     <?php } ?>
             <!-- End Row -->
   </div>
@@ -221,10 +338,10 @@ $assign_by = $_SESSION["id"];
     }
 </script>
 <script>
-    $("input#devc_id").click(function () {
+    $("input#is_active").click(function () {
         var isChecked = $(this)[0].checked;
         var val = $(this).val();
-        var data_1 = "&devc_id=" + val+ "&isChecked=" + isChecked;
+        var data_1 = "&is_active=" + val+ "&isChecked=" + isChecked;
         $.ajax({
             type: 'POST',
             url: "device_backend.php",

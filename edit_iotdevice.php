@@ -271,6 +271,7 @@ include("admin_menu.php");
                               $dev_name = $row['device_name'];
                               $dev_desc = $row['device_description'];
                               $dev_loc = $row['device_location'];
+                              $is_active = $row['is_active'];
                             ?>
                             <div class="pd-30 pd-sm-20">
                                 <div class="row row-xs">
@@ -347,6 +348,20 @@ include("admin_menu.php");
                                 </div>
                             </div>
                             <div class="pd-30 pd-sm-20">
+                                <div class="row row-xs">
+                                    <div class="col-md-2">
+                                        <label class="form-label mg-b-0">Is Active : </label>
+                                    </div>
+                                    <div class="col-md-6 mg-t-10 mg-md-t-0">
+                                        <label class="custom-switch form-switch mb-0  p-0" style="margin-left: 30px;margin-top: 42px;">
+                                            <input type="checkbox" class="custom-switch-input" name="edit_is_active" id="edit_is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($is_active==1 ? 'checked' : '');?>>
+                                            <span class="custom-switch-indicator"></span>
+                                            <span class="custom-switch-description">Active</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pd-30 pd-sm-20">
                                 <div class="card">
                                     <div>
                                         <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5">Update</button>
@@ -360,6 +375,22 @@ include("admin_menu.php");
         </div>
     </div>
 </div>
+<script>
+    $("input#edit_is_active").click(function () {
+        var isChecked = $(this)[0].checked;
+        var val = $(this).val();
+        var data_1 = "&edit_is_active=" + val+ "&isChecked=" + isChecked;
+        $.ajax({
+            type: 'POST',
+            url: "device_backend.php",
+            data: data_1,
+            success: function (response) {
+
+            }
+        });
+
+    });
+</script>
 <script>
     $(function() {
         /********
