@@ -61,8 +61,13 @@ if (!empty($_POST['dev_id'])){
         $decoded = json_decode($curl_response);
         if (isset($decoded->status) && $decoded->status == 'ERROR') {
             die('error occured: ' . $decoded->errormessage);
+            $errors[] = "Device Id already exists please try with new device id!...";
+            $message_stauts_class = 'alert-danger';
+            $import_status_message = 'Device Id already exists please try with new device id!...';
         }
-
+    $errors[] = "Device Created Successfully.";
+    $message_stauts_class = 'alert-success';
+    $import_status_message = 'Device Created Successfully.';
 }
 $tab_line = $_SESSION['tab_station'];
 $is_tab_login = $_SESSION['is_tab_user'];
@@ -269,7 +274,12 @@ $assign_by = $_SESSION["id"];
     <div class="main-container container">
 
         <!---breadcrumb--->
-
+        <?php
+        if (!empty($import_status_message)) {
+            echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+        }
+        displaySFMessage();
+        ?>
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="card">

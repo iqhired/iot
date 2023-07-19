@@ -131,6 +131,14 @@ $assign_by = $_SESSION["id"];
             border: 1px solid #ffffff!important;
 
         }
+        hr:not([size]) {
+            height: 1px!important;
+            margin-top: -36px!important;
+            width: 363px!important;
+        }
+        .custom-switch-input:checked~.custom-switch-indicator {
+            background: #008000!important;
+        }
         </style>
     <?php
 
@@ -151,6 +159,7 @@ $assign_by = $_SESSION["id"];
             </ol>
         </div>
     </div>
+    <div class="row">
     <?php
     $sql = "SELECT * FROM `iot_devices` where is_deleted != 1";
     $result = mysqli_query($db, $sql);
@@ -160,10 +169,20 @@ $assign_by = $_SESSION["id"];
             <div class="card">
                 <div class="card-header pb-1">
                     <h3 class="card-title mb-2"><?php echo $row["device_name"]; ?></h3>
+                    <label class="custom-switch form-switch mb-0  p-0" style="margin-left: 246px;">
+                        <input type="checkbox" class="custom-switch-input" name="is_active" id="is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['is_active']==1 ? 'checked' : '');?>>
+                        <span class="custom-switch-indicator"></span>
+                        <span class="custom-switch-description">Active</span>
+                    </label>
+                    <a href="del_iot_device.php?device_id=<?php echo  $row["device_id"]; ?>" class="btn btn-danger btn-sm br-5" style="height: 30px;margin-left: 20px;margin-top: -35px;">
+                        <i>
+                            <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
+                        </i>
+                    </a>
                 </div>
                 <div class="card-body">
-                        <div class="row">
-                            <div class="d-flex align-items-center item  border-bottom my-2" style="margin-top: -1.0rem!important;margin-bottom: 1.5rem!important;margin-left: 30px;">
+                    <div class="row">
+                            <div class="d-flex align-items-center item my-2" style="margin-top: -1.0rem!important;margin-bottom: 1.5rem!important;margin-left: 30px;">
                                             <table class="table table-borderless">
                                                 <tbody>
                                                 <tr>
@@ -185,90 +204,86 @@ $assign_by = $_SESSION["id"];
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                        </div>
                             </div>
-                    <div class="row">
-                        <div class="d-flex align-items-center item my-2">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: -25px;margin-top: -10px;">Temperature</h7>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: 26px;margin-top: -10px;">Humidity</h7>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: 65px;margin-top: -10px;">Procedure</h7>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center border-bottom item my-2" style="max-height: 82px">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                                <div style="margin-top: -74px;margin-left: 10px;">
-                                    <div class="card-body">
-                                        <?php echo ''; ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                <div style="margin-top: -73px;margin-left: 26px;">
-                                    <div class="card-body">
-                                        <?php echo ''; ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                                <div style="margin-left: 30px;">
-                                    <div class="card-body">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+                    <hr>
                     <div class="row">
                         <div class="d-flex align-items-center item my-2">
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: -13px;margin-top: -10px;">IAQ</h7>
+                                <h7 style="font-size: 14px;margin-left: -25px;margin-top: -30px;">Temperature</h7>
                             </div>
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: 61px;margin-top: -10px;">VOC</h7>
+                                <h7 style="font-size: 14px;margin-left: 26px;margin-top: -30px;">Humidity</h7>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: 110px;margin-top: -10px;">CO2</h7>
+                                <h7 style="font-size: 14px;margin-left: 65px;margin-top: -30px;">Procedure</h7>
                             </div>
                         </div>
                         <div class="d-flex align-items-center item my-2" style="max-height: 82px">
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                                 <div style="margin-top: -74px;margin-left: 10px;">
-                                    <div class="card-body">
-                                        <?php echo ''; ?>
+                                    <div class="card-body" style="margin-top: 30px;">
+                                        <?php echo '0'; ?>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                <div class="text-justified align-items-center">
-                                    <div style="margin-top: -73px;margin-left: 10px;">
-                                        <?php echo ''; ?>
+                                <div style="margin-top: -73px;margin-left: 26px;">
+                                    <div class="card-body" style="margin-top: 30px;">
+                                        <?php echo '0'; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                <div style="margin-left: 30px;">
+                                    <div class="card-body" style="margin-left: 33px;margin-bottom: 20px;margin-top: -22px;">
+                                        <?php echo '0'; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="d-flex align-items-center item my-2">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+                                <h7 style="font-size: 14px;margin-left: -13px;margin-top: -18px;">IAQ</h7>
+                            </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+                                <h7 style="font-size: 14px;margin-left: 61px;margin-top: -18px;">VOC</h7>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+                                <h7 style="font-size: 14px;margin-left: 110px;margin-top: -18px;">CO2</h7>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center item my-2" style="max-height: 82px">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                <div style="margin-top: -74px;margin-left: 10px;">
+                                    <div class="card-body" style="margin-top: 35px;">
+                                        <?php echo '0'; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                                <div style="margin-top: -73px;margin-left: 10px;">
+                                    <div class="card-body" style="margin-left: 15px;margin-top: 35px;">
+                                        <?php echo '0'; ?>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                                 <div style="margin-left: 7px;">
-                                    <div class="card-body">
-                                        <div id="eff_container1"></div>
+                                    <div class="card-body" style="margin-left: 54px;margin-top: -17px;margin-bottom: 22px;">
+                                        <?php echo '0'; ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <hr>
                        <!-- <a href="<?php /*echo $siteURL; */?>config_module/station_wise_dashboard.php?id=<?php /*echo $line */?>" id="details" target="_blank" style="margin-left: -205px;margin-top: 43px;">DETAILS</a>-->
-                        <a href="#" id="details" target="_blank" style="margin-left: -205px;margin-top: 43px;">DETAILS</a>
-                        <label class="custom-switch form-switch mb-0  p-0" style="margin-left: 30px;margin-top: 42px;">
-                            <input type="checkbox" class="custom-switch-input" name="is_active" id="is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['is_active']==1 ? 'checked' : '');?>>
-                            <span class="custom-switch-indicator"></span>
-                            <span class="custom-switch-description">Active</span>
-                        </label>
-                        <a href="del_iot_device.php?device_id=<?php echo  $row["device_id"]; ?>" class="btn btn-danger btn-sm br-5" style="height: 30px;margin-left: 20px;margin-top: 35px;">
-                            <i>
-                                <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                            </i>
-                        </a>
+                        <div class="d-flex align-items-center item my-2" style="max-height: 82px">
+                            <a href="#" id="details" target="_blank" style="margin-left: -371px;margin-top: -38px;">DETAILS</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -327,11 +342,8 @@ $assign_by = $_SESSION["id"];
             </div>-->
     <?php } ?>
             <!-- End Row -->
-  </div>
-        <!-- Container closed -->
     </div>
-    <!-- main-content closed -->
-</div>
+  </div>
 <script>
     function deviceDB(device_id) {
         window.open("<?php echo site_URL . "iot_device_data.php?device_id=" ; ?>" + device_id , "_self")
