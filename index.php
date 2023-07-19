@@ -137,12 +137,12 @@ if (!empty($_POST['user'])){
 					header("Location:profile.php");
 					exit;
 				} else {
-					header("Location:create_iot_device.php");
+					header("Location:admin_menu1.php");
 					
 				}
 			}
 		else {
-			header("Location:create_iot_device.php");
+			header("Location:admin_menu1.php");
 
 		}
         }
