@@ -287,7 +287,7 @@ $assign_by = $_SESSION["id"];
                                             $st_dashboard = $_POST['customer'];
 
                                             $sql1 = "SELECT * FROM `cus_account` where is_deleted != 1";
-                                            $result1 = $mysqli->query($sql1);
+                                            $result1 = mysqli_query($iot_db,$sql1);
                                             while ($row1 = $result1->fetch_assoc()) {
                                                 if($st_dashboard == $row1['c_id'])
                                                 {
