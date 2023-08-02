@@ -90,382 +90,167 @@ if (!empty($_POST['user_name'])){
         die('error occured: ' . $decoded->errormessage);
     }
 }
-$tab_line = $_SESSION['tab_station'];
-$is_tab_login = $_SESSION['is_tab_user'];
-//Set the session duration for 10800 seconds - 3 hours
-$duration = auto_logout_duration;
-//Read the request time of the user
-$time = $_SERVER['REQUEST_TIME'];
-//Check the user's session exist or not
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $duration) {
-    //Unset the session variables
-    session_unset();
-    //Destroy the session
-    session_destroy();
-    if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
-        header($redirect_tab_logout_path);
-    }else{
-        header($redirect_logout_path);
-    }
-
-//	header('location: ../logout.php');
-    exit;
-}
-$is_tab_login = $_SESSION['is_tab_user'];
-$is_cell_login = $_SESSION['is_cell_login'];
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
-    header('location: ../line_status_grp_dashboard.php');
-}
-$assign_by = $_SESSION["id"];
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?php echo $sitename; ?> |Create IOT Device</title>
-    <!-- Global stylesheets -->
-
-    <link href="assets/css/core.css" rel="stylesheet" type="text/css">
-
-
-    <!-- /global stylesheets -->
-    <!-- Core JS files -->
-    <!--    <script type="text/javascript" src="../assets/js/libs/jquery-3.6.0.min.js"> </script>-->
-    <script type="text/javascript" src="assets/js/form_js/jquery-min.js"></script>
-    <script type="text/javascript" src="assets/js/libs/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-    <script type="text/javascript" src="assets/js/pages/form_bootstrap_select.js"></script>
-    <script type="text/javascript" src="assets/js/pages/form_layouts.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/ui/ripple.min.js"></script>
-
-    <!--Internal  Datetimepicker-slider css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
-    <!--Bootstrap-datepicker css-->
-    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
-    <!-- Internal Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
-    <!-- STYLES CSS -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-    <!---Internal Fancy uploader css-->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
-    <!--Internal  Datepicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
-    <!-- Internal Select2.min js -->
-    <!--Internal  jquery.maskedinput js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
-    <!--Internal  spectrum-colorpicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
-    <!--Internal  jquery-simple-datetimepicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
-    <!-- Ionicons js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
-    <!--Internal  pickerjs js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
-    <!--internal color picker js-->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
-    <!--Bootstrap-datepicker js-->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/select2.min.js"></script>
-    <!-- Internal form-elements js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/js/form_js/demo.css" rel="stylesheet"/>
-
-    <style>
-        .navbar {
-
-            padding-top: 0px!important;
-        }
-        .dropdown .arrow {
-
-            margin-top: -25px!important;
-            width: 1.5rem!important;
-        }
-        #ic .arrow {
-            margin-top: -22px!important;
-            width: 1.5rem!important;
-        }
-        .fs-6 {
-            font-size: 1rem!important;
-        }
-
-        .content_img {
-            width: 113px;
-            float: left;
-            margin-right: 5px;
-            border: 1px solid gray;
-            border-radius: 3px;
-            padding: 5px;
-            margin-top: 10px;
-        }
-
-        /* Delete */
-        .content_img span {
-            border: 2px solid red;
-            display: inline-block;
-            width: 99%;
-            text-align: center;
-            color: red;
-        }
-        .remove_btn{
-            float: right;
-        }
-        .contextMenu{ position:absolute;  width:min-content; left: 204px; background:#e5e5e5; z-index:999;}
-        .collapse.in {
-            display: block!important;
-        }
-        .mt-4 {
-            margin-top: 0rem!important;
-        }
-
-
-        table.dataTable thead .sorting:after {
-            content: ""!important;
-            top: 49%;
-        }
-        .card-title:before{
-            width: 0;
-
-        }
-        .main-content .container, .main-content .container-fluid {
-            padding-left: 20px;
-            padding-right: 238px;
-        }
-        .main-footer {
-            margin-left: -127px;
-            margin-right: 112px;
-            display: block;
-        }
-
-        a.btn.btn-success.btn-sm.br-5.me-2.legitRipple {
-            height: 32px;
-            width: 32px;
-        }
-        .badge {
-            padding: 0.5em 0.5em!important;
-            width: 100px;
-            height: 23px;
-        }
-        .col-md-1\.5 {
-            width: 12%;
-        }
-        .col-md-0\.5 {
-            width: 4%;
-        }
-        .card-title {
-            margin-bottom: 0;
-            margin-left: 15px;
-        }
-        @media (min-width: 482px) and (max-width: 767px)
-            .main-content.horizontal-content {
-                margin-top: 0px;
-            }
-
-
-    </style>
+    <title>Create Users</title>
+    <!-- plugins:css -->
 </head>
 
+<body>
+<div class="container-scroller">
+    <?php include ('admin_menu.php'); ?>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_navbar.html -->
+        <?php include ('header.php'); ?>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header">
 
-<!-- Main navbar -->
-<body class="ltr main-body app horizontal">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">User</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Create Users</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Create User </h4>
 
+                                <form action="" method="post" id="" enctype="multipart/form-data">
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">User Name : </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="user_name" id="user_name" placeholder="Enter User Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="email" id="email" placeholder="Enter Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">First Name : </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Last Name : </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">Mobile :</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter Mobile">
 
-<!-----main content----->
-<div class="main-content horizontal-content">
-    <div class="main-container container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="card">
-                    <div class="">
-                        <div class="card-header"  style="background-color: #1F5D96;">
-                            <span class="main-content-title mg-b-0 mg-b-lg-1">Create Iot Device</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Role : </label>
+                                        <div class="col-sm-9">
+                                            <select name="role" id="role" class="form-control form-select select2" data-placeholder="Select role">
+                                                <option value="" selected> Select Role </option>
+                                                <option value="1"> customer </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">Profile pic :</label>
+                                        <div class="col-sm-9">
+                                            <input type="file" class="form-control" name="image" id="image" placeholder="Enter Profile Pic">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">Address :</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="address" id="address" placeholder="Enter Address">
+
+                                        </div>
+                                    </div>
+                                    <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-primary mr-2">Submit</button>
+                                    <button class="btn btn-dark">Cancel</button>
+                                </form>
+
+                            </div>
                         </div>
-                        <form action="" id="device_settings" enctype="multipart/form-data" method="post">
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-2">
-                                        <label class="form-label mg-b-0">User Name : </label>
-                                    </div>
-                                    <div class="col-md-6 mg-t-10 mg-md-t-0">
-                                        <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Enter User Name" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-2">
-                                        <label class="form-label mg-b-0">Email : </label>
-                                    </div>
-                                    <div class="col-md-6 mg-t-10 mg-md-t-0">
-                                        <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-2">
-                                        <label class="form-label mg-b-0">First Name : </label>
-                                    </div>
-                                    <div class="col-md-6 mg-t-10 mg-md-t-0">
-                                        <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter First Name" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-2">
-                                        <label class="form-label mg-b-0">Last Name : </label>
-                                    </div>
-                                    <div class="col-md-6 mg-t-10 mg-md-t-0">
-                                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter Last Name" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-2">
-                                        <label class="form-label mg-b-0">Mobile : </label>
-                                    </div>
-                                    <div class="col-md-6 mg-t-10 mg-md-t-0">
-                                        <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Enter Mobile" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-2">
-                                        <label class="form-label mg-b-0">Role : </label>
-                                    </div>
-                                    <div class="col-md-6 mg-t-10 mg-md-t-0">
-                                        <select name="role" id="role" class="form-control form-select select2" data-placeholder="Select role">
-                                            <option value="" selected> Select Role </option>
-                                            <option value="1"> customer </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-2">
-                                        <label class="form-label mg-b-0">Profile pic : </label>
-                                    </div>
-                                    <div class="col-md-6 mg-t-10 mg-md-t-0">
-                                        <input type="file" name="image" id="image" class="form-control" data-placeholder="Select Station" required>
-                                        <div id="preview" style="margin-top: 13px;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pd-30 pd-sm-20">
-                                <div class="row row-xs">
-                                    <div class="col-md-2">
-                                        <label class="form-label mg-b-0">Address : </label>
-                                    </div>
-                                    <div class="col-md-6 mg-t-10 mg-md-t-0">
-                                        <textarea id="address" name="address" rows="3" placeholder="Enter Address" class="form-control" ></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pd-30 pd-sm-20">
+                    </div>
+                </div>
+
+
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        <div class="row ">
+                            <div class="col-12 grid-margin">
                                 <div class="card">
-                                    <div>
-                                        <button type="submit" class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="part_submit">Submit</button>
+                                    <div class="card-body">
+                                        <h4 class="card-title">User Table</h4>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th class="text-center">Sl. No</th>
+                                                    <th>Action</th>
+                                                    <th>User Name</th>
+                                                    <th>Role</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <?php
+                                                    $query = sprintf("SELECT * FROM iot_users where is_deleted != 1");
+                                                    $qur = mysqli_query($iot_db, $query);
+                                                    while ($rowc = mysqli_fetch_array($qur)) {
+                                                    $rol = $rowc["role"];
+                                                    if($rol == 1)
+                                                    {
+                                                        $rolee = 'customer';
+                                                    }
+
+                                                    ?>
+
+                                                    <td class="text-center"><?php echo ++$counter; ?></td>
+                                                    <td class="">
+                                                        <a href="edit_iotusers.php?cust_id=<?php echo  $rowc["cust_id"]; ?>" class="btn btn-primary legitRipple">
+                                                            <i>
+                                                                <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
+                                                            </i>
+                                                        </a>
+                                                    </td>
+                                                    <td><?php echo  $rowc["cust_name"]; ?></td>
+                                                    <td><?php echo  $rolee; ?></td>
+                                                </tr>
+                                                <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <form action="" id="update_users" method="post" class="form-horizontal" enctype="multipart/form-data">
-            <div class="row">
-                <div class="col-12 col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row">
-                                <h4 class="card-title">
-                                    <button type="button" class="btn btn-danger" onclick="submitForm('delete_iotusers.php')">
-                                        <i>
-                                            <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                                        </i>
-                                    </button>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="card-body pt-0">
-                            <div class="table-responsive">
-                                <table class="table datatable-basic table-bordered text-nowrap mb-0" id="example2">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            <label class="ckbox"> <input type="checkbox" id="checkAll"><span></span></label>
-                                        </th>
-                                        <th class="text-center">Sl. No</th>
-                                        <th>Action</th>
-                                        <th>User Name</th>
-                                        <th>Role</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <?php
-                                        $query = sprintf("SELECT * FROM iot_users where is_deleted != 1");
-                                        $qur = mysqli_query($iot_db, $query);
-                                        while ($rowc = mysqli_fetch_array($qur)) {
-                                            $rol = $rowc["role"];
-                                            if($rol == 1)
-                                            {
-                                                $rolee = 'customer';
-                                            }
-
-                                        ?>
-                                        <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
-                                                                        value="<?php echo $rowc["cust_id"]; ?>"><span></span></label></td>
-                                        <td class="text-center"><?php echo ++$counter; ?></td>
-                                        <td class="">
-                                            <a href="edit_iotusers.php?cust_id=<?php echo  $rowc["cust_id"]; ?>" class="btn btn-primary legitRipple">
-                                                <i>
-                                                    <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
-                                                </i>
-                                            </a>
-                                        </td>
-                                        <td><?php echo  $rowc["cust_name"]; ?></td>
-                                        <td><?php echo  $rolee; ?></td>
-                                    </tr>
-                                    <?php } ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+        <!-- main-panel ends -->
     </div>
+    <!-- page-body-wrapper ends -->
 </div>
-</div>
-</div>
-</div>
+
 <script>
     function imagePreview(fileInput) {
         if (fileInput.files && fileInput.files[0]) {
@@ -542,6 +327,7 @@ $assign_by = $_SESSION["id"];
 <script>
     $('.select2').select2();
 </script>
-<?php include('footer1.php') ?>
+<!-- End custom js for this page -->
 </body>
 </html>
+

@@ -10,8 +10,7 @@ $message = "";
 include("config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $status = '0';
-$_SESSION['is_cell_login'] = null;
-$_SESSION['cell_id'] = null;
+
 if (!empty($_POST['user'])){
     if(!empty($_POST['password_pin']) || !empty($_POST['password'])) {
     $user = $_POST["user"];
@@ -123,7 +122,7 @@ if (!empty($_POST['user'])){
 					header("Location:change_pin.php");
 					exit;
 				} else {
-					header("Location:create_iot_device.php");
+					header("Location:create_users.php");
 					
 				}
 			}
@@ -137,12 +136,12 @@ if (!empty($_POST['user'])){
 					header("Location:profile.php");
 					exit;
 				} else {
-					header("Location:admin_menu1.php");
+					header("Location:create_users.php");
 					
 				}
 			}
 		else {
-			header("Location:admin_menu1.php");
+			header("Location:create_users.php");
 
 		}
         }
