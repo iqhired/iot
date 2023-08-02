@@ -99,6 +99,12 @@ if (!empty($_POST['user_name'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Create Users</title>
+    <style>
+    body
+    {margin: 0; height: 100%; overflow: hidden}
+    </style>
+
+
     <!-- plugins:css -->
 </head>
 
@@ -250,6 +256,8 @@ if (!empty($_POST['user_name'])){
     </div>
     <!-- page-body-wrapper ends -->
 </div>
+<?php include("footer.php"); ?>
+
 
 <script>
     function imagePreview(fileInput) {

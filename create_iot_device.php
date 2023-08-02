@@ -89,9 +89,7 @@ $is_cell_login = $_SESSION['is_cell_login'];
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 $i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
-    header('location: ../line_status_grp_dashboard.php');
-}
+
 $assign_by = $_SESSION["id"];
 
 ?>
