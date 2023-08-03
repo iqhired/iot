@@ -4,20 +4,22 @@ if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|c
 {
     header('Location: ./config/403.php');
 }
-require "./vendor/autoload.php";
+require ".././vendor/autoload.php";
 use Firebase\JWT\JWT;
 $status = '0';
 $message = "";
-include("config.php");
+include("../config.php");
 //include("../sup_config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-$device_id = $_GET['device_id'];
-if (!empty($device_id)){
-        $service_url = $rest_api_uri . "iot/del_iot_devices.php";
+$delete_check = $_POST['delete_check'];
+if (!empty($delete_check)){
+    $cnt = count($delete_check);
+    for ($i = 0; $i < $cnt;$i++) {
+        $service_url = $rest_api_uri . "devices/delete_iot_device.php";
         $curl = curl_init($service_url);
         $curl_post_data = array(
-            'device_id' => $device_id,
+            'delete_check' => $delete_check[$i],
         );
         $secretkey = "SupportPassHTSSgmmi";
         $payload = array(
@@ -47,13 +49,7 @@ if (!empty($device_id)){
         $decoded = json_decode($curl_response);
         if (isset($decoded->status) && $decoded->status == 'ERROR') {
             die('error occured: ' . $decoded->errormessage);
-            $errors[] = "Iot Device Not deleted.";
-            $message_stauts_class = 'alert-danger';
-            $import_status_message = 'Iot Device Not Deleted.';
         }
-    $errors[] = "Iot Device Deleted Successfully.";
-    $message_stauts_class = 'alert-success';
-    $import_status_message = 'Iot Device Deleted Successfully.';
-    header('Location: device_dashboard.php');
-    exit;
+
+    }
 }
