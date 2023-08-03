@@ -45,7 +45,7 @@
         </li>
 
         <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="<?php echo $iotURL; ?>user/create_users.php">
               <span class="menu-icon">
                 <i class="fa-solid fa-users"></i>
               </span>
@@ -67,7 +67,7 @@
 <!--                            </div>-->
 <!--                        </li>-->
         <li class="nav-item menu-items">
-            <a class="nav-link" href="create_device.php">
+            <a class="nav-link" href="<?php echo $iotURL; ?>device/create_device.php">
               <span class="menu-icon">
                   <i class="fa-solid fa-hard-drive"></i>
               </span>
