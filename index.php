@@ -22,7 +22,7 @@ if (!empty($_POST['user'])){
 		exit;
 	}else{
 		//API url
-		$service_url = $rest_api_uri . "login/login.php";
+		$service_url = $rest_pn_api_uri . "login/login.php";
 		$curl = curl_init($service_url);
 		$curl_post_data = array(
 			'user' => $user,

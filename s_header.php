@@ -1,7 +1,6 @@
+<link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/vendor.bundle.base.css">
 <!-- endinject -->
 <!-- Plugin css for this page -->
-<link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/vendor.bundle.base.css">
-
 <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/jquery-jvectormap.css">
 <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/flag-icon.min.css">
@@ -16,27 +15,39 @@
 <!-- inject:css -->
 <!-- endinject -->
 <!-- Layout styles -->
-<link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css">
 <!-- End layout styles -->
-<link rel="shortcut icon" href="https://themewagon.github.io/corona-free-dark-bootstrap-admin-template/assets/images/favicon.png" />
+<style>
+    img.site-img {
+        height: 50px;
+        width: 140px;
+    }
+</style>
 <nav class="navbar p-0 fixed-top d-flex flex-row">
-    <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo-mini" href="index.html"> <img src="<?php echo $iotURL;?>assets/images/site_logo.png" alt="logo" /></a>
-    </div>
+
     <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <i class="fa-sharp fa-solid fa-caret-right"></i>
         </button>
         <ul class="navbar-nav w-100">
+            <li class="nav-item">
+                <a class="navbar-brand brand-logo-desk" href="#"><img class="site-img" src="assets/images/site_logo.png" alt="logo" /></a>
+            </li>
             <li class="nav-item w-100">
+                <h2><?php echo $heading; ?></h2>
             </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
+
             <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                     <div class="navbar-profile">
-                        <img class="img-xs rounded-circle" src="<?php echo $iotURL; ?>user_images/user.png" alt="">
-                        <p class="mb-0 d-none d-sm-block navbar-profile-name"><?php echo $_SESSION['fullname']; ?> </p>
+                        <?php if(!empty($_SESSION["uu_img"])) {?>
+                            <img class="img-xs rounded-circle" src="user_images/<?php echo $_SESSION["uu_img"]; ?>" alt="">
+                        <?php }else{?>
+                            <img class="img-xs rounded-circle" src="user_images/user.png" alt="">
+                        <?php }?>
+                        <p class="mb-0 d-none d-sm-block navbar-profile-name"><?php echo $_SESSION['fullname']; ?></p>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
                 </a>
@@ -51,6 +62,7 @@
                         <div class="preview-item-content">
                             <p class="preview-subject mb-1">My profile</p>
                         </div>
+
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item preview-item" href="<?php echo $iotURL; ?>change_pass.php">
