@@ -10,36 +10,28 @@ $message = "";
 include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-$cust_id = $_GET['cust_id'];
+
 if (!empty($_POST['edit_cust_name'])){
-    $cust_id = $_GET['cust_id'];
+    $cust_id = $_POST['edit_cust_id'];
+    $edit_cust_name = $_POST['edit_cust_name'];
     $edit_mobile = $_POST['edit_mobile'];
-    $edit_cust_email = $_POST['edit_cust_email'];
-    $edit_cust_password = $_POST['edit_cust_password'];
+    $edit_cust_email = $_POST['edit_email'];
     $edit_role = $_POST['edit_role'];
-    $edit_cust_profile_pic= $_POST['edit_cust_profile_pic'];
-    $edit_cust_fistname= $_POST['edit_cust_fistname'];
-    $edit_cust_lastname = $_POST['edit_cust_lastname'];
-    $edit_cust_address = $_POST['edit_cust_address'];
+    $edit_cust_fistname= $_POST['edit_fistname'];
+    $edit_cust_lastname = $_POST['edit_lastname'];
+    $edit_cust_address = $_POST['cust_edit_address'];
 
-
-    $service_url = $rest_api_uri . "user/edit_sup_user.php";
+    $service_url = $rest_api_uri . "users/edit_iot_users.php";
     $curl = curl_init($service_url);
     $curl_post_data = array(
         'cust_id' => $cust_id,
         'edit_cust_name' => $edit_cust_name,
         'edit_mobile' => $edit_mobile,
         'edit_cust_email' => $edit_cust_email,
-        'edit_cust_password' =>  $edit_cust_password,
         'edit_role' => $edit_role,
-        'edit_cust_profile_pic' => $edit_cust_profile_pic,
         'edit_cust_fistname' => $edit_cust_fistname,
         'edit_cust_lastname' => $edit_cust_lastname,
         'edit_cust_address' => $edit_cust_address,
-
-
-
-
     );
     $secretkey = "SupportPassHTSSgmmi";
     $payload = array(
@@ -76,7 +68,7 @@ if (!empty($_POST['edit_cust_name'])){
     $errors[] = "User Updated Successfully.";
     $message_stauts_class = 'alert-success';
     $import_status_message = 'User Updated Successfully.';
-    header('Location: user/create_users.php');
+    header('Location: create_users.php');
     exit;
 }
 
@@ -134,7 +126,6 @@ if (!empty($_POST['edit_cust_name'])){
                                     $cust_name = $row['cust_name'];
                                     $mobile= $row['mobile'];
                                     $cust_email = $row['cust_email'];
-                                    $cust_password = $row['cust_password'];
                                     $role = $row['role'];
                                     $cust_profile_pic = $row['cust_profile_pic'];
                                     $cust_fistname = $row['cust_fistname'];
@@ -146,58 +137,67 @@ if (!empty($_POST['edit_cust_name'])){
                                         <div class="col-sm-9">
                                             <input type="hidden" name="edit_cust_id" id="edit_cust_id" value="<?php echo $cust_id; ?>">
 
-                                            <input type="text" class="form-control" name="user_name" id="user_name" value="<?php echo $cust_name; ?>" placeholder="Enter User Name">
+                                            <input type="text" class="form-control" name="edit_cust_name" id="edit_cust_name" value="<?php echo $cust_name; ?>" placeholder="Enter User Name">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Email</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="email" id="email" placeholder="Enter Email">
+                                            <input type="text" class="form-control" name="edit_email" id="edit_email" value="<?php echo $cust_email; ?>" placeholder="Enter Email">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label  class="col-sm-3 col-form-label">First Name : </label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First Name">
+                                            <input type="text" class="form-control" name="edit_fistname" id="edit_fistname" value="<?php echo $cust_fistname; ?>" placeholder="Enter First Name">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Last Name : </label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last Name">
+                                            <input type="text" class="form-control" name="edit_lastname" id="edit_lastname" value="<?php echo $cust_lastname; ?>" placeholder="Enter Last Name">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label  class="col-sm-3 col-form-label">Mobile :</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter Mobile">
+                                            <input type="number" class="form-control" name="edit_mobile" id="edit_mobile" value="<?php echo $mobile; ?>" placeholder="Enter Mobile">
 
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Role : </label>
                                         <div class="col-sm-9">
-                                            <select name="role" id="role" class="form-control form-select select2" data-placeholder="Select role">
-                                                <option value="" selected> Select Role </option>
-                                                <option value="1"> customer </option>
+                                            <select name="edit_role" id="edit_role"  class="form-control form-select select2" data-placeholder="Select role" >
+                                                <option value=""> Select Role </option>
+                                                <?php
+                                                 if ($role == 1){
+                                                     $selected = 'selected';
+                                                 }else{
+                                                     $selected = '';
+                                                 }
+
+                                                echo "<option value='" . $role . "' $selected>" . "customer";"</option>";
+
+                                                 ?>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Profile pic :</label>
-                                        <div class="col-sm-9">
-                                            <input type="file" class="form-control" name="image" id="image" placeholder="Enter Profile Pic">
-
-                                        </div>
-                                    </div>
+<!--                                    <div class="form-group row">-->
+<!--                                        <label  class="col-sm-3 col-form-label">Profile pic :</label>-->
+<!--                                        <div class="col-sm-9">-->
+<!--                                            <input type="file" class="form-control" value="--><?php //echo $cust_profile_pic; ?><!--" name="edit_cust_profile_pic" id="edit_cust_profile_pic" placeholder="Enter Profile Pic">-->
+<!---->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <div class="form-group row">
                                         <label  class="col-sm-3 col-form-label">Address :</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="address" id="address" placeholder="Enter Address">
+                                            <input type="text" class="form-control" name="cust_edit_address" value="<?php echo $cust_address; ?>" id="cust_edit_address" placeholder="Enter Address">
 
                                         </div>
                                     </div>
-                                    <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-primary mr-2">Submit</button>
+                                    <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-primary mr-2">Update</button>
                                     <button class="btn btn-dark">Cancel</button>
                                 </form>
 

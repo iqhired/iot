@@ -88,7 +88,15 @@ if (!empty($_POST['user_name'])){
     $decoded = json_decode($curl_response);
     if (isset($decoded->status) && $decoded->status == 'ERROR') {
         die('error occured: ' . $decoded->errormessage);
+        $errors[] = "Users Not Updated.";
+        $message_stauts_class = 'alert-danger';
+        $import_status_message = 'User Not Updated.';
     }
+    $errors[] = "User Updated Successfully.";
+    $message_stauts_class = 'alert-success';
+    $import_status_message = 'User Updated Successfully.';
+    header('Location: create_users.php');
+    exit;
 }
 
 ?>
