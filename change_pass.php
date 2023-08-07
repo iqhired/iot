@@ -1,9 +1,6 @@
 <?php
 include("config.php");
-$temp = "";
-if (!isset($_SESSION['user'])) {
-    header('location: logout.php');
-}
+
 if (count($_POST) > 0) {
     $mob = $_SESSION['user'];
     $password = $_POST['newpass'];

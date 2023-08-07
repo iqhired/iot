@@ -45,6 +45,15 @@
         </li>
 
         <li class="nav-item menu-items">
+            <a class="nav-link" href="<?php echo $iotURL; ?>device_dashboard1.php">
+              <span class="menu-icon">
+                <i class="fa-solid fa-users"></i>
+              </span>
+                <span class="menu-title">Dashboard</span>
+            </a>
+        </li>
+
+        <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo $iotURL; ?>user/create_users.php">
               <span class="menu-icon">
                 <i class="fa-solid fa-users"></i>

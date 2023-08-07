@@ -18,7 +18,6 @@
 <!-- Layout styles -->
 <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/style.css">
 <!-- End layout styles -->
-<link rel="shortcut icon" href="https://themewagon.github.io/corona-free-dark-bootstrap-admin-template/assets/images/favicon.png" />
 <nav class="navbar p-0 fixed-top d-flex flex-row">
     <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
         <a class="navbar-brand brand-logo-mini" href="index.html"> <img src="<?php echo $iotURL;?>assets/images/site_logo.png" alt="logo" /></a>
