@@ -45,7 +45,7 @@
         </li>
 
         <li class="nav-item menu-items">
-            <a class="nav-link" href="<?php echo $iotURL; ?>device_dashboard1.php">
+            <a class="nav-link" href="<?php echo $iotURL; ?>device_dashboard.php">
               <span class="menu-icon">
                 <i class="fa-solid fa-users"></i>
               </span>

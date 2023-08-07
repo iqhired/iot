@@ -12,8 +12,6 @@ include("config.php");
 //include("../sup_config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-
-
 $tab_line = $_SESSION['tab_station'];
 $is_tab_login = $_SESSION['is_tab_user'];
 //Set the session duration for 10800 seconds - 3 hours
@@ -35,15 +33,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 //	header('location: ../logout.php');
     exit;
 }
-$is_tab_login = $_SESSION['is_tab_user'];
-$is_cell_login = $_SESSION['is_cell_login'];
-//Set the time of the user's last activity
-$_SESSION['LAST_ACTIVITY'] = $time;
-$i = $_SESSION["role_id"];
-if ($i != "super" && $i != "admin" && $i != "pn_user" && $_SESSION['is_tab_user'] != 1 && $_SESSION['is_cell_login'] != 1 ) {
-    header('location: ../line_status_grp_dashboard.php');
-}
-$assign_by = $_SESSION["id"];
+
 
 ?>
 <!DOCTYPE html>
@@ -52,300 +42,206 @@ $assign_by = $_SESSION["id"];
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?php echo $sitename; ?> |Device dashboard</title>
-    <!-- Global stylesheets -->
+    <title>Create Users</title>
 
-    <link href="assets/css/core.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script type="text/javascript" src="assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-    <script type="text/javascript" src="assets/js/pages/form_bootstrap_select.js"></script>
-    <script type="text/javascript" src="assets/js/pages/form_layouts.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/ui/ripple.min.js"></script>
 
-    <!--Internal  Datetimepicker-slider css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/amazeui.datetimepicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/jquery.simple-dtpicker.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/picker.min.css" rel="stylesheet">
-    <!--Bootstrap-datepicker css-->
-    <link rel="stylesheet" href="<?php echo $siteURL; ?>assets/css/form_css/bootstrap-datepicker.css">
-    <!-- Internal Select2 css -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/select2.min.css" rel="stylesheet">
-    <!-- STYLES CSS -->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-dark.css" rel="stylesheet">
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/style-transparent.css" rel="stylesheet">
-    <!---Internal Fancy uploader css-->
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/fancy_fileupload.css" rel="stylesheet" />
-    <!--Internal  Datepicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/datepicker.js"></script>
-    <!-- Internal Select2.min js -->
-    <!--Internal  jquery.maskedinput js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.maskedinput.js"></script>
-    <!--Internal  spectrum-colorpicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/spectrum.js"></script>
-    <!--Internal  jquery-simple-datetimepicker js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/datetimepicker.min.js"></script>
-    <!-- Ionicons js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/jquery.simple-dtpicker.js"></script>
-    <!--Internal  pickerjs js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/picker.min.js"></script>
-    <!--internal color picker js-->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/pickr.es5.min.js"></script>
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/colorpicker.js"></script>
-    <!--Bootstrap-datepicker js-->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/bootstrap-datepicker.js"></script>
-    <!-- Internal form-elements js -->
-    <script src="<?php echo $siteURL; ?>assets/js/form_js/form-elements.js"></script>
-    <link href="<?php echo $siteURL; ?>assets/css/form_css/demo.css" rel="stylesheet"/>
-    <link href="<?php echo $siteURL; ?>assets/css/select/select2.min.css" rel="stylesheet" />
-    <script src="<?php echo $siteURL; ?>assets/js/select/select2.min.js"></script>
     <style>
-        .navbar {
-
-            padding-top: 0px!important;
+        p {
+            font-size: 16px!important;
         }
-        .dropdown .arrow {
-
-            margin-top: -25px!important;
-            width: 1.5rem!important;
+        .btn btn-danger btn-sm br-2 {
+            margin-left: 304px;
         }
-        #ic .arrow {
-            margin-top: -22px!important;
-            width: 1.5rem!important;
+        label {
+            display: inline-block;
+            margin-bottom: -0.5rem!important;
         }
-        .card-header:first-child {
-            border-radius: 11px 11px 0 0;
-            color: #fff;
-        }
-        .table {
-            border: 1px solid #ffffff!important;
-
-        }
-        hr:not([size]) {
-            height: 1px!important;
-            margin-top: -36px!important;
-            width: 363px!important;
-        }
-        .custom-switch-input:checked~.custom-switch-indicator {
-            background: #008000!important;
-        }
-        </style>
-    <?php
-
-    include("header.php");
-    include("admin_menu.php");
 
 
-    ?>
-<body class="ltr main-body app horizontal">
-<!-- container -->
-<div class="main-container container">
-    <!-- breadcrumb -->
-    <div class="breadcrumb-header justify-content-between">
-        <div class="left-content">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Devices</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Device Dashboard</li>
-            </ol>
-        </div>
-    </div>
-    <div class="row">
-    <?php
-    $sql = "SELECT * FROM `iot_devices` where is_deleted != 1";
-    $result = mysqli_query($db, $sql);
-    while($row = mysqli_fetch_array($result)){
-    ?>
-        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-            <div class="card">
-                <div class="card-header pb-1" style="max-height: 39px;">
-                    <h3 class="card-title mb-2"><?php echo $row["device_name"]; ?>
-                        <label class="custom-switch form-switch mb-0  p-0" style="margin-left: 235px!important;">
-                            <input type="checkbox" class="custom-switch-input" name="is_active" id="is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['is_active']==1 ? 'checked' : '');?>>
-                            <span class="custom-switch-indicator"></span>
-                            <span class="custom-switch-description"></span>
-                        </label>
-                    </h3>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 49px;
+            height: 23px;
+            margin-left: 197px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px!important;
+            width: 16px!important;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
 
-                    <a href="del_iot_device.php?device_id=<?php echo  $row["device_id"]; ?>" class="btn btn-danger btn-sm br-5" style="height: 30px;margin-left: 347px;margin-top: -53px;">
-                        <i>
-                            <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                        </i>
-                    </a>
+        input:checked + .slider {
+            background-color: #1270ba!important;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<div class="container-scroller">
+    <?php include ('admin_menu.php'); ?>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_navbar.html -->
+        <?php include ('header.php'); ?>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <nav aria-label="breadcrumb">
+                    </nav>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                            <div class="d-flex align-items-center item my-2" style="margin-top: -1.0rem!important;margin-bottom: 1.5rem!important;margin-left: 30px;">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                <tr>
-                                                    <td colspan="2" style="font-size: 16px;color: #4a4a69;">Device ID : </td>
-                                                    <td colspan="3" style="font-size: 16px;color: #4a4a69;"><?php echo $row['device_id']; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" style="font-size: 16px;color: #4a4a69;">Device Name : </td>
-                                                    <td colspan="3" style="font-size: 16px;color: #4a4a69;"><?php echo $row['device_name']; ?></td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" style="font-size: 16px;color: #4a4a69;">Device Desc : </td>
-                                                    <td colspan="3" style="font-size: 16px;color: #4a4a69;"><?php echo $row['device_description']; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" style="font-size: 16px;color: #4a4a69;">Device Loc : </td>
-                                                    <td colspan="3" style="font-size: 16px;color: #4a4a69;"><?php echo $row['device_location']; ?></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                <div class="row">
+                    <?php
+                    $sql = "SELECT * FROM `iot_devices` where is_deleted != 1";
+                    $result = mysqli_query($iot_db, $sql);
+                    while($row = mysqli_fetch_array($result)){
+                        ?>
+                        <div class="col-md-4 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title"><?php echo $row["device_name"]; ?>
+                                        <label class="switch">
+                                            <input type="checkbox" name="is_active" id="is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['is_active']==1 ? 'checked' : '');?>>
+                                            <span class="slider round"></span>
+
+                                        </label>
+                                        <a href="device/del_device.php?device_id=<?php echo  $row["device_id"]; ?>" class="btn btn-danger btn-sm br-2" >
+                                            <i>
+                                                <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
+                                            </i>
+                                        </a>
+                                    </h4>
+                                    <hr>
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="2" >Device ID : </td>
+                                            <td colspan="3" ><?php echo $row['device_id']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" >Device Name : </td>
+                                            <td colspan="3" ><?php echo $row['device_name']; ?></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" >Device Desc : </td>
+                                            <td colspan="3" ><?php echo $row['device_description']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" >Device Loc : </td>
+                                            <td colspan="3" ><?php echo $row['device_location']; ?></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr>
+                                    <table class="table table-borderless">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Temperature</th>
+                                            <th scope="col">Humidity</th>
+                                            <th scope="col">Procedure</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td><?php echo '0'; ?></td>
+                                            <td><?php echo '0'; ?></td>
+                                            <td><?php echo '0'; ?></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr>
+                                    <table class="table table-borderless">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">IAQ</th>
+                                            <th scope="col">VOC</th>
+                                            <th scope="col">CO2</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td><?php echo '0'; ?></td>
+                                            <td><?php echo '0'; ?></td>
+                                            <td><?php echo '0'; ?></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr>
+                                </div>
+
                             </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="d-flex align-items-center item my-2">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: -25px;margin-top: -30px;">Temperature</h7>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: 26px;margin-top: -30px;">Humidity</h7>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: 65px;margin-top: -30px;">Procedure</h7>
-                            </div>
+
                         </div>
-                        <div class="d-flex align-items-center item my-2" style="max-height: 82px">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                                <div style="margin-top: -74px;margin-left: 10px;">
-                                    <div class="card-body" style="margin-top: 30px;">
-                                        <?php echo '0'; ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                <div style="margin-top: -73px;margin-left: 26px;">
-                                    <div class="card-body" style="margin-top: 30px;">
-                                        <?php echo '0'; ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                                <div style="margin-left: 30px;">
-                                    <div class="card-body" style="margin-left: 33px;margin-bottom: 20px;margin-top: -22px;">
-                                        <?php echo '0'; ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="d-flex align-items-center item my-2">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: -13px;margin-top: -18px;">IAQ</h7>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: 61px;margin-top: -18px;">VOC</h7>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                                <h7 style="font-size: 14px;margin-left: 110px;margin-top: -18px;">CO2</h7>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center item my-2" style="max-height: 82px">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                                <div style="margin-top: -74px;margin-left: 10px;">
-                                    <div class="card-body" style="margin-top: 35px;">
-                                        <?php echo '0'; ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                <div style="margin-top: -73px;margin-left: 10px;">
-                                    <div class="card-body" style="margin-left: 15px;margin-top: 35px;">
-                                        <?php echo '0'; ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                                <div style="margin-left: 7px;">
-                                    <div class="card-body" style="margin-left: 54px;margin-top: -17px;margin-bottom: 22px;">
-                                        <?php echo '0'; ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                       <!-- <a href="<?php /*echo $siteURL; */?>config_module/station_wise_dashboard.php?id=<?php /*echo $line */?>" id="details" target="_blank" style="margin-left: -205px;margin-top: 43px;">DETAILS</a>-->
-                        <div class="d-flex align-items-center item my-2" style="max-height: 82px">
-                            <a href="#" id="details" target="_blank" style="margin-left: -371px;margin-top: -38px;">DETAILS</a>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
+
             </div>
-        </div>
-          <!--  <div class="row row-sm">
-                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" onclick="deviceDB('<?php /*echo $row["device_id"] */?>')">
-                    <div class="card custom-card">
-                        <div class="card-header  d-flex custom-card-header border-bottom-0 ">
-                            <h5 class="card-title"><?php /*echo $row['device_name']; */?></h5>
-                        </div>
-                        <form action="" id="device_dashboard" enctype="multipart/form-data" method="post">
-                        <div class="card-body">
-                            <div class="d-flex custom-card-header border-bottom-0 ">
-                                <table class="table table-borderless">
-                                    <tbody>
-                                    <tr>
-                                        <td colspan="2">Device ID : </td>
-                                        <td colspan="3"><?php /*echo $row['device_id']; */?></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">Device Name</td>
-                                        <td colspan="3"><?php /*echo $row['device_name']; */?></td>
 
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">Device Desc</td>
-                                        <td colspan="3"><?php /*echo $row['device_description']; */?></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">Device Loc</td>
-                                        <td colspan="3"><?php /*echo $row['device_location']; */?></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="1">
-                                            <label class="custom-switch form-switch mb-0  p-0">
-                                                <input type="checkbox" class="custom-switch-input" name="devc_id" id="devc_id" value="<?php /*echo $row["device_id"]; */?>" <?php /*echo ($row['device_id']==1 ? 'checked' : '');*/?>>
-                                                <span class="custom-switch-indicator"></span>
-                                                <span class="custom-switch-description">Active</span>
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <a href="del_iot_device.php?device_id=<?php /*echo  $row["device_id"]; */?>" class="btn btn-danger btn-sm br-5">
-                                                <i>
-                                                    <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                                                </i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>-->
-    <?php } ?>
-            <!-- End Row -->
+        </div>
+
     </div>
-  </div>
+
+</div>
 <script>
     function deviceDB(device_id) {
         window.open("<?php echo site_URL . "iot_device_data.php?device_id=" ; ?>" + device_id , "_self")
@@ -383,8 +279,8 @@ $assign_by = $_SESSION["id"];
         });
     }
 </script>
-<!-- End Page -->
-<?php include ('footer1.php'); ?>
-</body>
+<?php include ('footer.php'); ?>
+
 </html>
+</body>
 

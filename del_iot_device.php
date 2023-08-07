@@ -56,4 +56,5 @@ if (!empty($device_id)){
     $import_status_message = 'Iot Device Deleted Successfully.';
     header('Location: device_dashboard.php');
     exit;
+
 }
