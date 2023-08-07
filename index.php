@@ -122,7 +122,7 @@ if (!empty($_POST['user'])){
 					header("Location:change_pin.php");
 					exit;
 				} else {
-					header("Location:device/create_device.php");
+					header("Location:device_dashboard.php");
 					
 				}
 			}
@@ -136,12 +136,12 @@ if (!empty($_POST['user'])){
 					header("Location:profile.php");
 					exit;
 				} else {
-                    header("Location:device/create_device.php");
+                    header("Location:device_dashboard.php");
 					
 				}
 			}
 		else {
-            header("Location:device/create_device.php");
+            header("Location:device_dashboard.php");
 
 		}
         }
