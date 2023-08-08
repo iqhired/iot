@@ -154,6 +154,37 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                     $sql = "SELECT * FROM `iot_devices` where is_deleted != 1";
                     $result = mysqli_query($iot_db, $sql);
                     while($row = mysqli_fetch_array($result)){
+                        //TODO make an api call
+                        $service_url = $rest_pn_api_uri . "login/login.php";
+                        $curl = curl_init($service_url);
+                        $curl_post_data = array(
+                            'user' => $user,
+                            'password' => $password,
+                            'password_pin' => $password_pin
+
+                        );
+
+                        try{
+                            $jwt = JWT::encode($payload, $secretkey , 'HS256');
+                        }catch (UnexpectedValueException $e) {
+                            echo $e->getMessage();
+                        }
+
+                        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($curl, CURLOPT_POST, true);
+                        curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
+                        $curl_response = curl_exec($curl);
+                        if ($curl_response === false) {
+                            $info = curl_getinfo($curl);
+                            curl_close($curl);
+                            die('error occured during curl exec. Additioanl info: ' . var_export($info));
+                        }
+                        curl_close($curl);
+                        $decoded = json_decode($curl_response);
+                        if (isset($decoded->status) && $decoded->status == 'ERROR') {
+                            die('error occured: ' . $decoded->errormessage);
+                        }
                         ?>
                         <div class="col-md-4 grid-margin stretch-card">
                             <div class="card">
