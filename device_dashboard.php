@@ -216,14 +216,14 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                                         <tr>
                                             <th scope="col">Temperature</th>
                                             <th scope="col">Humidity</th>
-                                            <th scope="col">Procedure</th>
+                                            <th scope="col">Pressure</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td><?php echo '0'; ?></td>
-                                            <td><?php echo '0'; ?></td>
-                                            <td><?php echo '0'; ?></td>
+                                            <td><?php echo $decoded->Temperature; ?></td>
+                                            <td><?php echo $decoded->Humidity; ?></td>
+                                            <td><?php echo $decoded->Pressure; ?></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -238,9 +238,9 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td><?php echo '0'; ?></td>
-                                            <td><?php echo '0'; ?></td>
-                                            <td><?php echo '0'; ?></td>
+                                            <td><?php echo $decoded->IAQ; ?></td>
+                                            <td><?php echo $decoded->VOC; ?></td>
+                                            <td><?php echo $decoded->CO2; ?></td>
                                         </tr>
                                         </tbody>
                                     </table>
