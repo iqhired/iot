@@ -155,32 +155,19 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                     $result = mysqli_query($iot_db, $sql);
                     while($row = mysqli_fetch_array($result)){
                         //TODO make an api call
-                        $service_url = $rest_pn_api_uri . "login/login.php";
-                        $curl = curl_init($service_url);
-                        $curl_post_data = array(
-                            'user' => $user,
-                            'password' => $password,
-                            'password_pin' => $password_pin
-
-                        );
-
-                        try{
-                            $jwt = JWT::encode($payload, $secretkey , 'HS256');
-                        }catch (UnexpectedValueException $e) {
-                            echo $e->getMessage();
-                        }
-
-                        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($curl, CURLOPT_POST, true);
-                        curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
-                        $curl_response = curl_exec($curl);
-                        if ($curl_response === false) {
-                            $info = curl_getinfo($curl);
-                            curl_close($curl);
-                            die('error occured during curl exec. Additioanl info: ' . var_export($info));
-                        }
-                        curl_close($curl);
+                        $cURLConnection = curl_init();
+						
+						curl_setopt($cURLConnection, CURLOPT_URL, 'http://13.214.116.35:3001/environment');
+						curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+						
+						$curl_response = curl_exec($cURLConnection);
+						if ($curl_response === false) {
+							$info = curl_getinfo($cURLConnection);
+							curl_close($cURLConnection);
+							die('error occured during curl exec. Additioanl info: ' . var_export($info));
+						}
+						curl_close($cURLConnection);
+                        
                         $decoded = json_decode($curl_response);
                         if (isset($decoded->status) && $decoded->status == 'ERROR') {
                             die('error occured: ' . $decoded->errormessage);
