@@ -159,7 +159,7 @@ $assign_by = $_SESSION["id"];
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Device Id :</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control"  value="<?php echo 'CC:50:E3:BF:B2:5C'; ?>" name="dev_id" id="dev_id" placeholder="Enter Device Id" disabled>
+                                            <input type="text" class="form-control" name="dev_id" id="dev_id" placeholder="Enter Device Id">
                                         </div>
                                     </div>
                                     <div class="form-group row">
