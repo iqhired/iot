@@ -20745,7 +20745,7 @@ div.tagsinput span.tag a {
     margin-right: auto;
     margin-left: 1rem; }
 .sidebar .nav .nav-item.active > .nav-link {
-    background: #0f1015;
+    background: #073857;
     position: relative; }
 .sidebar .nav .nav-item.active > .nav-link:before {
     content: "";
@@ -20920,7 +20920,7 @@ div.tagsinput span.tag a {
 .sidebar .nav.sub-menu .nav-item:hover {
     background: transparent; }
 .sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-category):not(.account-dropdown) > .nav-link {
-    background: #0f1015;
+    background: #073857;
     color: #ffffff; }
 .sidebar .nav .menu-items:nth-child(5n+1) .nav-link .menu-icon i {
     color: #0090e7; }
@@ -21034,7 +21034,7 @@ div.tagsinput span.tag a {
         display: flex;
         -webkit-align-items: center;
         align-items: center;
-        background: #0f1015;
+        background: #073857;
         padding: 0.5rem 1.4rem;
         left: 70px;
         position: absolute;
@@ -21045,7 +21045,7 @@ div.tagsinput span.tag a {
         z-index: 1;
         line-height: 1.8; }
     .sidebar-dark.sidebar-icon-only .sidebar .nav .nav-item.hover-open .nav-link .menu-title {
-        background: #0f1015; }
+        background: #073857; }
     .rtl.sidebar-icon-only .sidebar .nav .nav-item.hover-open .nav-link .menu-title {
         left: auto;
         right: 70px;
@@ -21056,7 +21056,7 @@ div.tagsinput span.tag a {
     .sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapsing {
         display: block;
         padding: .5rem 0;
-        background: #0f1015;
+        background: #073857;
         border-radius: 0 0 5px 0;
         position: absolute;
         left: 70px;
