@@ -111,6 +111,12 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
             transition: .4s;
         }
 
+        a {
+            color: #000000!important;
+            text-decoration: none;
+            background-color: transparent;
+        }
+
         input:checked + .slider {
             background-color: #2196F3;
         }
@@ -154,7 +160,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                     $sql = "SELECT * FROM `iot_devices` where is_deleted != 1";
                     $result = mysqli_query($iot_db, $sql);
                     while($row = mysqli_fetch_array($result)){
-                        //TODO make an api call
+       //TODO make an api call
                         $cURLConnection = curl_init();
 						
 						curl_setopt($cURLConnection, CURLOPT_URL, 'http://13.214.116.35:3001/environment');
@@ -175,6 +181,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                         ?>
                         <div class="col-md-4 grid-margin stretch-card">
                             <div class="card">
+                                <a href="iot_header.php">
                                 <div class="card-body">
                                     <h4 class="card-title"><?php echo $row["device_name"]; ?>
                                         <label class="switch">
@@ -188,6 +195,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                                             </i>
                                         </a>
                                     </h4>
+                                </a>
                                     <hr>
                                     <table class="table table-borderless">
                                         <tbody>
@@ -260,6 +268,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     </div>
 
 </div>
+</a>
 <script>
     function deviceDB(device_id) {
         window.open("<?php echo site_URL . "iot_device_data.php?device_id=" ; ?>" + device_id , "_self")

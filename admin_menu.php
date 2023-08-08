@@ -47,7 +47,7 @@
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo $iotURL; ?>device_dashboard.php">
               <span class="menu-icon">
-                <i class="fa-solid fa-users"></i>
+                   <i class="fa-solid fa-table-columns"></i>
               </span>
                 <span class="menu-title">Dashboard</span>
             </a>
@@ -58,7 +58,7 @@
               <span class="menu-icon">
                 <i class="fa-solid fa-users"></i>
               </span>
-                <span class="menu-title">Create Users</span>
+                <span class="menu-title">Users</span>
             </a>
         </li>
 <!--                        <li class="nav-item menu-items">-->
@@ -80,7 +80,7 @@
               <span class="menu-icon">
                   <i class="fa-solid fa-hard-drive"></i>
               </span>
-                <span class="menu-title">Device Orders</span>
+                <span class="menu-title">Device</span>
             </a>
         </li>
 
