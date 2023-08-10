@@ -42,6 +42,22 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script  src="<?php echo $iotURL; ?>assets/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script  src="<?php echo $iotURL; ?>assets/js/Chart.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script  src="<?php echo $iotURL; ?>assets/js/off-canvas.js"></script>
+    <script  src="<?php echo $iotURL; ?>assets/js/hoverable-collapse.js"></script>
+    <script  src="<?php echo $iotURL; ?>assets/js/misc.js"></script>
+    <script  src="<?php echo $iotURL; ?>assets/js/settings.js"></script>
+    <script  src="<?php echo $iotURL; ?>assets/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script  src="<?php echo $iotURL; ?>assets/js/chart.js"></script>
+
+    <!-- End custom js for this page -->
     <title>Create Users</title>
 
 
@@ -158,14 +174,35 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                                 </nav>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6 grid-margin stretch-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Line chart</h4>
-                                            <canvas id="lineChart" style="height:250px"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php
+                                $sql = "SELECT * FROM `livedata` ";
+                                $result = mysqli_query($iot_db, $sql);
+                                while($row = mysqli_fetch_array($result)){
+                                $temperature[] = $row['temperature'];
+                                $humidity[] = $row['humidity'];
+                                $co2[] = $row['co2'];
+
+
+                     //TODO api call
+                                $cURLConnection = curl_init();
+
+                                curl_setopt($cURLConnection, CURLOPT_URL, 'http://13.214.116.35:3001/environment');
+                                curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+
+                                $curl_response = curl_exec($cURLConnection);
+                                if ($curl_response === false) {
+                                    $info = curl_getinfo($cURLConnection);
+                                    curl_close($cURLConnection);
+                                    die('error occured during curl exec. Additioanl info: ' . var_export($info));
+                                }
+                                curl_close($cURLConnection);
+
+                                $decoded = json_decode($curl_response);
+                                if (isset($decoded->status) && $decoded->status == 'ERROR') {
+                                    die('error occured: ' . $decoded->errormessage);
+                                }
+
+                                ?>
                                 <div class="col-lg-6 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
@@ -174,37 +211,47 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-lg-6 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title">Area chart</h4>
-                                            <canvas id="areaChart" style="height:250px"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 grid-margin stretch-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Doughnut chart</h4>
-                                            <canvas id="doughnutChart" style="height:250px"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 grid-margin stretch-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Pie chart</h4>
-                                            <canvas id="pieChart" style="height:250px"></canvas>
+                                            <h4 class="card-title">Line chart</h4>
+                                            <canvas id="lineChart" style="height:250px"></canvas>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                        </div>
+<!--                            <div class="row">-->
+<!--                                <div class="col-lg-6 grid-margin stretch-card">-->
+<!--                                    <div class="card">-->
+<!--                                        <div class="card-body">-->
+<!--                                            <h4 class="card-title">Area chart</h4>-->
+<!--                                            <canvas id="areaChart" style="height:250px"></canvas>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-lg-6 grid-margin stretch-card">-->
+<!--                                    <div class="card">-->
+<!--                                        <div class="card-body">-->
+<!--                                            <h4 class="card-title">Doughnut chart</h4>-->
+<!--                                            <canvas id="doughnutChart" style="height:250px"></canvas>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-lg-6 grid-margin stretch-card">-->
+<!--                                    <div class="card">-->
+<!--                                        <div class="card-body">-->
+<!--                                            <h4 class="card-title">Pie chart</h4>-->
+<!--                                            <canvas id="pieChart" style="height:250px"></canvas>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!---->
+<!--                            </div>-->
+<!--                        </div>-->
+
                         <!-- content-wrapper ends -->
                         <!-- partial:../../partials/_footer.html -->
 
@@ -214,22 +261,41 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                 </div>
                 <!-- page-body-wrapper ends -->
             </div>
-            <!-- container-scroller -->
-            <!-- plugins:js -->
-            <script  src="<?php echo $iotURL; ?>assets/js/vendor.bundle.base.js"></script>
-            <!-- endinject -->
-            <!-- Plugin js for this page -->
-            <script  src="<?php echo $iotURL; ?>assets/js/Chart.min.js"></script>
-            <!-- End plugin js for this page -->
-            <!-- inject:js -->
-            <script  src="<?php echo $iotURL; ?>assets/js/off-canvas.js"></script>
-            <script  src="<?php echo $iotURL; ?>assets/js/hoverable-collapse.js"></script>
-            <script  src="<?php echo $iotURL; ?>assets/js/misc.js"></script>
-            <script  src="<?php echo $iotURL; ?>assets/js/settings.js"></script>
-            <script  src="<?php echo $iotURL; ?>assets/js/todolist.js"></script>
-            <!-- endinject -->
-            <!-- Custom js for this page -->
-            <script  src="<?php echo $iotURL; ?>assets/js/chart.js"></script>
-            <!-- End custom js for this page -->
+<?php } ?>
+
+<script type="text/javascript">
+    var ctx = document.getElementById("barChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Temperature", "Humidity", "Pressure", "IAQ", "VOC", "CO2"],
+            datasets: [{
+                data:<?php echo json_encode($temperature); ?>,
+                backgroundColor: [
+                    'rgba(173,16,31,0.94)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgb(225,11,11,100)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+
+            }]
+        },
+
+    });
+</script>
+
+
+</body>
+
 </body>
 </html>
