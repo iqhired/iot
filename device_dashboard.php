@@ -181,7 +181,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                         ?>
                         <div class="col-md-4 grid-margin stretch-card">
                             <div class="card">
-                                <a href="iot_header.php">
+                                <a href="device_graph.php">
                                 <div class="card-body">
                                     <h4 class="card-title"><?php echo $row["device_name"]; ?>
                                         <label class="switch">

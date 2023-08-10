@@ -83,7 +83,6 @@
 </nav>
 
 <!-- plugins:js -->
-<script src="<?php echo $iotURL; ?>assets/js/vendor.bundle.base.js"></script>
 <!-- endinject -->
 <!-- Plugin js for this page -->
 <script src="<?php echo $iotURL; ?>assets/js/progressbar.min.js"></script>
@@ -92,11 +91,7 @@
 <script src="<?php echo $iotURL; ?>assets/js/owl.carousel.min.js"></script>
 <!-- End plugin js for this page -->
 <!-- inject:js -->
-<script src="<?php echo $iotURL; ?>assets/js/off-canvas.js"></script>
-<script src="<?php echo $iotURL; ?>assets/js/hoverable-collapse.js"></script>
-<script src="<?php echo $iotURL; ?>assets/js/misc.js"></script>
-<script src="<?php echo $iotURL; ?>assets/js/settings.js"></script>
-<script src="<?php echo $iotURL; ?>assets/js/todolist.js"></script>
+
 <!-- endinject -->
 <!-- Custom js for this page -->
 <script src="<?php echo $iotURL; ?>assets/js/dashboard.js"></script>
