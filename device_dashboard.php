@@ -30,11 +30,22 @@ curl_close($cURLConnection);
 
 $decoded = json_decode($curl_response);
 
+if (!empty($decoded ->Temperature)) {
+    $device_id = $decoded ->device_id;
+    $temperature = $decoded ->Temperature;
+    $humidity = $decoded ->Humidity;
+    $pressure = $decoded ->Pressure;
+    $iaq = $decoded ->IAQ;
+    $voc = $decoded ->VOC;
+    $co2 = $decoded ->CO2;
+    $datetime = $decoded ->Date_Time;
+}
+
 //TODO POST api
     $service_url = $rest_api_uri . "devices/live_device.php";
     $curl = curl_init($service_url);
     $curl_post_data = array(
-        'device_id' => $device_id,
+        'device_id' => $decoded ->device_id,
         'temperature' => $temperature,
         'humidity' => $humidity,
         'pressure' => $pressure,
