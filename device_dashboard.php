@@ -31,7 +31,7 @@ curl_close($cURLConnection);
 $decoded = json_decode($curl_response);
 
 if (!empty($decoded ->Temperature)) {
-    $device_id = $decoded ->device_id;
+    $device_id =  preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $decoded ->DeviceID);
     $temperature = $decoded ->Temperature;
     $humidity = $decoded ->Humidity;
     $pressure = $decoded ->Pressure;
@@ -119,6 +119,8 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="300">
+
     <title>Create Users</title>
 
 
@@ -140,7 +142,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
             display: inline-block;
             width: 49px;
             height: 23px;
-            margin-left: 197px;
+            /*margin-left: 197px;*/
         }
         .slider:before {
             position: absolute;
@@ -264,16 +266,26 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                                 <a href="device_graph.php">
                                 <div class="card-body">
                                     <h4 class="card-title"><?php echo $row["device_name"]; ?>
-                                        <label class="switch">
-                                            <input type="checkbox" name="is_active" id="is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['is_active']==1 ? 'checked' : '');?>>
-                                            <span class="slider round"></span>
 
-                                        </label>
-                                        <a href="device/del_device.php?device_id=<?php echo  $row["device_id"]; ?>" class="btn btn-danger btn-sm br-2" >
-                                            <i>
-                                                <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                                            </i>
-                                        </a>
+                                        <button class="btn btn btn-sm"
+                                                id="center" style="color:white">
+                                            <label class="switch">
+                                                <input type="checkbox" name="is_active" id="is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['is_active']==1 ? 'checked' : '');?>>
+                                                <span class="slider round"></span>
+
+                                            </label>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm float-right"
+                                                id="right" style="color:white">
+                                            <a href="device/del_device.php?device_id=<?php echo  $row["device_id"]; ?>"  >
+                                               <i>
+                                                  <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" color="white" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
+                                              </i>
+                                            </a>
+                                        </button>
+
+
+
                                     </h4>
                                 </a>
                                     <hr>
@@ -386,6 +398,15 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
         });
     }
 </script>
+
+
+<!--<script>-->
+<!--    window.setTimeout(function(){-->
+<!--        window.location.reload();-->
+<!--    },60000);-->
+<!--</script>-->
+
+
 <?php include ('footer.php'); ?>
 
 </html>

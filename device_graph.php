@@ -175,7 +175,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                             </div>
                             <div class="row">
                                 <?php
-                                $sql = "SELECT * FROM `livedata` ";
+                                $sql = "SELECT * FROM `live_data` where 1  ";
                                 $result = mysqli_query($iot_db, $sql);
                                 while($row = mysqli_fetch_array($result)){
                                 $temperature[] = $row['temperature'];
@@ -203,6 +203,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                                 }
 
                                 ?>
+                                <?php } ?>
                                 <div class="col-lg-6 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
@@ -211,16 +212,18 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 grid-margin stretch-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Line chart</h4>
-                                            <canvas id="lineChart" style="height:250px"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
 
-                            </div>
+
+                                <!--                                <div class="col-lg-6 grid-margin stretch-card">-->
+<!--                                    <div class="card">-->
+<!--                                        <div class="card-body">-->
+<!--                                            <h4 class="card-title">Line chart</h4>-->
+<!--                                            <canvas id="lineChart" style="height:250px"></canvas>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+
 <!--                            <div class="row">-->
 <!--                                <div class="col-lg-6 grid-margin stretch-card">-->
 <!--                                    <div class="card">-->
@@ -256,12 +259,13 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                         <!-- partial:../../partials/_footer.html -->
 
                         <!-- partial -->
+                            </div>
+                        </div>
                     </div>
-                    <!-- main-panel ends -->
-                </div>
-                <!-- page-body-wrapper ends -->
-            </div>
-<?php } ?>
+    </div>
+</div>
+</body>
+
 
 <script type="text/javascript">
     var ctx = document.getElementById("barChart").getContext('2d');
