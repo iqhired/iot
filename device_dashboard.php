@@ -32,7 +32,7 @@ $decoded = json_decode($curl_response);
 
 
 if (!empty($decoded ->Temperature)) {
-    $device_id =  preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $decoded ->DeviceID);
+    $device_id =  $decoded ->DeviceID;
     $temperature = $decoded ->Temperature;
     $humidity = $decoded ->Humidity;
     $pressure = $decoded ->Pressure;
@@ -46,7 +46,7 @@ if (!empty($decoded ->Temperature)) {
     $service_url = $rest_api_uri . "devices/live_device.php";
     $curl = curl_init($service_url);
     $curl_post_data = array(
-        'device_id' => $decoded ->device_id,
+        'device_id' => $device_id,
         'temperature' => $temperature,
         'humidity' => $humidity,
         'pressure' => $pressure,
@@ -55,7 +55,7 @@ if (!empty($decoded ->Temperature)) {
         'co2' => $co2,
         'datetime' => $datetime
     );
-    $decoded= array("Temperature=>$temperature");
+
 
     $secretkey = "SupportPassHTSSgmmi";
     $payload = array(
