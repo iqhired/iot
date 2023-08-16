@@ -30,6 +30,7 @@ curl_close($cURLConnection);
 
 $decoded = json_decode($curl_response);
 
+
 if (!empty($decoded ->Temperature)) {
     $device_id =  preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $decoded ->DeviceID);
     $temperature = $decoded ->Temperature;
@@ -54,6 +55,8 @@ if (!empty($decoded ->Temperature)) {
         'co2' => $co2,
         'datetime' => $datetime
     );
+    $decoded= array("Temperature=>$temperature");
+
     $secretkey = "SupportPassHTSSgmmi";
     $payload = array(
         "author" => "Saargummi to HTS",

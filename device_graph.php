@@ -45,7 +45,6 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     <script  src="<?php echo $iotURL; ?>assets/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
-    <script  src="<?php echo $iotURL; ?>assets/js/Chart.min.js"></script>
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script  src="<?php echo $iotURL; ?>assets/js/off-canvas.js"></script>
@@ -53,9 +52,12 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     <script  src="<?php echo $iotURL; ?>assets/js/misc.js"></script>
     <script  src="<?php echo $iotURL; ?>assets/js/settings.js"></script>
     <script  src="<?php echo $iotURL; ?>assets/js/todolist.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+
     <!-- endinject -->
     <!-- Custom js for this page -->
-    <script  src="<?php echo $iotURL; ?>assets/js/chart.js"></script>
 
     <!-- End custom js for this page -->
     <title>Create Users</title>
@@ -164,142 +166,336 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_navbar.html -->
         <?php include ('header.php'); ?>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header"></div>
+                <div class="row">
+                    <?php
+                    $sql = "SELECT * FROM `live_data` ORDER BY dev_id DESC LIMIT 1  ";
+                    $result = mysqli_query($iot_db, $sql);
+                    while($row = mysqli_fetch_array($result)){
+                        $temperature[] = $row['temperature'];
+                        $humidity[] = $row['humidity'];
+                        $pressure[] = $row['pressure'];
+                        $iaq[] = $row['iaq'];
+                        $voc[] = $row['voc'];
+                        $co2[] = $row['co2'];
 
-                    <div class="main-panel">
-                        <div class="content-wrapper">
-                            <div class="page-header">
-                                <h3 class="page-title"> Graphical Representation</h3>
-                                <nav aria-label="breadcrumb">
+                        //TODO api call
+                        $cURLConnection = curl_init();
 
-                                </nav>
-                            </div>
-                            <div class="row">
-                                <?php
-                                $sql = "SELECT * FROM `live_data` where 1  ";
-                                $result = mysqli_query($iot_db, $sql);
-                                while($row = mysqli_fetch_array($result)){
-                                $temperature[] = $row['temperature'];
-                                $humidity[] = $row['humidity'];
-                                $co2[] = $row['co2'];
+                        curl_setopt($cURLConnection, CURLOPT_URL, 'http://13.214.116.35:3001/environment');
+                        curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
 
+                        $curl_response = curl_exec($cURLConnection);
+                        if ($curl_response === false) {
+                            $info = curl_getinfo($cURLConnection);
+                            curl_close($cURLConnection);
+                            die('error occured during curl exec. Additioanl info: ' . var_export($info));
+                        }
+                        curl_close($cURLConnection);
 
-                     //TODO api call
-                                $cURLConnection = curl_init();
+                        $decoded = json_decode($curl_response);
+                        if (isset($decoded->status) && $decoded->status == 'ERROR') {
+                            die('error occured: ' . $decoded->errormessage);
+                        }
 
-                                curl_setopt($cURLConnection, CURLOPT_URL, 'http://13.214.116.35:3001/environment');
-                                curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+                        ?>
+                    <?php } ?>
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="pd-30 pd-sm-10">
+                                    <div class="row ">
+                                        <div class="col-md-3">
+                                            <h4 class="card-title">Temperature</h4>
+                                            <canvas id="myChart" width=""></canvas>
+                                        </div>
 
-                                $curl_response = curl_exec($cURLConnection);
-                                if ($curl_response === false) {
-                                    $info = curl_getinfo($cURLConnection);
-                                    curl_close($cURLConnection);
-                                    die('error occured during curl exec. Additioanl info: ' . var_export($info));
-                                }
-                                curl_close($cURLConnection);
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-3">
+                                            <h4 class="card-title">Humidity</h4>
+                                            <canvas id="myChart1" width=""></canvas>
+                                        </div>
 
-                                $decoded = json_decode($curl_response);
-                                if (isset($decoded->status) && $decoded->status == 'ERROR') {
-                                    die('error occured: ' . $decoded->errormessage);
-                                }
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-3">
+                                            <h4 class="card-title">Pressure</h4>
+                                            <canvas id="myChart2" width=""></canvas>
+                                        </div>
+                                    </div>
 
-                                ?>
-                                <?php } ?>
-                                <div class="col-lg-6 grid-margin stretch-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Bar chart</h4>
-                                            <canvas id="barChart" style="height:230px"></canvas>
+                                    <br>
+                                    <br>
+
+                                    <div class="pd-30 pd-sm-10">
+                                        <div class="row ">
+                                            <div class="col-md-3">
+                                                <h4 class="card-title">IAQ</h4>
+                                                <canvas id="myChart3" ></canvas>
+                                            </div>
+
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-3">
+                                                <h4 class="card-title">VOC</h4>
+                                                <canvas id="myChart4" ></canvas>
+                                            </div>
+
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-3">
+                                                <h4 class="card-title">CO2</h4>
+                                                <canvas id="myChart5" ></canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-
-                                <!--                                <div class="col-lg-6 grid-margin stretch-card">-->
-<!--                                    <div class="card">-->
-<!--                                        <div class="card-body">-->
-<!--                                            <h4 class="card-title">Line chart</h4>-->
-<!--                                            <canvas id="lineChart" style="height:250px"></canvas>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-
-<!--                            <div class="row">-->
-<!--                                <div class="col-lg-6 grid-margin stretch-card">-->
-<!--                                    <div class="card">-->
-<!--                                        <div class="card-body">-->
-<!--                                            <h4 class="card-title">Area chart</h4>-->
-<!--                                            <canvas id="areaChart" style="height:250px"></canvas>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-lg-6 grid-margin stretch-card">-->
-<!--                                    <div class="card">-->
-<!--                                        <div class="card-body">-->
-<!--                                            <h4 class="card-title">Doughnut chart</h4>-->
-<!--                                            <canvas id="doughnutChart" style="height:250px"></canvas>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-lg-6 grid-margin stretch-card">-->
-<!--                                    <div class="card">-->
-<!--                                        <div class="card-body">-->
-<!--                                            <h4 class="card-title">Pie chart</h4>-->
-<!--                                            <canvas id="pieChart" style="height:250px"></canvas>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!---->
-<!--                            </div>-->
-<!--                        </div>-->
-
-                        <!-- content-wrapper ends -->
-                        <!-- partial:../../partials/_footer.html -->
-
-                        <!-- partial -->
                             </div>
                         </div>
                     </div>
+
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+
+    <!----------------->
+    <script>
+        Chart.types.Doughnut.extend({
+            name: "DoughnutTextInside",
+            showTooltip: function() {
+                this.chart.ctx.save();
+                Chart.types.Doughnut.prototype.showTooltip.apply(this, arguments);
+                this.chart.ctx.restore();
+            },
+            draw: function() {
+                Chart.types.Doughnut.prototype.draw.apply(this, arguments);
+
+                var width = this.chart.width,
+                    height = this.chart.height;
+
+                var fontSize = (height / 200).toFixed(2);
+                this.chart.ctx.font = fontSize + "em Verdana";
+                this.chart.ctx.textBaseline = "middle";
+
+                var text = <?php echo json_encode($temperature); ?>,
+                    textX = Math.round((width - this.chart.ctx.measureText(text).width) / 2),
+                    textY = height / 2;
+
+                this.chart.ctx.fillText(text, textX, textY);
+            }
+        });
+
+        var data = [{
+            value: <?php echo json_encode($temperature); ?>,
+            color: "#F7464A"
+
+        }];
+
+        var DoughnutTextInsideChart = new Chart($('#myChart')[0].getContext('2d')).DoughnutTextInside(data, {
+            responsive: true
+        });
+    </script>
+
+
+    <!----------------->
+
+
+    <script>
+        Chart.types.Doughnut.extend({
+            name: "DoughnutTextInside",
+            showTooltip: function() {
+                this.chart.ctx.save();
+                Chart.types.Doughnut.prototype.showTooltip.apply(this, arguments);
+                this.chart.ctx.restore();
+            },
+            draw: function() {
+                Chart.types.Doughnut.prototype.draw.apply(this, arguments);
+
+                var width = this.chart.width,
+                    height = this.chart.height;
+
+                var fontSize = (height / 200).toFixed(2);
+                this.chart.ctx.font = fontSize + "em Verdana";
+                this.chart.ctx.textBaseline = "middle";
+
+                var text = <?php echo json_encode($humidity); ?>,
+                    textX = Math.round((width - this.chart.ctx.measureText(text).width) / 2),
+                    textY = height / 2;
+
+                this.chart.ctx.fillText(text, textX, textY);
+            }
+        });
+
+        var data = [{
+            value: <?php echo json_encode($humidity); ?>,
+            color: "#1ca2bd"
+
+        }];
+
+        var DoughnutTextInsideChart = new Chart($('#myChart1')[0].getContext('2d')).DoughnutTextInside(data, {
+            responsive: true
+        });
+    </script>
+
+    <!----------------->
+
+
+    <script>
+        Chart.types.Doughnut.extend({
+            name: "DoughnutTextInside",
+            showTooltip: function() {
+                this.chart.ctx.save();
+                Chart.types.Doughnut.prototype.showTooltip.apply(this, arguments);
+                this.chart.ctx.restore();
+            },
+            draw: function() {
+                Chart.types.Doughnut.prototype.draw.apply(this, arguments);
+
+                var width = this.chart.width,
+                    height = this.chart.height;
+
+                var fontSize = (height / 200).toFixed(2);
+                this.chart.ctx.font = fontSize + "em Verdana";
+                this.chart.ctx.textBaseline = "middle";
+
+                var text = <?php echo json_encode($pressure); ?>,
+                    textX = Math.round((width - this.chart.ctx.measureText(text).width) / 2),
+                    textY = height / 2;
+
+                this.chart.ctx.fillText(text, textX, textY);
+            }
+        });
+
+        var data = [{
+            value: <?php echo json_encode($pressure); ?>,
+            color: "#7a2c2c"
+
+        }];
+
+        var DoughnutTextInsideChart = new Chart($('#myChart2')[0].getContext('2d')).DoughnutTextInside(data, {
+            responsive: true
+        });
+    </script>
+
+    <!----------------->
+
+    <script>
+        Chart.types.Doughnut.extend({
+            name: "DoughnutTextInside",
+            showTooltip: function() {
+                this.chart.ctx.save();
+                Chart.types.Doughnut.prototype.showTooltip.apply(this, arguments);
+                this.chart.ctx.restore();
+            },
+            draw: function() {
+                Chart.types.Doughnut.prototype.draw.apply(this, arguments);
+
+                var width = this.chart.width,
+                    height = this.chart.height;
+
+                var fontSize = (height / 200).toFixed(2);
+                this.chart.ctx.font = fontSize + "em Verdana";
+                this.chart.ctx.textBaseline = "middle";
+
+                var text = <?php echo json_encode($iaq); ?>,
+                    textX = Math.round((width - this.chart.ctx.measureText(text).width) / 2),
+                    textY = height / 2;
+
+                this.chart.ctx.fillText(text, textX, textY);
+            }
+        });
+
+        var data = [{
+            value: <?php echo json_encode($iaq); ?>,
+            color: "#ff8400"
+
+        }];
+
+        var DoughnutTextInsideChart = new Chart($('#myChart3')[0].getContext('2d')).DoughnutTextInside(data, {
+            responsive: true
+        });
+    </script>
+
+
+    <!----------------->
+
+
+    <script>
+        Chart.types.Doughnut.extend({
+            name: "DoughnutTextInside",
+            showTooltip: function() {
+                this.chart.ctx.save();
+                Chart.types.Doughnut.prototype.showTooltip.apply(this, arguments);
+                this.chart.ctx.restore();
+            },
+            draw: function() {
+                Chart.types.Doughnut.prototype.draw.apply(this, arguments);
+
+                var width = this.chart.width,
+                    height = this.chart.height;
+
+                var fontSize = (height / 200).toFixed(2);
+                this.chart.ctx.font = fontSize + "em Verdana";
+                this.chart.ctx.textBaseline = "middle";
+
+                var text = <?php echo json_encode($voc); ?>,
+                    textX = Math.round((width - this.chart.ctx.measureText(text).width) / 2),
+                    textY = height / 2;
+
+                this.chart.ctx.fillText(text, textX, textY);
+            }
+        });
+
+        var data = [{
+            value: <?php echo json_encode($voc); ?>,
+            color: "#ff4000"
+
+        }];
+
+        var DoughnutTextInsideChart = new Chart($('#myChart4')[0].getContext('2d')).DoughnutTextInside(data, {
+            responsive: true
+        });
+    </script>
+
+    <!----------------->
+
+
+    <script>
+        Chart.types.Doughnut.extend({
+            name: "DoughnutTextInside",
+            showTooltip: function() {
+                this.chart.ctx.save();
+                Chart.types.Doughnut.prototype.showTooltip.apply(this, arguments);
+                this.chart.ctx.restore();
+            },
+            draw: function() {
+                Chart.types.Doughnut.prototype.draw.apply(this, arguments);
+
+                var width = this.chart.width,
+                    height = this.chart.height;
+
+                var fontSize = (height / 200).toFixed(2);
+                this.chart.ctx.font = fontSize + "em Verdana";
+                this.chart.ctx.textBaseline = "middle";
+
+                var text = <?php echo json_encode($co2); ?>,
+                    textX = Math.round((width - this.chart.ctx.measureText(text).width) / 2),
+                    textY = height / 2;
+
+                this.chart.ctx.fillText(text, textX, textY);
+            }
+        });
+
+        var data = [{
+            value: <?php echo json_encode($co2); ?>,
+            color: "#1f7330"
+
+        }];
+
+        var DoughnutTextInsideChart = new Chart($('#myChart5')[0].getContext('2d')).DoughnutTextInside(data, {
+            responsive: true
+        });
+    </script>
 </body>
-
-
-<script type="text/javascript">
-    var ctx = document.getElementById("barChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Temperature", "Humidity", "Pressure", "IAQ", "VOC", "CO2"],
-            datasets: [{
-                data:<?php echo json_encode($temperature); ?>,
-                backgroundColor: [
-                    'rgba(173,16,31,0.94)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(255, 206, 86, 0.5)',
-                    'rgba(75, 192, 192, 0.5)',
-                    'rgba(153, 102, 255, 0.5)',
-                    'rgba(255, 159, 64, 0.5)'
-                ],
-                borderColor: [
-                    'rgb(225,11,11,100)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-
-            }]
-        },
-
-    });
-</script>
-
-
-</body>
-
-</body>
-</html>
