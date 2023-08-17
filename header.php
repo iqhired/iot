@@ -28,6 +28,7 @@
         </button>
         <ul class="navbar-nav w-100">
             <li class="nav-item w-100">
+                <h2><?php echo $device_name;?></h2>
             </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">

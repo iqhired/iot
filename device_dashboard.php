@@ -123,10 +123,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="refresh" content="300">
-
     <title>Create Users</title>
-
-
     <style>
         p {
             font-size: 16px!important;
@@ -242,6 +239,9 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                     $sql = "SELECT * FROM `iot_devices` where is_deleted != 1";
                     $result = mysqli_query($iot_db, $sql);
                     while($row = mysqli_fetch_array($result)){
+                    $id[] = $row['id'];
+                    $device_name[] = $row['device_name'];
+
 
            //TODO make an api call
                     $cURLConnection = curl_init();
@@ -261,12 +261,10 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                     if (isset($decoded->status) && $decoded->status == 'ERROR') {
                         die('error occured: ' . $decoded->errormessage);
                     }
-
-
                         ?>
-                        <div class="col-md-4 grid-margin stretch-card">
+                        <div class="col-md-4 grid-margin stretch-card" onclick="cellDB('<?php echo $row["id"] ?>' , '<?php echo $row["device_name"] ?>')">
                             <div class="card">
-                                <a href="device_graph.php">
+
                                 <div class="card-body">
                                     <h4 class="card-title"><?php echo $row["device_name"]; ?>
 
@@ -278,6 +276,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
 
                                             </label>
                                         </button>
+
                                         <button class="btn btn-danger btn-sm float-right"
                                                 id="right" style="color:white">
                                             <a href="device/del_device.php?device_id=<?php echo  $row["device_id"]; ?>"  >
@@ -286,12 +285,10 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                                               </i>
                                             </a>
                                         </button>
-
-
-
                                     </h4>
-                                </a>
+
                                     <hr>
+
                                     <table class="table table-borderless">
                                         <tbody>
                                         <tr>
@@ -402,6 +399,14 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
     }
 </script>
 
+<script>
+    function cellDB(id , device_name) {
+        window.open("<?php echo $iotURL . "device_graph.php?id=" ; ?>" + id + "<?php echo "&device_name=" ; ?>" + device_name , "_self")
+    }
+    // setTimeout(function () {
+    //    location.reload();
+    // }, 60000);
+</script>
 
 <!--<script>-->
 <!--    window.setTimeout(function(){-->

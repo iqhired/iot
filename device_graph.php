@@ -157,9 +157,35 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
         .slider.round:before {
             border-radius: 50%;
         }
+        .card-header {
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 0;
+            background-color: rgb(255 255 255)!important;
+
+
+        }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #000000;
+            text-align: center;
+            background-color: #fff;
     </style>
 </head>
 <body>
+<?php
+$device_name = $_GET['device_name'];
+$sql = "SELECT * FROM `iot_devices` where id= '$device_name'";
+$result = mysqli_query($iot_db, $sql);
+while($row = mysqli_fetch_array($result)) {
+$id = $row["id"];
+$device_name= $row["device_name"];
+
+}
+?>
 <div class="container-scroller">
     <?php include ('admin_menu.php'); ?>
     <!-- partial -->
@@ -172,6 +198,9 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                 <div class="page-header"></div>
                 <div class="row">
                     <?php
+
+
+
                     $sql = "SELECT * FROM `live_data` ORDER BY dev_id DESC LIMIT 1  ";
                     $result = mysqli_query($iot_db, $sql);
                     while($row = mysqli_fetch_array($result)){
@@ -205,6 +234,10 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                     <?php } ?>
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
+<!--                                <div class="card-header">-->
+<!--                                    <span class="main-content-title mg-b-0 mg-b-lg-1">Device Name: --><?php //echo $device_name;?><!--</span>-->
+<!--                                </div>-->
+
                             <div class="card-body">
                                 <div class="pd-30 pd-sm-10">
                                     <div class="row ">
