@@ -107,6 +107,17 @@ if (!empty($_POST['user_name'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Create Users</title>
+    <link rel="stylesheet" href=
+    "https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+
+    <!-- jQuery library file -->
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-3.5.1.js">
+    </script>
+
+    <!-- Datatable plugin JS library file -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
     <style>
     body
     {margin: 0; height: 100%; overflow: hidden}
@@ -120,14 +131,13 @@ if (!empty($_POST['user_name'])){
 <div class="container-scroller">
     <?php include ('../admin_menu.php'); ?>
     <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
+    <div class="container-fluid page-body-wrapper margin-244">
         <!-- partial:partials/_navbar.html -->
         <?php include ('../header.php'); ?>
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="page-header">
-
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">User</a></li>
@@ -204,7 +214,7 @@ if (!empty($_POST['user_name'])){
                         </div>
                     </div>
                 </div>
-            <form action="" id="update_users" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <form action="" id="update_users"  method="post" class="form-horizontal" enctype="multipart/form-data">
                 <div class="main-panel">
                     <div class="content-wrapper">
                         <div class="row ">
@@ -219,7 +229,7 @@ if (!empty($_POST['user_name'])){
                                             </button>
                                         </h4>
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table id="tableID"  class="table">
                                                 <thead>
                                                 <tr>
                                                     <th>
@@ -353,6 +363,13 @@ if (!empty($_POST['user_name'])){
 </script>
 <script>
     $('.select2').select2();
+</script>
+<script>
+
+    /* Initialization of datatable */
+    $(document).ready(function() {
+        $('#tableID').DataTable({ });
+    });
 </script>
 <!-- End custom js for this page -->
 </body>

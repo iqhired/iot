@@ -1,9 +1,10 @@
 <!-- partial:partials/_sidebar.html -->
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
+<nav class="sidebar sidebar-offcanvas" id="sidebar" style=" float: left; position: fixed;">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
         <a class="sidebar-brand brand-logo" href="#"><img src="<?php echo $iotURL; ?>assets/images/site_logo.png" alt="logo" /></a>
         <a class="sidebar-brand brand-logo-mini" href="#"><img src="<?php echo $iotURL; ?>assets/images/logo-mini.png" alt="logo" /></a>
     </div>
+
     <ul class="nav">
         <li class="nav-item profile">
             <div class="profile-desc">
