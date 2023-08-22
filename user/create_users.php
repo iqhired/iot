@@ -107,25 +107,151 @@ if (!empty($_POST['user_name'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Create Users</title>
-    <link rel="stylesheet" href=
-    "https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
 
-    <!-- jQuery library file -->
-    <script type="text/javascript"
-            src="https://code.jquery.com/jquery-3.5.1.js">
-    </script>
+    <meta name = "viewport" content = "width=device-width, initial-scale=1">
+    <!-- jQuery -->
+    <script src='https://code.jquery.com/jquery-3.7.0.js'></script>
+    <!-- Data Table JS -->
+    <script src='https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js'></script>
+    <script src='https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js'></script>
+    <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <!-- Data Table CSS -->
+    <link rel='stylesheet' href='https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css'>
+    <!-- Font Awesome CSS -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
 
-    <!-- Datatable plugin JS library file -->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
-    <style>
+<style>
+
     body
     {margin: 0; height: 100%; overflow: hidden}
-    </style>
+    .wrapper {
+        margin-top: 5vh;
+    }
+
+    .dataTables_filter {
+        float: right;
+    }
+
+    .table-hover > tbody > tr:hover {
+        background-color: #ccffff;
+    }
+
+    @media only screen and (min-width: 768px) {
+        .table {
+            table-layout: fixed;
+            max-width: 100% !important;
+        }
+    }
+
+    thead {
+        background: #ddd;
+    }
+
+    .table td:nth-child(2) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .highlight {
+        background: #ffff99;
+    }
+
+    @media only screen and (max-width: 767px) {
+        /* Force table to not be like tables anymore */
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+            display: block;
+        }
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+        thead tr,
+        tfoot tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50% !important;
+        }
+
+        td:before {
+            /* Now like a table header */
+            position: absolute;
+            /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+        }
+
+        .table td:nth-child(1) {
+            background: #ccc;
+            height: 100%;
+            top: 0;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /*
+        Label the data
+        */
+        td:nth-of-type(1):before {
+            content: "Name";
+        }
+
+        td:nth-of-type(2):before {
+            content: "Position";
+        }
+
+        td:nth-of-type(3):before {
+            content: "Office";
+        }
+
+        td:nth-of-type(4):before {
+            content: "Age";
+        }
+
+        td:nth-of-type(5):before {
+            content: "Start date";
+        }
+
+        td:nth-of-type(6):before {
+            content: "Salary";
+        }
+
+        .dataTables_length {
+            display: none;
+        }
+        .page-link {
+            position: relative;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            margin-left: -1px;
+            line-height: 1.25;
+            color: #007bff;
+            background-color: #ffffff!important;
+            border: 1px solid #dee2e6;
+        }
+    }
+</style>
 
 
-    <!-- plugins:css -->
+<!-- plugins:css -->
 </head>
+
 
 <body>
 <div class="container-scroller">
@@ -228,49 +354,55 @@ if (!empty($_POST['user_name'])){
                                                 </i>
                                             </button>
                                         </h4>
-                                        <div class="table-responsive">
-                                            <table id="tableID"  class="table">
-                                                <thead>
-                                                <tr>
-                                                    <th>
-                                                        <label class="ckbox"> <input type="checkbox" id="checkAll"><span></span></label>
-                                                    </th>
-                                                    <th class="text-center">Sl. No</th>
-                                                    <th>Action</th>
-                                                    <th>User Name</th>
-                                                    <th>Role</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <?php
-                                                    $query = sprintf("SELECT * FROM iot_users where is_deleted != 1");
-                                                    $qur = mysqli_query($iot_db, $query);
-                                                    while ($rowc = mysqli_fetch_array($qur)) {
-                                                    $rol = $rowc["role"];
-                                                    if($rol == 1)
-                                                    {
-                                                        $rolee = 'customer';
-                                                    }
 
-                                                    ?>
-                                                    <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
-                                                                                    value="<?php echo $rowc["cust_id"]; ?>"><span></span></label></td>
+                                        <table id="example" class="table table-striped" style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    <label class="ckbox"> <input type="checkbox" id="checkAll"><span></span></label>
+                                                </th>
+                                                <th class="text-center">Sl. No</th>
+                                                <th>Action</th>
+                                                <th>User Name</th>
+                                                <th>Role</th>
 
-                                                    <td class="text-center"><?php echo ++$counter; ?></td>
-                                                    <td>
-                                                        <a href="edit_users.php?cust_id=<?php echo  $rowc["cust_id"]; ?>" class="btn btn-primary legitRipple">
-                                                            <i>
-                                                                <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
-                                                            </i>
-                                                        </a>
-                                                    </td>
-                                                    <td><?php echo  $rowc["cust_name"]; ?></td>
-                                                    <td><?php echo  $rolee; ?></td>
-                                                </tr>
-                                                <?php } ?>
-                                                </tbody>
-                                            </table>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <?php
+                                                $query = sprintf("SELECT * FROM iot_users where is_deleted != 1");
+                                                $qur = mysqli_query($iot_db, $query);
+                                                while ($rowc = mysqli_fetch_array($qur)) {
+                                                $rol = $rowc["role"];
+                                                if($rol == 1)
+                                                {
+                                                    $rolee = 'customer';
+                                                }
+
+                                                ?>
+                                                <td>
+                                                    <label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
+                                                                                value="<?php echo $rowc["cust_id"]; ?>"><span></span>
+                                                    </label>
+                                                </td>
+
+                                                <td class="text-center"><?php echo ++$counter; ?></td>
+                                                <td>
+                                                    <a href="edit_users.php?cust_id=<?php echo  $rowc["cust_id"]; ?>" class="btn btn-primary legitRipple">
+                                                        <i>
+                                                            <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
+                                                        </i>
+                                                    </a>
+                                                </td>
+                                                <td><?php echo  $rowc["cust_name"]; ?></td>
+                                                <td><?php echo  $rolee; ?></td>
+                                            </tr>
+                                            <?php } ?>
+
+                                            </tbody>
+
+                                        </table>
                                         </div>
                                     </div>
                                 </div>
@@ -303,6 +435,8 @@ if (!empty($_POST['user_name'])){
         imagePreview(this);
     });
 </script>
+
+
 <script>
     function submitForm(url) {
         $(':input[type="button"]').prop('disabled', true);
@@ -319,6 +453,8 @@ if (!empty($_POST['user_name'])){
         });
     }
 </script>
+
+
 <script>
     $(function() {
         /********
@@ -356,21 +492,44 @@ if (!empty($_POST['user_name'])){
         })
     })
 </script>
+
 <script>
     $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
 </script>
+
 <script>
     $('.select2').select2();
 </script>
-<script>
 
-    /* Initialization of datatable */
+<script>
     $(document).ready(function() {
-        $('#tableID').DataTable({ });
-    });
+        $('#example').DataTable({
+            //disable sorting on last column
+            "columnDefs": [
+                { "orderable": false, "targets": 4 }
+            ],
+            language: {
+                //customize pagination prev and next buttons: use arrows instead of words
+                'paginate': {
+                    'previous': '<span class="fa fa-chevron-left"></span>',
+                    'next': '<span class="fa fa-chevron-right"></span>'
+                },
+                //customize number of elements to be displayed
+                "lengthMenu": 'Display <select class="form-control input-sm">'+
+                    '<option value="10">10</option>'+
+                    '<option value="20">20</option>'+
+                    '<option value="30">30</option>'+
+                    '<option value="40">40</option>'+
+                    '<option value="50">50</option>'+
+                    '<option value="-1">All</option>'+
+                    '</select> results'
+            }
+        })
+    } );
 </script>
+
 <!-- End custom js for this page -->
 </body>
 </html>
