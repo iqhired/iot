@@ -110,6 +110,11 @@ if (!empty($_POST['user_name'])){
 
     <meta name = "viewport" content = "width=device-width, initial-scale=1">
     <!-- jQuery -->
+    <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/select2-bootstrap.min.css">
+
+    <script src="<?php echo $iotURL; ?>assets/js/select2.min.js"></script>
+
+
     <script src='https://code.jquery.com/jquery-3.7.0.js'></script>
     <!-- Data Table JS -->
     <script src='https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js'></script>
@@ -245,6 +250,9 @@ if (!empty($_POST['user_name'])){
             background-color: #ffffff!important;
             border: 1px solid #dee2e6;
         }
+        ckbox{
+            width: 13px;
+        }
     }
 </style>
 
@@ -305,8 +313,7 @@ if (!empty($_POST['user_name'])){
                                     <div class="form-group row">
                                         <label  class="col-sm-3 col-form-label">Mobile :</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter Mobile">
-
+                                            <input type="text" class="form-control"  maxlength="4" value="" id="mobile" name="mobile" onkeypress="return isNumber(event)" />
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -359,9 +366,9 @@ if (!empty($_POST['user_name'])){
                                             <thead>
                                             <tr>
                                                 <th>
-                                                    <label class="ckbox"> <input type="checkbox" id="checkAll"><span></span></label>
+                                                    <label class="ckbox" style="width: 20px!important;"> <input type="checkbox" id="checkAll"    ><span></span></label>
                                                 </th>
-                                                <th class="text-center">Sl. No</th>
+                                                <th>Sl. No</th>
                                                 <th>Action</th>
                                                 <th>User Name</th>
                                                 <th>Role</th>
@@ -382,12 +389,12 @@ if (!empty($_POST['user_name'])){
 
                                                 ?>
                                                 <td>
-                                                    <label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
+                                                    <label class="ckbox" ><input type="checkbox" id="delete_check[]" name="delete_check[]"
                                                                                 value="<?php echo $rowc["cust_id"]; ?>"><span></span>
                                                     </label>
                                                 </td>
 
-                                                <td class="text-center"><?php echo ++$counter; ?></td>
+                                                <td><?php echo ++$counter; ?></td>
                                                 <td>
                                                     <a href="edit_users.php?cust_id=<?php echo  $rowc["cust_id"]; ?>" class="btn btn-primary legitRipple">
                                                         <i>
@@ -528,6 +535,17 @@ if (!empty($_POST['user_name'])){
             }
         })
     } );
+</script>
+
+<script>
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
 </script>
 
 <!-- End custom js for this page -->
