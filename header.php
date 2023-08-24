@@ -1,5 +1,3 @@
-<!-- endinject -->
-<!-- Plugin css for this page -->
 <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/vendor.bundle.base.css">
 
 <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/materialdesignicons.min.css">
@@ -9,10 +7,9 @@
 <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/owl.theme.default.min.css">
 <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/select2.min.css">
 <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/select2-bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+<link href="<?php echo $iotURL; ?>assets/css/Roboto.css" rel="stylesheet"
       type="text/css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- End plugin css for this page -->
+<link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/all.min.css"/><!-- End plugin css for this page -->
 <!-- inject:css -->
 <!-- endinject -->
 <!-- Layout styles -->

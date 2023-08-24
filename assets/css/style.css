@@ -20641,7 +20641,7 @@ div.tagsinput span.tag a {
 .sidebar {
     min-height: calc(100vh - 70px);
     margin-top: 70px;
-    background: #ffffff;
+    background: #f0f7ff;
     font-weight: normal;
     padding: 0;
     width: 244px;
