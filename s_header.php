@@ -31,7 +31,7 @@
         </button>
         <ul class="navbar-nav w-100">
             <li class="nav-item">
-                <a class="navbar-brand brand-logo-desk" href="#"><img class="site-img" src="assets/images/site_logo.png" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-desk" href="<?php echo $iotURL; ?>device_dashboard.php"><img class="site-img" src="assets/images/site_logo.png" alt="logo" /></a>
             </li>
             <li class="nav-item w-100">
                 <h2><?php echo $heading; ?></h2>

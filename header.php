@@ -35,8 +35,12 @@
             <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                     <div class="navbar-profile">
-                        <img class="img-xs rounded-circle" src="<?php echo $iotURL; ?>user_images/user.png" alt="">
-                        <p class="mb-0 d-none d-sm-block navbar-profile-name"><?php echo $_SESSION['fullname']; ?> </p>
+                        <?php if(!empty($_SESSION["uu_img"])) {?>
+                            <img class="img-xs rounded-circle" src="<?php echo $iotURL; ?>user_images/<?php echo $_SESSION["uu_img"]; ?>" alt="">
+                        <?php }else{?>
+                            <img class="img-xs rounded-circle" src="<?php echo $iotURL; ?>user_images/user.png" alt="">
+                        <?php }?>
+                        <p class="mb-0 d-none d-sm-block navbar-profile-name"><?php echo $_SESSION['fullname']; ?></p>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
                 </a>
@@ -82,25 +86,29 @@
         </button>
     </div>
 </nav>
-
 <!-- plugins:js -->
+<script src="<?php echo $siteURL; ?>assets/js/vendor.bundle.base.js"></script>
 <!-- endinject -->
 <!-- Plugin js for this page -->
-<script src="<?php echo $iotURL; ?>assets/js/progressbar.min.js"></script>
-<script src="<?php echo $iotURL; ?>assets/js/jquery-jvectormap.min.js"></script>
-<script src="<?php echo $iotURL; ?>assets/js/jquery-jvectormap-world-mill-en.js"></script>
-<script src="<?php echo $iotURL; ?>assets/js/owl.carousel.min.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/progressbar.min.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/jquery-jvectormap.min.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/jquery-jvectormap-world-mill-en.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/owl.carousel.min.js"></script>
 <!-- End plugin js for this page -->
 <!-- inject:js -->
-
+<script src="<?php echo $siteURL; ?>assets/js/off-canvas.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/hoverable-collapse.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/misc.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/settings.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/todolist.js"></script>
 <!-- endinject -->
 <!-- Custom js for this page -->
-<script src="<?php echo $iotURL; ?>assets/js/dashboard.js"></script>
-<script src="<?php echo $iotURL; ?>assets/js/select2.min.js"></script>
-<script src="<?php echo $iotURL; ?>assets/js/typeahead.bundle.min.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/dashboard.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/select2.min.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/typeahead.bundle.min.js"></script>
 <!-- End plugin js for this page -->
 
 <!-- Custom js for this page -->
-<script src="<?php echo $iotURL; ?>assets/js/file-upload.js"></script>
-<script src="<?php echo $iotURL; ?>assets/js/typeahead.js"></script>
-<script src="<?php echo $iotURL; ?>assets/js/select2.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/file-upload.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/typeahead.js"></script>
+<script src="<?php echo $siteURL; ?>assets/js/select2.js"></script>

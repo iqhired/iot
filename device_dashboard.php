@@ -240,7 +240,6 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
                     $id[] = $row['id'];
                     $device_name[] = $row['device_name'];
 
-
            //TODO make an api call
                     $cURLConnection = curl_init();
 

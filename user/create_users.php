@@ -362,11 +362,11 @@ if (!empty($_POST['user_name'])){
                                             </button>
                                         </h4>
 
-                                        <table id="example" class="table table-striped" style="width:100%">
+                                        <table id="example" class="table " style="width:100%">
                                             <thead>
                                             <tr>
                                                 <th>
-                                                    <label class="ckbox" style="width: 20px!important;"> <input type="checkbox" id="checkAll"    ><span></span></label>
+                                                    <label class="ckbox" > <input type="checkbox" id="checkAll"><span></span></label>
                                                 </th>
                                                 <th>Sl. No</th>
                                                 <th>Action</th>
