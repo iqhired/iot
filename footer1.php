@@ -1,7 +1,7 @@
 <!-- Footer opened -->
 <div class="main-footer">
     <div class="container-fluid pd-t-0-f ht-100p">
-        Copyright <?php echo $sitename; ?> © <?php echo date("Y"); ?> <a href="<?php echo $siteURL; ?>" target="_BLANK" style="color: #060818!important;"></a> All Rights
+        Copyright <?php echo $sitename; ?> © <?php echo date("Y"); ?> <a href="<?php echo $iotURL; ?>" target="_BLANK" style="color: #060818!important;"></a> All Rights
         Reserved.
     </div>
 </div>
@@ -10,16 +10,16 @@
 <!-- BACK-TO-TOP -->
 <a href="#top" id="back-to-top"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
 <!--Internal  index js -->
-<script src="<?php echo $siteURL;?>assets/js/form_js/index1.js"></script>
+<script src="<?php echo $iotURL;?>assets/js/form_js/index1.js"></script>
 <!-- Internal Data tables -->
-<script src="<?php echo $siteURL;?>assets/js/form_js/jquery.dataTables.min.js"></script>
-<script src="<?php echo $siteURL;?>assets/js/form_js/dataTables.bootstrap5.js"></script>
-<script src="<?php echo $siteURL;?>assets/js/form_js/dataTables.responsive.min.js"></script>
-<script src="<?php echo $siteURL;?>assets/js/form_js/responsive.bootstrap5.min.js"></script>
+<script src="<?php echo $iotURL;?>assets/js/form_js/jquery.dataTables.min.js"></script>
+<script src="<?php echo $iotURL;?>assets/js/form_js/dataTables.bootstrap5.js"></script>
+<script src="<?php echo $iotURL;?>assets/js/form_js/dataTables.responsive.min.js"></script>
+<script src="<?php echo $iotURL;?>assets/js/form_js/responsive.bootstrap5.min.js"></script>
 <!-- INTERNAL Select2 js -->
-<!--<script src="--><?php //echo $siteURL;?><!--assets/js/form_js/select2.full.min.js"></script>-->
+<!--<script src="--><?php //echo $iotURL;?><!--assets/js/form_js/select2.full.min.js"></script>-->
 <!-- CUSTOM JS -->
-<script src="<?php echo $siteURL;?>assets/js/form_js/custom.js"></script>
+<script src="<?php echo $iotURL;?>assets/js/form_js/custom.js"></script>
 
 <?php  //include the timing configuration file
 include("timings_config.php"); ?>
@@ -182,7 +182,7 @@ include("timings_config.php"); ?>
 	else
 	{
 	if ($notification_mail_flag == '1') {
-	    $url = $siteURL . 'vendor/autoload.php';
+	    $url = $iotURL . 'vendor/autoload.php';
 		require $url;
 		$mail = new PHPMailer();
 		$mail->isSMTP();
@@ -244,7 +244,7 @@ include("timings_config.php"); ?>
 	?>
     //Push.create("<?php //echo $name; ?>//", {
     //    body: "<?php //echo $msg; ?>//",
-    //    icon: '<?php //echo $siteURL; ?>//assets/images/SGG_logo.png',
+    //    icon: '<?php //echo $iotURL; ?>//assets/images/SGG_logo.png',
     //    timeout: 4000,
     //    onClick: function () {
     //        window.location.href = "<?php //echo $scriptName; ?><!----><?php //echo $link; ?>//";

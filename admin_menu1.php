@@ -124,7 +124,7 @@ include("header1.php");
 
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;margin-top: -81px; ">
         <a href="#" class="logo">
-            <img src="<?php echo $siteURL; ?>assets/img/site_logo.png"  class = "logo_img" alt="logo">
+            <img src="<?php echo $iotURL; ?>assets/img/site_logo.png"  class = "logo_img" alt="logo">
         </a>
 
         <hr>

@@ -84,28 +84,28 @@
     </div>
 </nav>
 <!-- plugins:js -->
-<script src="<?php echo $siteURL; ?>assets/js/vendor.bundle.base.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/vendor.bundle.base.js"></script>
 <!-- endinject -->
 <!-- Plugin js for this page -->
-<script src="<?php echo $siteURL; ?>assets/js/progressbar.min.js"></script>
-<script src="<?php echo $siteURL; ?>assets/js/jquery-jvectormap.min.js"></script>
-<script src="<?php echo $siteURL; ?>assets/js/jquery-jvectormap-world-mill-en.js"></script>
-<script src="<?php echo $siteURL; ?>assets/js/owl.carousel.min.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/progressbar.min.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/jquery-jvectormap.min.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/jquery-jvectormap-world-mill-en.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/owl.carousel.min.js"></script>
 <!-- End plugin js for this page -->
 <!-- inject:js -->
-<script src="<?php echo $siteURL; ?>assets/js/off-canvas.js"></script>
-<script src="<?php echo $siteURL; ?>assets/js/hoverable-collapse.js"></script>
-<script src="<?php echo $siteURL; ?>assets/js/misc.js"></script>
-<script src="<?php echo $siteURL; ?>assets/js/settings.js"></script>
-<script src="<?php echo $siteURL; ?>assets/js/todolist.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/off-canvas.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/hoverable-collapse.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/misc.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/settings.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/todolist.js"></script>
 <!-- endinject -->
 <!-- Custom js for this page -->
-<script src="<?php echo $siteURL; ?>assets/js/dashboard.js"></script>
-<script src="<?php echo $siteURL; ?>assets/js/select2.min.js"></script>
-<script src="<?php echo $siteURL; ?>assets/js/typeahead.bundle.min.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/dashboard.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/select2.min.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/typeahead.bundle.min.js"></script>
 <!-- End plugin js for this page -->
 
 <!-- Custom js for this page -->
-<script src="<?php echo $siteURL; ?>assets/js/file-upload.js"></script>
-<script src="<?php echo $siteURL; ?>assets/js/typeahead.js"></script>
-<script src="<?php echo $siteURL; ?>assets/js/select2.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/file-upload.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/typeahead.js"></script>
+<script src="<?php echo $iotURL; ?>assets/js/select2.js"></script>

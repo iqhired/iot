@@ -114,8 +114,8 @@ include("config.php");
                 <span><?php echo $_SESSION['fullname']; ?></span>
             </a>
             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="z-index: 1;">
-                <li><a href="<?php echo $siteURL; ?>profile.php" class="dropdown-item"><i class="icon-user-plus"></i> Profile</a></li>
-                <li><a href="<?php echo $siteURL; ?>change_pass.php" class="dropdown-item"><i class="icon-cog5"></i> Change Password</a></li>
+                <li><a href="<?php echo $iotURL; ?>profile.php" class="dropdown-item"><i class="icon-user-plus"></i> Profile</a></li>
+                <li><a href="<?php echo $iotURL; ?>change_pass.php" class="dropdown-item"><i class="icon-cog5"></i> Change Password</a></li>
                 <li><a href="logout.php" class="dropdown-item"><i class="icon-switch2"></i> Logout</a></li>
             </ul>
         </div>

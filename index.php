@@ -178,7 +178,7 @@ if ($tmp == "forgotpass_success") {
     <script type="text/javascript" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js" ></script>
     <script type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="<?php echo $siteURL; ?>assets/js/libs/jquery-3.6.0.min.js"> </script>
+    <script type="text/javascript" src="<?php echo $iotURL; ?>assets/js/libs/jquery-3.6.0.min.js"> </script>
      <style>
          .input-icon {
              position: absolute!important;
@@ -201,7 +201,7 @@ if ($tmp == "forgotpass_success") {
             <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8">
 
                 <div class="loginBox">
-                    <img class="user" src="<?php echo $siteURL; ?>assets/images/site_logo.png"  width="200px">
+                    <img class="user" src="<?php echo $iotURL; ?>assets/images/site_logo.png"  width="200px">
                     <?php
                     if (!empty($import_status_message)) {
                         echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
