@@ -189,7 +189,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > 
         }
 
         a {
-            color: #000000!important;
+            /*color: #000000!important;*/
             text-decoration: none;
             background-color: transparent;
         }
