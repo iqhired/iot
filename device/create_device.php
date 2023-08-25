@@ -98,6 +98,9 @@ $assign_by = $_SESSION["id"];
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/pages/css/pag_table.css"/>
+<!--     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css />-->
+	<?php include ('../header.php'); ?>
     <title>Create IOT Device</title>
     <!-- plugins:css -->
 </head>
@@ -108,7 +111,7 @@ $assign_by = $_SESSION["id"];
     <!-- partial -->
     <div class="container-fluid page-body-wrapper margin-244">
         <!-- partial:partials/_navbar.html -->
-        <?php include ('../header.php'); ?>
+        <?php include ('../nav.php'); ?>
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
@@ -136,7 +139,6 @@ $assign_by = $_SESSION["id"];
                                                 <?php
 
                                                 $st_dashboard = $_POST['customer'];
-
                                                 $sql1 = "SELECT * FROM `cus_account` where is_deleted != 1";
                                                 $result1 = mysqli_query($db,$sql1);
                                                 while ($row1 = $result1->fetch_assoc()) {
@@ -189,103 +191,151 @@ $assign_by = $_SESSION["id"];
                         </div>
                     </div>
                 </div>
+                
+                <form action="" id="up-iot-device" method="post" class="form-horizontal" enctype="multipart/form-data">
+                    <div class="container">
+                        <div class="row">
+                        <div class="col-md-offset-1 col-md-12">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <button type="button" class="btn btn-sm btn-danger pull-left" onclick="deleteDevices('delete_device.php')">
+                                                <i class="fa fa-delete-left"></i> Delete
+                                            </button>
+                                            <span class="form-horizontal pull-right">
+                                                <div class="form-group">
+                                                    <label>Show : </label>
+                                                    <?php
+												$tab_num_rec = (empty($_POST['tab_rec_num'])?10:$_POST['tab_rec_num']);
+                                                $pg = (empty($_POST['pg_num'])?0:($_POST['pg_num'] - 1));
+                                                $start_index = $pg * $tab_num_rec;
+											?>
+                                                    <input type="hidden" id='tab_rec_num' value="<?php echo $tab_num_rec?>">
+                                                    <input type="hidden" id='curr_pg' value="<?php echo $pg?>">
+                                                    <select id="num_tab_rec" class="form-control">
+                                                        <option value="3" <?php echo ($tab_num_rec ==3)? 'selected' : ''?>>3</option>
+                                                        <option value="10" <?php echo ($tab_num_rec ==10)? 'selected' : ''?>>10</option>
+                                                        <option value="25" <?php echo ($tab_num_rec ==25)? 'selected' : ''?>>25</option>
+                                                        <option value="50" <?php echo ($tab_num_rec ==50)? 'selected' : ''?>>50</option>
+                                                    </select>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <label class="ckbox"> <input type="checkbox" id="checkAll"><span></span></label>
+                                            </th>
+                                            <th>Action</th>
+                                            <th>Customer</th>
+                                            <th>Device ID</th>
+                                            <th>Device Name</th>
+                                            <th>Active</th>
+                                            <th>User</th>
+                                            <th>Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+											<?php
+												$index_left = 1;
+												$index_right = 2;
+												$c_query = "SELECT count(*) as tot_count FROM  iot_devices where is_deleted != 1";
+												$c_qur = mysqli_query($iot_db, $c_query);
+												$c_rowc = mysqli_fetch_array($c_qur);
+                                                $tot_devices = $c_rowc['tot_count'];
+												$query = "SELECT * FROM  iot_devices where is_deleted != 1  LIMIT " . $start_index . ',' . $tab_num_rec;
+												$qur = mysqli_query($iot_db, $query);
+												while ($rowc = mysqli_fetch_array($qur)) {
+											?>
+                                            <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
+                                                                            value="<?php echo $rowc["device_id"]; ?>"><span></span></label></td>
+<!--                                            <td class="text-center">--><?php //echo ++$counter; ?><!--</td>-->
+                                            <td class="">
+                                                <a href="edit_device.php?device_id=<?php echo  $rowc["device_id"]; ?>" class="btn btn-primary legitRipple">
+                                                    <i class="fa fa-pencil-alt"></i>
+                                                </a>
+                                            </td>
+                                            <td><?php $c_id =  $rowc["c_id"];
+													$qurtemp = mysqli_query($db, "SELECT c_name FROM  cus_account where c_id  = '$c_id'");
+													while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+														$c_name = $rowctemp["c_name"];
+													}
+												?>
+												<?php echo  $c_name; ?>
+                                            </td>
+                                            <td><?php echo  $rowc["device_id"]; ?></td>
+                                            <td><?php echo  $rowc["device_name"]; ?></td>
+                                            <td>
+												<?php
+													if($rowc["active"] == 1)
+													{
+														echo 'No' ;
+													}else
+													{
+														echo 'Yes' ;
+													}
+												?>
+                                            </td>
+                                            <td>
+												<?php
+													$created_by =  $rowc["created_by"];
+													$qurtmp = mysqli_query($db, "SELECT firstname,lastname FROM cam_users where users_id = '$created_by'");
+													while ($rowctmp = mysqli_fetch_array($qurtmp)) {
+														$firstname = $rowctmp["firstname"];
+														$lastname = $rowctmp["lastname"];
+														$fullname = $firstname . ' ' . $lastname;
+													}
+												?>
+												<?php echo  $fullname; ?>
+                                            </td>
 
-                <form action="" id="update-device" method="post" class="form-horizontal" enctype="multipart/form-data">
-                    <div class="main-panel">
-                        <div class="content-wrapper">
-                            <div class="row ">
-                                <div class="col-12 grid-margin">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                <button type="button" class="btn btn-danger" onclick="submitForm('delete_device.php')">
-                                                    <i>
-                                                        <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" color="white" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-                                                    </i>
-                                                </button>
-                                            </h4>
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <label class="ckbox"> <input type="checkbox" id="checkAll"><span></span></label>
-                                                        </th>
-                                                        <th class="text-center">Sl. No</th>
-                                                        <th>Action</th>
-                                                        <th>Customer</th>
-                                                        <th>Device id</th>
-                                                        <th>Device Name</th>
-                                                        <th>Active</th>
-
-                                                        <th>User</th>
-
-                                                        <th>Date</th>
-
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <?php
-                                                        $query = sprintf("SELECT * FROM  iot_devices where is_deleted != 1");
-                                                        $qur = mysqli_query($iot_db, $query);
-                                                        while ($rowc = mysqli_fetch_array($qur)) {
-                                                        ?>
-                                                        <td><label class="ckbox"><input type="checkbox" id="delete_check[]" name="delete_check[]"
-                                                                                        value="<?php echo $rowc["device_id"]; ?>"><span></span></label></td>
-                                                        <td class="text-center"><?php echo ++$counter; ?></td>
-                                                        <td class="">
-                                                            <a href="edit_device.php?device_id=<?php echo  $rowc["device_id"]; ?>" class="btn btn-primary legitRipple">
-                                                                <i>
-                                                                    <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"></path></svg>
-                                                                </i>
-                                                            </a>
-                                                        </td>
-                                                        <td><?php $c_id =  $rowc["c_id"];
-                                                            $qurtemp = mysqli_query($db, "SELECT c_name FROM  cus_account where c_id  = '$c_id'");
-                                                            while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-                                                                $c_name = $rowctemp["c_name"];
-                                                            }
-                                                            ?>
-                                                            <?php echo  $c_name; ?>
-                                                        </td>
-                                                        <td><?php echo  $rowc["device_id"]; ?></td>
-                                                        <td><?php echo  $rowc["device_name"]; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            if($rowc["active"] == 1)
-                                                            {
-                                                                echo 'No' ;
-                                                            }else
-                                                            {
-                                                                echo 'Yes' ;
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            $created_by =  $rowc["created_by"];
-                                                            $qurtmp = mysqli_query($db, "SELECT firstname,lastname FROM cam_users where users_id = '$created_by'");
-                                                            while ($rowctmp = mysqli_fetch_array($qurtmp)) {
-                                                                $firstname = $rowctmp["firstname"];
-                                                                $lastname = $rowctmp["lastname"];
-                                                                $fullname = $firstname . ' ' . $lastname;
-                                                            }
-                                                            ?>
-                                                            <?php echo  $fullname; ?>
-                                                        </td>
-
-                                                        <td><?php echo  dateReadFormat($rowc["created_on"]); ?></td>
-                                                    </tr>
-                                                    <?php } ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                            <td><?php echo  dateReadFormat($rowc["created_on"]); ?></td>
+                                        </tr>
+										<?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <?php
+                                            $remainder = $tot_devices % $tab_num_rec;
+                                            $quotient = ($tot_devices - $remainder) / $tab_num_rec;
+											$tot_pg  = (($remainder == 0)?$quotient: ($quotient+1));
+                                            $curr_page = ($pg + 1);
+                                        ?>
+                                        <div class="col-sm-4 col-xs-6">showing <b><?php echo $tab_num_rec ?></b> out of <b><?php echo $tot_devices ?></b> devices</div>
+                                        <div class="col-sm-4 col-xs-6" style="text-align: center">Page - <?php echo $curr_page; ?></div>
+                                        <div class="col-sm-4 col-xs-6">
+                                            <ul class="pagination hidden-xs pull-right">
+                                                <?php
+                                                    
+                                                    $xx = (($curr_page -2) > 0)?($curr_page -2):1;
+                                                    $zz = (($curr_page +2) < $tot_pg)?($curr_page +2):$tot_pg;
+													if($curr_page > 1){
+                                                        $pPg = $xx -1;
+														echo "<li><a <a id='prev_pg' val='$pPg'>«</a></li>";
+													}
+													for ($x = $xx; $x <= $zz; $x++) {
+														echo "<li><a class='tab_pg'  id='tab_pg_$x' val='$x' >$x</a></li>";
+													}
+													if($curr_page < $tot_pg){
+                                                        $nPg= $zz+1;
+														echo "<li><a id='next_pg' val='$nPg'>»</a></li>";
+													}
+                                                ?>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </form>
             </div>
@@ -299,6 +349,21 @@ $assign_by = $_SESSION["id"];
     function submitForm(url) {
         $(':input[type="button"]').prop('disabled', true);
         var data = $("#update-device").serialize();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function (data) {
+                // window.location.href = window.location.href + "?aa=Line 1";
+                $(':input[type="button"]').prop('disabled', false);
+                location.reload();
+            }
+        });
+    }
+
+    function deleteDevices(url) {
+        $(':input[type="button"]').prop('disabled', true);
+        var data = $("#up-iot-device").serialize();
         $.ajax({
             type: 'POST',
             url: url,
@@ -352,6 +417,74 @@ $assign_by = $_SESSION["id"];
     $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
+
+    $("#num_tab_rec").change(function (e) {
+        e.preventDefault();
+        $(':input[type="button"]').prop('disabled', true);
+        var data = "tab_rec_num="+ this.value;
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url:'create_device.php',
+            success: function (data) {
+                $("body").html(data);
+            }
+        });
+    });
+    $( "[id^='tab_pg']" ).click(function (e){
+        e.preventDefault();
+        var tab_num = document.getElementById('tab_rec_num').value;
+        var data = "tab_rec_num="+ tab_num +"&pg_num="+ this.text;
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url:'create_device.php',
+            success: function (data) {
+                $("body").html(data);
+            }
+        });
+    });
+    
+    $( "#next_pg" ).click(function (e){
+        e.preventDefault();
+        var tab_num = document.getElementById('tab_rec_num').value;
+        var pg_num = document.getElementById('curr_pg').value;
+        var nPage = 1;
+        if(pg_num != null){
+            nPage = (parseInt(pg_num) + 2);
+        }
+        var data = "tab_rec_num="+ tab_num +"&pg_num="+ nPage;
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url:'create_device.php',
+            success: function (data) {
+                $("body").html(data);
+            }
+        });
+    });
+
+    $( "#prev_pg" ).click(function (e){
+        e.preventDefault();
+        var tab_num = document.getElementById('tab_rec_num').value;
+        var pg_num = document.getElementById('curr_pg').value;
+        // var nPage = 1;
+        // if(pg_num != null){
+        //     nPage = (parseInt(pg_num) - 1);
+        // }
+        var data = "tab_rec_num="+ tab_num +"&pg_num="+ pg_num;
+        // var data = "tab_rec_num="+ tab_num +"&pg_num="+ this.text;
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url:'create_device.php',
+            success: function (data) {
+                $("body").html(data);
+            }
+        });
+    });
+
+
 </script>
 <script>
     $('.select2').select2();

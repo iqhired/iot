@@ -261,5 +261,13 @@ function displaySFMessage(){
 		$len = strlen($startString);
 		return (substr($string, 0, $len) === $startString);
 	}
+	
+	/**
+	 * @param $string
+	 * @return string
+	 */
+	function printTextBlue($string){
+		return '<span class="text-primary font-weight-bold">' . $string .'</span>';
+	}
 
 ?>
