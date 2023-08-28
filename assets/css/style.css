@@ -7447,7 +7447,7 @@
     --indigo: #6610f2;
     --purple: #6a008a;
     --pink: #E91E63;
-    --red: #f96868;
+    --red: #f55e58;
     --orange: #f2a654;
     --yellow: #f6e84e;
     --green: #46c35f;
@@ -21170,17 +21170,17 @@ div.tagsinput span.tag a {
     -webkit-flex-grow: 1;
     flex-grow: 1; }
 
-body {
-    animation: fadeInAnimation ease 3s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-}
-@keyframes fadeInAnimation {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
+/*body {*/
+/*    animation: fadeInAnimation ease 1s;*/
+/*    animation-iteration-count: 1;*/
+/*    animation-fill-mode: forwards;*/
+/*}*/
+/*@keyframes fadeInAnimation {*/
+/*    0% {*/
+/*        opacity: 0;*/
+/*    }*/
+/*    100% {*/
+/*        opacity: 1;*/
+/*    }*/
+/*}*/
 /*# sourceMappingURL=maps/style.css.map */

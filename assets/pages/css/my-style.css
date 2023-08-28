@@ -1,0 +1,132 @@
+.myPriButton{
+    cursor: pointer;
+    padding: 0.5em 1em;;
+    font-size: 1rem;
+    display: block;
+    color: white;
+    /*margin: 1rem auto;*/
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(
+            0deg,
+            var(--col-secondary) 0%,
+            var(--col-primary) 100%
+    );
+    transition: all 0.2s;
+    &:hover,
+    &:focus {
+        background: linear-gradient(
+                0deg,
+                var(--col-secondary) 0%,
+                var(--col-dark) 100%
+        );
+        box-shadow: 0 0 0 4px white, 0 0 0 8px var(--col-primary);
+        outline: 0;
+    }
+}
+
+.btn-blue{
+    cursor: pointer;
+    padding: 0.5em 1em;;
+    font-size: 1rem;
+    display: block;
+    width: fit-content;
+    margin: 1rem;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(
+            0deg,
+            var(--col-secondary) 0%,
+            var(--col-primary) 100%
+    );
+    transition: all 0.2s;
+    &:hover,
+    &:focus {
+        background: linear-gradient(
+                0deg,
+                var(--col-secondary) 0%,
+                var(--col-dark) 100%
+        );
+        box-shadow: 0 0 0 4px white, 0 0 0 8px var(--col-primary);
+        outline: 0;
+    }
+}
+
+.btn-red {
+    cursor: pointer;
+    padding: 0.5em 1em;;
+    font-size: 1rem;
+    display: block;
+    margin: 1rem auto;
+    width: fit-content;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(
+            0deg,
+            var(--col-red) 0%,
+            var(--col-red) 100%
+    );
+    transition: all 0.2s;
+    &:hover,
+    &:focus {
+        background: linear-gradient(
+                0deg,
+                var(--col-red) 0%,
+                var(--col-red) 100%
+        );
+        box-shadow: 0 0 0 4px white, 0 0 0 8px var(--red);
+        outline: 0;
+    }
+}
+
+/*.add-btn-cont , .add-btn-row{*/
+/*    float: right;*/
+/*}*/
+.add-btn-row{
+    /*float: right;*/
+    margin:0px 0px 30px 0px;
+}
+
+.form-control, .select2-container--default .select2-selection--single{
+    border: 1px solid rgba(0,0,0,.075) !important;
+}
+
+.select2{
+    min-width: 50%;
+}
+
+.card-heading{
+    /*background: #535353;*/
+    /*background: #1F5D96;*/
+    padding: 8px 15px;
+    border-radius: 0;
+    background: linear-gradient(
+            45deg,
+            var(--col-secondary) 0%,
+            var(--col-dark) 100%
+    );
+    color: white;
+    /*text-shadow: 0 4px 0 var(--col-dark);*/
+    font-size: large;
+    text-transform: uppercase;
+}
+
+:root {
+    --col-primary: #296eb3;
+    --col-secondary: #003b81;
+    --col-background: #e8e8e8;
+    --col-light: #e8e8e8;
+    --col-dark: #022f64;
+
+    --col-free: #7dbaff;
+    --col-bronze: #b85a24;
+    --col-silver: #8a8a8a;
+    --col-gold: #e2a922;
+    --col-red: #ff2641;
+}
+
+hr{
+    margin-top: 1rem  !important;
+}

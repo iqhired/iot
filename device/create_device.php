@@ -120,15 +120,22 @@ $assign_by = $_SESSION["id"];
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Device</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Create Device</li>
+                            <li class="breadcrumb-item active" aria-current="page">Add / Edit Devices</li>
                         </ol>
                     </nav>
                 </div>
-                <div class="row">
-                    <div class="col-md-10 grid-margin stretch-card">
+                <div class="container add-btn-cont">
+                    <div class="add-btn-row">
+                        <button class="myPriButton">Add Device &emsp;<i class="fa fa-plus-circle"></i></button>
+                    </div>
+                </div>
+                <div class="row" id="addDevice" style="display: none">
+                    <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
+                            <div class="card-heading">
+                                Add Device
+                            </div>
                             <div class="card-body">
-                                <h4 class="card-title">Create Device</h4>
 
                                 <form action="" method="post" id="device_settings" enctype="multipart/form-data">
                                     <div class="form-group row">
@@ -182,16 +189,22 @@ $assign_by = $_SESSION["id"];
                                             <input type="text" class="form-control" name="dev_loc" id="dev_loc" placeholder="Enter Device Location ">
                                         </div>
                                     </div>
-
-                                    <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-primary mr-2">Submit</button>
-                                    <button class="btn btn-dark">Cancel</button>
+                                    <hr/>
+                                    <div class="form-group row">
+                                        
+                                        <div >
+                                            <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-blue">Submit</button>
+                                        </div>&ensp;
+                                        <div>
+                                            <button class="btn btn-red">Cancel</button>
+                                        </div>
+                                    </div>
                                 </form>
 
                             </div>
                         </div>
                     </div>
                 </div>
-                
                 <form action="" id="up-iot-device" method="post" class="form-horizontal" enctype="multipart/form-data">
                     <div class="container">
                         <div class="row">
@@ -201,8 +214,9 @@ $assign_by = $_SESSION["id"];
                                     <div class="row">
                                         <div class="col-sm-12 col-xs-12">
                                             <button type="button" class="btn btn-sm btn-danger pull-left" onclick="deleteDevices('delete_device.php')">
-                                                <i class="fa fa-delete-left"></i> Delete
+                                                <i class="fa fa-delete-left"></i>
                                             </button>
+                                            <input type="text" class="ptab_search" id="ptab_search" placeholder="Type to search">
                                             <span class="form-horizontal pull-right">
                                                 <div class="form-group">
                                                     <label>Show : </label>
@@ -213,8 +227,7 @@ $assign_by = $_SESSION["id"];
 											?>
                                                     <input type="hidden" id='tab_rec_num' value="<?php echo $tab_num_rec?>">
                                                     <input type="hidden" id='curr_pg' value="<?php echo $pg?>">
-                                                    <select id="num_tab_rec" class="form-control">
-                                                        <option value="3" <?php echo ($tab_num_rec ==3)? 'selected' : ''?>>3</option>
+                                                    <select id="num_tab_rec" class="ptab_search">
                                                         <option value="10" <?php echo ($tab_num_rec ==10)? 'selected' : ''?>>10</option>
                                                         <option value="25" <?php echo ($tab_num_rec ==25)? 'selected' : ''?>>25</option>
                                                         <option value="50" <?php echo ($tab_num_rec ==50)? 'selected' : ''?>>50</option>
@@ -227,7 +240,7 @@ $assign_by = $_SESSION["id"];
                                 <div class="panel-body table-responsive">
                                     <table class="table">
                                         <thead>
-                                        <tr>
+<!--                                        <tr>-->
                                             <th>
                                                 <label class="ckbox"> <input type="checkbox" id="checkAll"><span></span></label>
                                             </th>
@@ -236,11 +249,11 @@ $assign_by = $_SESSION["id"];
                                             <th>Device ID</th>
                                             <th>Device Name</th>
                                             <th>Active</th>
-                                            <th>User</th>
-                                            <th>Date</th>
-                                        </tr>
+<!--                                            <th>User</th>-->
+<!--                                            <th>Date</th>-->
+<!--                                        </tr>-->
                                         </thead>
-                                        <tbody>
+                                        <tbody id="tbody">
                                         <tr>
 											<?php
 												$index_left = 1;
@@ -257,7 +270,7 @@ $assign_by = $_SESSION["id"];
                                                                             value="<?php echo $rowc["device_id"]; ?>"><span></span></label></td>
 <!--                                            <td class="text-center">--><?php //echo ++$counter; ?><!--</td>-->
                                             <td class="">
-                                                <a href="edit_device.php?device_id=<?php echo  $rowc["device_id"]; ?>" class="btn btn-primary legitRipple">
+                                                <a href="edit_device.php?device_id=<?php echo  $rowc["device_id"]; ?>" class="edit-btn">
                                                     <i class="fa fa-pencil-alt"></i>
                                                 </a>
                                             </td>
@@ -282,20 +295,20 @@ $assign_by = $_SESSION["id"];
 													}
 												?>
                                             </td>
-                                            <td>
-												<?php
-													$created_by =  $rowc["created_by"];
-													$qurtmp = mysqli_query($db, "SELECT firstname,lastname FROM cam_users where users_id = '$created_by'");
-													while ($rowctmp = mysqli_fetch_array($qurtmp)) {
-														$firstname = $rowctmp["firstname"];
-														$lastname = $rowctmp["lastname"];
-														$fullname = $firstname . ' ' . $lastname;
-													}
-												?>
-												<?php echo  $fullname; ?>
-                                            </td>
-
-                                            <td><?php echo  dateReadFormat($rowc["created_on"]); ?></td>
+<!--                                            <td>-->
+<!--												--><?php
+//													$created_by =  $rowc["created_by"];
+//													$qurtmp = mysqli_query($db, "SELECT firstname,lastname FROM cam_users where users_id = '$created_by'");
+//													while ($rowctmp = mysqli_fetch_array($qurtmp)) {
+//														$firstname = $rowctmp["firstname"];
+//														$lastname = $rowctmp["lastname"];
+//														$fullname = $firstname . ' ' . $lastname;
+//													}
+//												?>
+<!--												--><?php //echo  $fullname; ?>
+<!--                                            </td>-->
+<!---->
+<!--                                            <td>--><?php //echo  dateReadFormat($rowc["created_on"]); ?><!--</td>-->
                                         </tr>
 										<?php } ?>
                                         </tbody>
@@ -309,8 +322,25 @@ $assign_by = $_SESSION["id"];
 											$tot_pg  = (($remainder == 0)?$quotient: ($quotient+1));
                                             $curr_page = ($pg + 1);
                                         ?>
-                                        <div class="col-sm-4 col-xs-6">showing <b><?php echo $tab_num_rec ?></b> out of <b><?php echo $tot_devices ?></b> devices</div>
-                                        <div class="col-sm-4 col-xs-6" style="text-align: center">Page - <?php echo $curr_page; ?></div>
+                                        <div class="col-sm-4 col-xs-6">Page <b><?php echo $curr_page ?></b> of <b><?php echo $tot_pg ?></b></div>
+<!--                                        <div class="col-sm-4 col-xs-6" style="text-align: center">Page - --><?php //echo $curr_page; ?><!--</div>-->
+                                        <div class="col-sm-4 col-xs-6" style="text-align: center">Go To Page -
+                                            <input id="num_tab_pg" class="ptab_goto_num" type="number" min="1" value=<?php echo $curr_page ?> />
+                                        </div>
+<!--                                        <div class="col-sm-4 col-xs-6" style="text-align: center">Go To Page --->
+<!--                                            <select id="num_tab_pg" class="ptab_search">-->
+<!--												--><?php
+//													for ($y = 1; $y <= $tot_pg; $y++) {
+//														if($y == $curr_page){
+//															echo "<option value='$y' selected>$y</option>";
+////															echo "<li" . " class='active'" . "><a class='tab_pg' id='tab_pg_$x' val='$x' >$x</a></li>";
+//														}else{
+//															echo "<option value='$y'>$y</option>";
+//														}
+//													}
+//												?>
+<!--                                            </select>-->
+<!--                                        </div>-->
                                         <div class="col-sm-4 col-xs-6">
                                             <ul class="pagination hidden-xs pull-right">
                                                 <?php
@@ -322,7 +352,11 @@ $assign_by = $_SESSION["id"];
 														echo "<li><a <a id='prev_pg' val='$pPg'>«</a></li>";
 													}
 													for ($x = $xx; $x <= $zz; $x++) {
-														echo "<li><a class='tab_pg'  id='tab_pg_$x' val='$x' >$x</a></li>";
+                                                        if($x == $curr_page){
+															echo "<li" . " class='active'" . "><a class='tab_pg' id='tab_pg_$x' val='$x' >$x</a></li>";
+                                                        }else{
+															echo "<li><a class='tab_pg'  id='tab_pg_$x' val='$x' >$x</a></li>";
+                                                        }
 													}
 													if($curr_page < $tot_pg){
                                                         $nPg= $zz+1;
@@ -375,6 +409,94 @@ $assign_by = $_SESSION["id"];
             }
         });
     }
+
+    $( ".myPriButton" ).click(function (e){
+        e.preventDefault();
+        // $('#addDevice').css('display','block');
+        $('#addDevice').toggle();
+    });
+
+    $("#num_tab_rec").change(function (e) {
+        e.preventDefault();
+        $(':input[type="button"]').prop('disabled', true);
+        var data = "tab_rec_num="+ this.value;
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url:'create_device.php',
+            success: function (data) {
+                $("body").html(data);
+            }
+        });
+    });
+    $( "[id^='tab_pg']" ).click(function (e){
+        e.preventDefault();
+        var tab_num = document.getElementById('tab_rec_num').value;
+        var data = "tab_rec_num="+ tab_num +"&pg_num="+ this.text;
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url:'create_device.php',
+            success: function (data) {
+                $("body").html(data);
+            }
+        });
+    });
+
+    $( "#next_pg" ).click(function (e){
+        e.preventDefault();
+        var tab_num = document.getElementById('tab_rec_num').value;
+        var pg_num = document.getElementById('curr_pg').value;
+        var nPage = 1;
+        if(pg_num != null){
+            nPage = (parseInt(pg_num) + 2);
+        }
+        var data = "tab_rec_num="+ tab_num +"&pg_num="+ nPage;
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url:'create_device.php',
+            success: function (data) {
+                $("body").html(data);
+            }
+        });
+    });
+
+
+    $( "#prev_pg" ).click(function (e){
+        e.preventDefault();
+        var tab_num = document.getElementById('tab_rec_num').value;
+        var pg_num = document.getElementById('curr_pg').value;
+        // var nPage = 1;
+        // if(pg_num != null){
+        //     nPage = (parseInt(pg_num) - 1);
+        // }
+        var data = "tab_rec_num="+ tab_num +"&pg_num="+ pg_num;
+        // var data = "tab_rec_num="+ tab_num +"&pg_num="+ this.text;
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url:'create_device.php',
+            success: function (data) {
+                $("body").html(data);
+            }
+        });
+    });
+
+    $( "#num_tab_pg" ).change(function() {
+        // e.preventDefault();
+        var tab_num = document.getElementById('tab_rec_num').value;
+        var pg_num =  this.value;
+        var data = "tab_rec_num="+ tab_num +"&pg_num="+ pg_num;
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url:'create_device.php',
+            success: function (data) {
+                $("body").html(data);
+            }
+        });
+    });
 </script>
 <script>
     $(function() {
@@ -417,74 +539,16 @@ $assign_by = $_SESSION["id"];
     $("#checkAll").click(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
-
-    $("#num_tab_rec").change(function (e) {
-        e.preventDefault();
-        $(':input[type="button"]').prop('disabled', true);
-        var data = "tab_rec_num="+ this.value;
-        $.ajax({
-            type: 'POST',
-            data: data,
-            url:'create_device.php',
-            success: function (data) {
-                $("body").html(data);
-            }
-        });
-    });
-    $( "[id^='tab_pg']" ).click(function (e){
-        e.preventDefault();
-        var tab_num = document.getElementById('tab_rec_num').value;
-        var data = "tab_rec_num="+ tab_num +"&pg_num="+ this.text;
-        $.ajax({
-            type: 'POST',
-            data: data,
-            url:'create_device.php',
-            success: function (data) {
-                $("body").html(data);
-            }
-        });
-    });
     
-    $( "#next_pg" ).click(function (e){
-        e.preventDefault();
-        var tab_num = document.getElementById('tab_rec_num').value;
-        var pg_num = document.getElementById('curr_pg').value;
-        var nPage = 1;
-        if(pg_num != null){
-            nPage = (parseInt(pg_num) + 2);
-        }
-        var data = "tab_rec_num="+ tab_num +"&pg_num="+ nPage;
-        $.ajax({
-            type: 'POST',
-            data: data,
-            url:'create_device.php',
-            success: function (data) {
-                $("body").html(data);
-            }
-        });
+    var $rows = $('#tbody tr');
+    $('#ptab_search').keyup(function() {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+        $rows.show().filter(function() {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return !~text.indexOf(val);
+        }).hide();
     });
-
-    $( "#prev_pg" ).click(function (e){
-        e.preventDefault();
-        var tab_num = document.getElementById('tab_rec_num').value;
-        var pg_num = document.getElementById('curr_pg').value;
-        // var nPage = 1;
-        // if(pg_num != null){
-        //     nPage = (parseInt(pg_num) - 1);
-        // }
-        var data = "tab_rec_num="+ tab_num +"&pg_num="+ pg_num;
-        // var data = "tab_rec_num="+ tab_num +"&pg_num="+ this.text;
-        $.ajax({
-            type: 'POST',
-            data: data,
-            url:'create_device.php',
-            success: function (data) {
-                $("body").html(data);
-            }
-        });
-    });
-
-
 </script>
 <script>
     $('.select2').select2();

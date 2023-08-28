@@ -22,19 +22,10 @@ class ComposerStaticInit14f333ac020f9a0350cd610d6117aefa
         array (
             'Zxing\\' => 6,
         ),
-        'S' => 
-        array (
-            'Svg\\' => 4,
-            'Sabberworm\\CSS\\' => 15,
-        ),
         'P' => 
         array (
             'ParagonIE\\ConstantTime\\' => 23,
             'PHPMailer\\PHPMailer\\' => 20,
-        ),
-        'M' => 
-        array (
-            'Masterminds\\' => 12,
         ),
         'L' => 
         array (
@@ -42,12 +33,7 @@ class ComposerStaticInit14f333ac020f9a0350cd610d6117aefa
         ),
         'F' => 
         array (
-            'FontLib\\' => 8,
             'Firebase\\JWT\\' => 13,
-        ),
-        'D' => 
-        array (
-            'Dompdf\\' => 7,
         ),
     );
 
@@ -61,14 +47,6 @@ class ComposerStaticInit14f333ac020f9a0350cd610d6117aefa
             0 => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib',
             1 => __DIR__ . '/..' . '/libern/qr-code-reader/src/lib',
         ),
-        'Svg\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
-        ),
-        'Sabberworm\\CSS\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
-        ),
         'ParagonIE\\ConstantTime\\' => 
         array (
             0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
@@ -77,31 +55,18 @@ class ComposerStaticInit14f333ac020f9a0350cd610d6117aefa
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
-        'Masterminds\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/masterminds/html5/src',
-        ),
         'Libern\\QRCodeReader\\' => 
         array (
             0 => __DIR__ . '/..' . '/libern/qr-code-reader/src',
-        ),
-        'FontLib\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
         ),
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
-        'Dompdf\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
-        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

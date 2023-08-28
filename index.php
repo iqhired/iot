@@ -158,8 +158,6 @@ if ($tmp == "forgotpass_success") {
     $import_status_message = $_SESSION["error_2"];
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -174,12 +172,8 @@ if ($tmp == "forgotpass_success") {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $sitename; ?></title>
     <link rel="stylesheet" href="assets/css/indstyle.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
-    <script type="text/javascript" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js" ></script>
-    <script type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="<?php echo $iotURL; ?>assets/js/libs/jquery-3.6.0.min.js"> </script>
-     <style>
+	<?php include ('../header.php'); ?>
+        <style>
          .input-icon {
              position: absolute!important;
              top: 78px!important;
