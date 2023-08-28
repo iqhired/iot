@@ -101,7 +101,7 @@ $assign_by = $_SESSION["id"];
     <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/pages/css/pag_table.css"/>
 <!--     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css />-->
 	<?php include ('../header.php'); ?>
-    <title>Create IOT Device</title>
+    <title>Create Device</title>
     <!-- plugins:css -->
 </head>
 
@@ -119,8 +119,8 @@ $assign_by = $_SESSION["id"];
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Device</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add / Edit Devices</li>
+                            <li class="breadcrumb-item"><a href="#">Devices</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Create Device</li>
                         </ol>
                     </nav>
                 </div>

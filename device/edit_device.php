@@ -73,34 +73,34 @@ if (!empty($_POST['edit_device_id'])){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Create IOT Device</title>
-    <!-- plugins:css -->
+    <?php include ('../header.php'); ?>
+    <title>Edit Device</title>
 </head>
-
 <body>
-<div class="container-scroller">
-    <?php include ('../admin_menu.php'); ?>
+   <div class="container-scroller">
+      <?php include ('../admin_menu.php'); ?>
     <!-- partial -->
-    <div class="container-fluid page-body-wrapper margin-244">
+      <div class="container-fluid page-body-wrapper margin-244">
         <!-- partial:partials/_navbar.html -->
-        <?php include ('../header.php'); ?>
+        <?php include ('../nav.php'); ?>
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="page-header">
-
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Device</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Create Device</li>
+                            <li class="breadcrumb-item"><a href="#">Devices</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit Device</li>
                         </ol>
                     </nav>
                 </div>
                 <div class="row">
                     <div class="col-md-10 grid-margin stretch-card">
                         <div class="card">
+                            <div class="card-heading">
+                                Edit Device
+                            </div>
                             <div class="card-body">
-                                <h4 class="card-title">Create Device</h4>
 
                                 <form action="" method="post" id="device_settings" enctype="multipart/form-data">
                                     <?php
@@ -181,11 +181,17 @@ if (!empty($_POST['edit_device_id'])){
                                             </label>
                                         </div>
                                     </div>
+                                    <hr/>
 
-                                    <button type="submit" class="btn btn-primary mr-2">Update</button>
-                                    <button class="btn btn-dark">Cancel</button>
+                                    <div class="form-group row">
+                                        <div >
+                                            <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-blue">Update</button>
+                                        </div>&ensp;
+                                        <div>
+                                            <button class="btn btn-red">Cancel</button>
+                                        </div>
+                                    </div>
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -203,7 +209,8 @@ if (!empty($_POST['edit_device_id'])){
             type: 'POST',
             url: "../device_backend.php",
             data: data_1,
-            success: function (response) {
+            success: function (response)
+            {
 
             }
         });
@@ -252,8 +259,6 @@ if (!empty($_POST['edit_device_id'])){
         $("#device_settings").submit();
     });
 </script>
-<?php include ('footer.php'); ?>
-
 </body>
 </html>
 
