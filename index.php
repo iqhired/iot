@@ -7,22 +7,16 @@ $chicagotime = date("Y-m-d H:i:s");
 $status = '0';
 
 if (!empty($_POST['user'])){
-    if(!empty($_POST['password_pin']) || !empty($_POST['password'])) {
+    if(!empty($_POST['password'])) {
     $user = $_POST["user"];
     $password = md5($_POST['password']);
-    $password_pin = $_POST['password_pin'];
     $_SESSION['user'] = $_POST["user"];
-	if ($password_pin == '9999') {
-		header('location: ./change_pin.php');
-		exit;
-	}else{
 		//API url
 		$service_url = $rest_pn_api_uri . "login/login.php";
 		$curl = curl_init($service_url);
 		$curl_post_data = array(
 			'user' => $user,
-			'password' => $password,
-            'password_pin' => $password_pin
+			'password' => $password
 		);
 		$secretkey = "SupportPassHTSSgmmi";
 		$payload = array(
@@ -53,12 +47,8 @@ if (!empty($_POST['user'])){
 		if (isset($decoded->status) && $decoded->status == 'Error') {
 			$message_stauts_class = $_SESSION["alert_danger_class"];
 			$import_status_message = $_SESSION["error_1"];
-//        die('error occured: ' . $decoded->errormessage);
 		}else{
-
-//    $result = mysqli_query($db, "SELECT * FROM cam_users WHERE user_name='" . $_POST["user"] . "' and password = '" . (md5($_POST["pass"])) . "'");
 			$row = $decoded->user;
-			//console.log($row);
 			if ($row != null && !empty($row)) {
 				$logid = $row->users_id;
 				$_SESSION['id'] = $logid;
@@ -117,7 +107,7 @@ if (!empty($_POST['user'])){
 					header("Location:change_pin.php");
 					exit;
 				} else {
-					header("Location:device_dashboard.php");
+					header("Location:iot_devices_home.php");
 					
 				}
 			}
@@ -131,19 +121,17 @@ if (!empty($_POST['user'])){
 					header("Location:profile.php");
 					exit;
 				} else {
-                    header("Location:device_dashboard.php");
+					header("Location:iot_devices_home.php");
 					
 				}
 			}
-		else {
-            header("Location:device_dashboard.php");
-
+			else {
+				header("Location:iot_devices_home.php");
+				
+			}
 		}
-        }
 		//echo 'response ok!';
 		//var_export($decoded->response);
-
-    }
  }
 }
 $tmp = $_SESSION['temp'];
@@ -156,106 +144,180 @@ if ($tmp == "forgotpass_success") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Design by foolishdeveloper.com -->
+    <title>IOT</title>
+    <script src="<?php echo $iotURL; ?>/assets/js/libs/jquery-3.6.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <style media="screen">
+        *,
+        *:before,
+        *:after{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #03194d;
+            /*background-color: #554daf;*/
+        }
+        .background{
+            width: 430px;
+            height: 520px;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            left: 50%;
+            top: 50%;
+        }
+        .background .shape{
+            height: 200px;
+            width: 200px;
+            position: absolute;
+            border-radius: 50%;
+        }
+        .shape:first-child{
+            background: linear-gradient(
+                    #1845ad,
+                    #23a2f6
+            );
+            left: -80px;
+            top: -80px;
+        }
+        .shape:last-child{
+            background: linear-gradient(
+                    to right,
+                    #ff512f,
+                    #f09819
+            );
+            right: -30px;
+            bottom: -80px;
+        }
+        form{
+            height: 520px;
+            width: 400px;
+            background-color: rgba(255,255,255,0.13);
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 40px rgba(8,7,16,0.6);
+            padding: 30px 35px;
+        }
+        form *{
+            font-family: 'Poppins',sans-serif;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            outline: none;
+            border: none;
+        }
+        form h3{
+            font-size: 28px;
+            font-weight: 500;
+            line-height: 32px;
+            text-align: center;
+        }
+
+        label{
+            display: block;
+            margin-top: 25px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        input{
+            display: block;
+            height: 40px;
+            width: 100%;
+            background-color: rgba(255,255,255,0.07);
+            border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 300;
+        }
+        ::placeholder{
+            color: #e5e5e5;
+        }
+        button{
+            margin-top: 20px;
+            width: 100%;
+            background-color: #ffffff;
+            color: #080710;
+            padding: 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .social{
+            margin-top: 20px;
+            display: flex;
+            font-size: small;
+            /*text-align: center;*/
+            /*align-items: center;*/
+        }
+        .social div{
+            /*background: red;*/
+            /*width: 150px;*/
+            border-radius: 3px;
+            padding: 5px 10px 10px 0px;
+            /*background-color: rgba(255,255,255,0.27);*/
+            color: #eaf0fb;
+            /*text-align: center;*/
+            /*min-height: 50px;*/
+        }
+        .social div:hover{
+            background-color: rgba(255,255,255,0.47);
+        }
+        .social .fb{
+            margin-left: 25px;
+        }
+        .social i{
+            margin-right: 4px;
+        }
+        .logo{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    </style>
     <script type="text/javascript">
         function disablebackbutton(){
             window.history.forward();
         }
         disablebackbutton();
     </script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $sitename; ?></title>
-    <link rel="stylesheet" href="assets/css/indstyle.css">
-	<?php include ('../header.php'); ?>
-        <style>
-         .input-icon {
-             position: absolute!important;
-             top: 78px!important;
-             color: #fff!important;
-             margin-left: 295px!important;
-         }
-         .input-icon-pin {
-             position: absolute!important;
-             top: 160px!important;
-             color: #fff!important;
-             margin-left: -25px!important;
-         }
-     </style>
 </head>
-<body class="login-container login-cover">
-<div class="form-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8">
-
-                <div class="loginBox">
-                    <img class="user" src="<?php echo $iotURL; ?>assets/images/site_logo.png"  width="200px">
-                    <?php
-                    if (!empty($import_status_message)) {
-                        echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
-                    }
-                    ?>
-                    <h3 style="color: #fff;">Sign in here</h3>
-                    <form method="post">
-                        <div class="inputBox">
-                            <input type="text" placeholder="Username /Email"  name="user" id="user" required="required">
-                            <input type="password" placeholder="Password" name="password" id="password">
-                            <span class="input-icon" onclick="myFunction()" style="cursor: pointer;float: right;"><i class="fa fa-eye" aria-hidden="true"></i></span>
-                            <label style="color:#fff3cd;margin-left: 154px;">OR</label>
-                            <input type="password" placeholder="Pin" name="password_pin" id="pass_pin">
-                            <span class="input-icon-pin" onclick="myFunctionPin()" style="cursor: pointer;float: right;"><i class="fa fa-eye" aria-hidden="true"></i></span>
-
-                        </div>
-                        <input type="submit" class="signin" id="signin" name="log" value="Login">
-
-                    </form>
-                    <a href="forgotpin.php" style="color: #fff;">Forget Pin<br> </a>
-                    <span class="forgot-pass"><a href="forgotpass.php">Forgot Username/Password?</a></span>
-
-                </div>
-            </div>
-        </div>
-    </div>
+<body>
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
 </div>
-<script>
-    function myFunction() {
-        var x = document.getElementById("password");
-        if (x.type === "password") {
-            x.type = "text";
+<form method="post">
+    <div class="logo">
+        <img class="user" src="./assets/images/site_logo.png"  width="120px">
+    </div>
+	<?php
+		if (!empty($import_status_message)) {
+			echo '<div class="alert ' . $message_stauts_class . '">' . $import_status_message . '</div>';
+		}
+	?>
+    <h3>Login Here</h3>
+    <label for="username">Username</label>
+    <input type="text" placeholder="Email or Phone" name="user" id="user" required="required">
 
-        } else {
-            x.type = "password";
-        }
-    }
+    <label for="password">Password</label>
+    <input type="password" placeholder="Password" id="password"  name="password">
 
-    function myFunctionPin() {
-        var x = document.getElementById("pass_pin");
-        if (x.type === "password") {
-            x.type = "text";
-
-        } else {
-            x.type = "password";
-        }
-    }
-
-
-</script>
-<script>
-    jQuery(document).ready(function ($) {
-        $(document).on('click', '#signin', function () {
-            var element = $(this);
-            var edit_id = element.attr("data-id");
-            var name = $(this).data("name");
-            var priority_order = $(this).data("priority_order");
-            var enabled = $(this).data("enabled");
-            $("#edit_name").val(name);
-            $("#edit_id").val(edit_id);
-            $("#edit_priority_order").val(priority_order);
-            $("#edit_enabled").val(enabled);
-            //alert(role);
-        });
-    });
-</script>
+    <button type="submit" id="signin">Log In</button>
+<!--    <input type="submit" class="signin" id="signin" name="log" value="Login">-->
+    <div class="social">
+        <div class="go"><a href="forgotpass.php">Forgot Username/Password?</a></div>
+    </div>
+</form>
 </body>
 </html>
