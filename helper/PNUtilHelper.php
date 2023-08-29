@@ -253,6 +253,44 @@ function displaySFMessage(){
 		unset($_SESSION['import_status_message']);
 	}
 }
+	
+	
+	function dPMessage(){
+		echo ' <div id="aSucc" class="alert alert-success" style="display: none">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    ×</button>
+                <p id="dp_suc_msg"></p>
+            </div>
+            <div id="aFail"  class="alert alert-danger" style="display: none">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+			×</button>
+                <p id="dp_fail_msg"></p>
+            </div>';
+	}
+	function displayMessage(){
+		session_start();
+		$messType = $_SESSION['mType'];
+		$message = $_SESSION['dispMessage'];
+		if($messType == mTypeSucess){
+			echo ' <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    ×</button>
+               <span class="glyphicon glyphicon-ok"></span> <strong>Success Message</strong>
+                <hr class="message-inner-separator">
+                <p>'. $message .'</p>
+            </div>';
+		}else if($messType == mTypeError){
+			echo '<div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    ×</button>
+                <span class="glyphicon glyphicon-hand-right"></span> <strong>Error Message</strong>
+                <hr class="message-inner-separator">
+                <p>'. $message .'</p>
+            </div>';
+		}
+		unset($_SESSION['mType']);
+		unset($_SESSION['dispMessage']);
+	}
 
 // Function to check string starting
 // with given substring
