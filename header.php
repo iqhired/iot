@@ -15,6 +15,7 @@
 <!-- Layout styles -->
 <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/style.css">
 <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/pages/css/my-style.css">
+<link rel="stylesheet" href="<?php echo $iotURL; ?>assets/pages/css/notification.css">
 <!-- End layout styles -->
 <!-- plugins:js -->
 <script src="<?php echo $iotURL; ?>assets/js/vendor.bundle.base.js"></script>

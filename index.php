@@ -10,13 +10,15 @@ if (!empty($_POST['user'])){
     if(!empty($_POST['password'])) {
     $user = $_POST["user"];
     $password = md5($_POST['password']);
+    $password_pin = null;
     $_SESSION['user'] = $_POST["user"];
 		//API url
 		$service_url = $rest_pn_api_uri . "login/login.php";
 		$curl = curl_init($service_url);
 		$curl_post_data = array(
 			'user' => $user,
-			'password' => $password
+			'password' => $password,
+			'password_pin' => $password_pin
 		);
 		$secretkey = "SupportPassHTSSgmmi";
 		$payload = array(
@@ -55,6 +57,8 @@ if (!empty($_POST['user'])){
 				$_SESSION['available'] = $row->available;
 				$user_nm = $row->user_name;
 				$_SESSION['user'] = $user_nm;
+				$_SESSION['mType'] = '';
+				$_SESSION['dispMessage'] = '';
 				
 				$_SESSION['name'] = $user_nm;
 				$_SESSION['role_id'] = $row->role;
@@ -147,8 +151,7 @@ if ($tmp == "forgotpass_success") {
     <!-- Design by foolishdeveloper.com -->
     <title>IOT</title>
     <script src="<?php echo $iotURL; ?>/assets/js/libs/jquery-3.6.0.min.js"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/css/all.min.css"/><!-- End plugin css for this page -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <!--Stylesheet-->
     <style media="screen">
