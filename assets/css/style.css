@@ -11607,7 +11607,7 @@ input[type="button"].btn-block {
     margin-left: -1px;
     line-height: 1.25;
     color: #007bff;
-    background-color: #000000;
+    background-color: #ffffff;
     border: 1px solid #dee2e6; }
 .page-link:hover, .jsgrid .jsgrid-pager .jsgrid-pager-nav-button a:hover,
 .jsgrid .jsgrid-pager .jsgrid-pager-page a:hover {
@@ -18459,9 +18459,10 @@ body.avgrund-active {
 .dataTables_wrapper select {
     padding: .4rem; }
 .dataTables_wrapper .dataTables_length select {
-    min-width: 65px;
+    min-width: 35px!important;
     margin-left: .25rem;
-    margin-right: .25rem; }
+    margin-right: .25rem;
+}
 .dataTables_wrapper .dataTable .btn, .dataTables_wrapper .dataTable .fc button, .fc .dataTables_wrapper .dataTable button, .dataTables_wrapper .dataTable .ajax-upload-dragdrop .ajax-file-upload, .ajax-upload-dragdrop .dataTables_wrapper .dataTable .ajax-file-upload, .dataTables_wrapper .dataTable .swal2-modal .swal2-buttonswrapper .swal2-styled, .swal2-modal .swal2-buttonswrapper .dataTables_wrapper .dataTable .swal2-styled, .dataTables_wrapper .dataTable .wizard > .actions a, .wizard > .actions .dataTables_wrapper .dataTable a {
     padding: 0.1rem 1rem;
     vertical-align: top; }

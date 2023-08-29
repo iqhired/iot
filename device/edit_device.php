@@ -14,6 +14,7 @@ $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 $modified_by = $_SESSION["id"];
 if (!empty($_POST['edit_device_id'])){
+    $edit_cust_id = $_POST['edit_cust_id'];
     $dd_id = $_POST['edit_device_id'];
     $edit_dev_id = $_POST["edit_dev_id"];
     $edit_dev_desc = $_POST["edit_dev_desc"];
@@ -23,6 +24,7 @@ if (!empty($_POST['edit_device_id'])){
     $curl = curl_init($service_url);
     $curl_post_data = array(
         'device_id' => $dd_id,
+        'c_id' => $edit_cust_id,
         'device_description' => $edit_dev_desc,
         'device_location' => $edit_dev_loc,
         'modified_by' => $modified_by,
@@ -101,7 +103,6 @@ if (!empty($_POST['edit_device_id'])){
                                 Edit Device
                             </div>
                             <div class="card-body">
-
                                 <form action="" method="post" id="device_settings" enctype="multipart/form-data">
                                     <?php
                                     $device_id = $_GET['device_id'];
@@ -115,15 +116,16 @@ if (!empty($_POST['edit_device_id'])){
                                     $dev_loc = $row['device_location'];
                                     $is_active = $row['is_active'];
                                     ?>
+
                                     <div class="form-group row">
                                         <label  class="col-sm-3 col-form-label">Customer </label>
                                         <div class="col-sm-9">
-                                            <select name="edit_customer" id="edit_customer" class="form-control form-select select2" data-placeholder="Select Customer" disabled>
+                                            <select name="edit_cust_id" id="edit_cust_id" class="form-control form-select select2" data-placeholder="Select Customer" >
                                                 <option value="" selected> Select Customer </option>
                                                 <?php
                                                 $st_dashboard = $customer;
                                                 $sql1 = "SELECT * FROM `cus_account` where is_deleted != 1";
-                                                $result1 = $mysqli->query($sql1);
+                                                $result1 = mysqli_query($db,$sql1);
                                                 while ($row1 = $result1->fetch_assoc()) {
                                                     if($st_dashboard == $row1['c_id'])
                                                     {

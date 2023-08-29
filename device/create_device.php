@@ -242,7 +242,7 @@ $assign_by = $_SESSION["id"];
                                                 <label class="ckbox"> <input type="checkbox" id="checkAll"><span></span></label>
                                             </th>
                                             <th>Action</th>
-                                            <th>Customer</th>
+<!--                                            <th>Customer</th>-->
                                             <th>Device ID</th>
                                             <th>Device Name</th>
                                             <th>Active</th>
@@ -271,24 +271,24 @@ $assign_by = $_SESSION["id"];
                                                         <i class="fa fa-pencil-alt"></i>
                                                     </a>
                                                 </td>
-                                                <td><?php $c_id =  $rowc["c_id"];
-														$qurtemp = mysqli_query($db, "SELECT c_name FROM  cus_account where c_id  = '$c_id'");
-														while ($rowctemp = mysqli_fetch_array($qurtemp)) {
-															$c_name = $rowctemp["c_name"];
-														}
-													?>
-													<?php echo  $c_name; ?>
-                                                </td>
+<!--                                                <td>--><?php //$c_id =  $rowc["c_id"];
+//														$qurtemp = mysqli_query($db, "SELECT c_name FROM  cus_account where c_id  = '$c_id'");
+//														while ($rowctemp = mysqli_fetch_array($qurtemp)) {
+//															$c_name = $rowctemp["c_name"];
+//														}
+//													?>
+<!--													--><?php //echo  $c_name; ?>
+<!--                                                </td>-->
                                                 <td><?php echo  $rowc["device_id"]; ?></td>
                                                 <td><?php echo  $rowc["device_name"]; ?></td>
                                                 <td>
 													<?php
-														if($rowc["active"] == 1)
-														{
-															echo 'No' ;
-														}else
+														if($rowc["is_active"] == 1)
 														{
 															echo 'Yes' ;
+														}else
+														{
+															echo 'No' ;
 														}
 													?>
                                                 </td>
