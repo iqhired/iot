@@ -18,6 +18,7 @@ if (!empty($_POST['edit_device_id'])){
     $dd_id = $_POST['edit_device_id'];
     $edit_dev_id = $_POST["edit_dev_id"];
     $edit_dev_desc = $_POST["edit_dev_desc"];
+    $edit_type_id = $_POST["edit_type_id"];
     $edit_dev_loc = $_POST["edit_dev_loc"];
 
     $service_url = $rest_api_uri . "devices/edit_iot_device.php";
@@ -27,6 +28,7 @@ if (!empty($_POST['edit_device_id'])){
         'c_id' => $edit_cust_id,
         'device_description' => $edit_dev_desc,
         'device_location' => $edit_dev_loc,
+        'type_id' => $edit_type_id,
         'modified_by' => $modified_by,
         'modified_on' => $chicagotime
     );
@@ -122,6 +124,8 @@ if (!empty($_POST['edit_device_id'])){
                                     $dev_id = $row['device_id'];
                                     $dev_name = $row['device_name'];
                                     $dev_desc = $row['device_description'];
+                                    $dev_type = $row['type_id'];
+
                                     $dev_loc = $row['device_location'];
                                     $is_active = $row['is_active'];
                                     ?>
@@ -173,6 +177,31 @@ if (!empty($_POST['edit_device_id'])){
                                         <div class="col-sm-9">
                                             <input type="text" name="edit_dev_desc" id="edit_dev_desc" value="<?php echo $dev_desc; ?>"
                                                    class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Device Type </label>
+                                        <div class="col-sm-9">
+                                            <select name="edit_type_id" id="edit_type_id" class="form-control form-select select2" data-placeholder="Select Type" >
+                                                <option value="" selected> Select Type </option>
+                                                <?php
+                                                $st_dashboard1 = $dev_type;
+                                                $sql1 = "SELECT * FROM `sensor_type` where is_deleted != 1";
+                                                $result1 = mysqli_query($iot_db,$sql1);
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    if($st_dashboard1 == $row1['type_id'])
+                                                    {
+                                                        $entry = 'selected';
+                                                    }
+                                                    else
+                                                    {
+                                                        $entry = '';
+
+                                                    }
+                                                    echo "<option value='" . $row1['type_id'] . "' $entry>" . $row1['stype_name'];"</option>";
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">

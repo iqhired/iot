@@ -4,14 +4,12 @@ if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|c
 {
     header('Location: ./config/403.php');
 }
-require ".././vendor/autoload.php";
+require "../vendor/autoload.php";
 use Firebase\JWT\JWT;
-
 $message = "";
 include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
-
 
 if (!empty($_POST['edit_stype_name'])){
     $type_id = $_POST['edit_type_id'];
@@ -22,7 +20,7 @@ if (!empty($_POST['edit_stype_name'])){
     $curl_post_data = array(
         'type_id' => $type_id,
         'edit_stype_name' => $edit_stype_name,
-        'updated_at' => $chicagotime
+
     );
     $secretkey = "SupportPassHTSSgmmi";
     $payload = array(
@@ -54,11 +52,11 @@ if (!empty($_POST['edit_stype_name'])){
         die('error occured: ' . $decoded->errormessage);
         $errors[] = "Users Not Updated.";
         $message_stauts_class = 'alert-danger';
-        $import_status_message = 'User Not Updated.';
+        $import_status_message = 'Type Not Updated.';
     }
     $errors[] = "User Updated Successfully.";
     $message_stauts_class = 'alert-success';
-    $import_status_message = 'User Updated Successfully.';
+    $import_status_message = 'Type Updated Successfully.';
     header('Location:create_type.php');
     exit;
 }
@@ -98,32 +96,37 @@ if (!empty($_POST['edit_stype_name'])){
                                 Edit Type
                             </div>
                             <div class="card-body">
-                                <form action="" method="post" id="" enctype="multipart/form-data">
+                                <form action="" method="post" id="device_settings" enctype="multipart/form-data">
                                     <?php
-                                    $type_id  = $_GET['type_id '];
+                                    $type_id = $_GET['type_id'];
 
                                     $sql = "select * from sensor_type where type_id = '$type_id' and is_deleted != 1";
                                     $res = mysqli_query($iot_db, $sql);
                                     $row = mysqli_fetch_array($res);
-                                    $type_id  = $row['type_id '];
-                                    $stype_name  = $row['stype_name '];
+
+                                    $type_id  = $row['type_id'];
+                                    $stype_name  = $row['stype_name'];
                                     ?>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-1 col-form-label">Type <i class="fa fa-asterisk" style="font-size:8px;color:red;"></i></label>
-                                        <div class="col-sm-5">
+                                        <label  class="col-sm-3 col-form-label">Type:</label>
+                                        <div class="col-sm-9">
                                             <input type="hidden" name="edit_type_id" id="edit_type_id" value="<?php echo $type_id; ?>">
-                                            <input type="text" class="form-control"  name="edit_stype_name" id="edit_stype_name" value="<?php echo $stype_name; ?>" placeholder="Enter Sensor Type" >
+
+                                            <input type="text" name="edit_stype_name" id="edit_stype_name" value="<?php echo $stype_name; ?>"
+                                                   class="form-control" placeholder="Enter Type">
                                         </div>
                                     </div>
 
-                                                        <div class="form-group row"><div >
-                                                                <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-blue">Update</button>
-                                                            </div>&ensp;
-                                                            <div>
-                                                                <button class="btn btn-red">Cancel</button>
-                                                            </div>
-                                                        </div>
+                                    <div class="form-group row">
+                                        <div >
+                                            <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-blue">Update</button>
+                                        </div>&ensp;
+                                        <div>
+                                            <button class="btn btn-red">Cancel</button>
+                                        </div>
+                                    </div>
+
 
                                                     </form>
                                                 </div>
@@ -134,6 +137,7 @@ if (!empty($_POST['edit_stype_name'])){
                         </div>
                     </div>
                 </div>
+
 </body>
 </html>
 

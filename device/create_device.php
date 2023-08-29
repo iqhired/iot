@@ -13,6 +13,7 @@ if (($_POST['fSubmit'] == 1 ) && (!empty($_POST['dev_id']))){
     $device_id = $_POST["dev_id"];
     $device_name = $_POST["dev_name"];
     $device_desc = $_POST["dev_desc"];
+    $type_id = $_POST["dev_type"];
     $device_loc = $_POST["dev_loc"];
     $is_active = 1;
     $service_url = $rest_api_uri . "devices/iot_device.php";
@@ -22,6 +23,7 @@ if (($_POST['fSubmit'] == 1 ) && (!empty($_POST['dev_id']))){
         'device_id' => $device_id,
         'device_name' => $device_name,
         'device_description' => $device_desc,
+        'type_id' => $type_id,
         'device_location' => $device_loc,
         'is_active' => $is_active,
         'created_by' => $user_id,
@@ -179,6 +181,33 @@ $assign_by = $_SESSION["id"];
                                         <label class="col-sm-3 col-form-label">Device Description <i class="fa fa-asterisk" style="font-size:8px;color:red;"></i> </label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" name="dev_desc" id="dev_desc" placeholder="Enter Device Description" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Device Type<i class="fa fa-asterisk" style="font-size:8px;color:red;"></i> </label>
+                                        <div class="col-sm-9">
+                                            <select name="dev_type" id="dev_type" class="form-control form-select select2" data-placeholder="Select Customer">
+                                                <option value='' selected> Select Customer </option>
+                                                <?php
+
+                                                $st_dashboard1 = $_POST['dev_type'];
+                                                $sql1 = "SELECT * FROM `sensor_type` where is_deleted != 1";
+                                                $result1 = mysqli_query($iot_db,$sql1);
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    if($st_dashboard1 == $row1['type_id'])
+                                                    {
+                                                        $entry = 'selected';
+                                                    }
+                                                    else
+                                                    {
+                                                        $entry = '';
+
+                                                    }
+                                                    echo "<option value='" . $row1['type_id'] . "' $entry>" . $row1['stype_name'];"</option>";
+                                                }
+                                                ?>
+
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
