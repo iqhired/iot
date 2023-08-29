@@ -77,6 +77,15 @@ if (!empty($_POST['edit_device_id'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php include ('../header.php'); ?>
     <title>Edit Device</title>
+
+    <style>
+        .col-sm-3 col-form-label::before{
+            content: "*";
+            color: red;
+            float: right;
+        }
+
+    </style>
 </head>
 <body>
    <div class="container-scroller">
@@ -119,6 +128,7 @@ if (!empty($_POST['edit_device_id'])){
 
                                     <div class="form-group row">
                                         <label  class="col-sm-3 col-form-label">Customer </label>
+
                                         <div class="col-sm-9">
                                             <select name="edit_cust_id" id="edit_cust_id" class="form-control form-select select2" data-placeholder="Select Customer" >
                                                 <option value="" selected> Select Customer </option>

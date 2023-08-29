@@ -84,6 +84,14 @@
                 <span class="menu-title">Device</span>
             </a>
         </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="<?php echo $iotURL; ?>sensor_type/create_type.php">
+              <span class="menu-icon">
+                  <i class="fa-solid fa-hard-drive"></i>
+              </span>
+                <span class="menu-title">Sensor Type</span>
+            </a>
+        </li>
 
 
 
