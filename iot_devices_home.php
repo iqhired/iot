@@ -82,6 +82,10 @@
         .fa-delete-left{
             color: var(--col-red);
         }
+        #view_link{
+            width: 50%;
+            text-align: end;
+        }
     </style>
 </head>
 <div class="container-scroller">
@@ -109,6 +113,7 @@
 									$current_date = new DateTime(date("Y-m-d"));
 									$period = get_period_ago($current_date,$created_date);
                                     $edit_dev_loc = $iotURL .'/device/edit_device.php?device_id='.$row['device_id'];
+                                    $view_dev_loc = $iotURL .'/device/view_device_dashboard.php?device_id='.$row['device_id'];
                                     $del_dev_loc = $iotURL .'/device/delete_device.php?device_id='.$row['device_id'];
                                     $d_type_id=$row['type_id'];
 									$d_type_sql = "SELECT dev_type_name FROM `iot_device_type` where type_id = '$d_type_id' and  is_deleted != 1";
@@ -128,7 +133,7 @@
                                                     <a style="padding: 0% 5%;" href="<?php echo $edit_dev_loc?>"><i class="fa fa-gear"></i></a>
                                                     <a id="del_device" name="del_device" href="#" data-value="<?php echo $del_dev_loc?>" class="d_Id"><i class="fa fa-delete-left"></i></a>
                                                 </span>
-                                                <span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span>
+                                                <span id="view_link" class="text-primary"><a style="padding: 0% 5%;" href="<?php echo $view_dev_loc?>">View&nbsp;<i class="fa fa-angle-right"></a></i></span>
                                             </div>
                                         </div>
                                     </div>
