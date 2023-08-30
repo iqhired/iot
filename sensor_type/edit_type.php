@@ -48,16 +48,17 @@ if (!empty($_POST['edit_type_name'])){
     curl_close($curl);
     $decoded = json_decode($curl_response);
     if (isset($decoded->status) && $decoded->status == 'ERROR') {
-        die('error occured: ' . $decoded->errormessage);
-        $errors[] = "Users Not Updated.";
-        $message_stauts_class = 'alert-danger';
-        $import_status_message = 'Type Not Updated.';
+        $_SESSION['mType'] = mTypeError;
+        $_SESSION['dispMessage'] = $decoded->message;
+        echo json_encode(array("status" => "error" , "message" => $decoded->message));
+
+        exit;
+    }else{
+        $_SESSION['mType'] = mTypeSucess;
+        $_SESSION['dispMessage'] = 'Device Type edited Successfully';
+        echo json_encode(array("status" => "success" , "message" => 'Device Type edited Successfully'));
+        exit;
     }
-    $errors[] = "User Updated Successfully.";
-    $message_stauts_class = 'alert-success';
-    $import_status_message = 'Type Updated Successfully.';
-    header('Location:create_type.php');
-    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -87,6 +88,8 @@ if (!empty($_POST['edit_type_name'])){
                         </ol>
                     </nav>
                 </div>
+                <?php dPMessage();?>
+
                 <div class="row">
                     <div class="col-md-10 grid-margin stretch-card">
                         <div class="card">

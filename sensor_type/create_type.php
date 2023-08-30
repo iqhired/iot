@@ -14,7 +14,6 @@ $temp = "";
 $user_id = $_SESSION["id"];
 if (($_POST['fSubmit'] == 1 ) && (!empty($_POST['dev_type_name']))){
     $dev_type_name = $_POST['dev_type_name'];
-
     $service_url = $rest_api_uri . "iot_device_type/create_type.php";
     $curl = curl_init($service_url);
     $curl_post_data = array(
@@ -55,8 +54,8 @@ if (($_POST['fSubmit'] == 1 ) && (!empty($_POST['dev_type_name']))){
         exit;
     }else{
         $_SESSION['mType'] = mTypeSucess;
-        $_SESSION['dispMessage'] = 'Device created Successfully';
-        echo json_encode(array("status" => "success" , "message" => 'Device created Successfully'));
+        $_SESSION['dispMessage'] = 'Device Type created Successfully';
+        echo json_encode(array("status" => "success" , "message" => 'Device Type created Successfully'));
         exit;
     }
 }
@@ -95,7 +94,7 @@ $assign_by = $_SESSION["id"];
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/pages/css/pag_table.css"/>
     <?php include ('../header.php'); ?>
-    <title>Sensor Type</title>
+    <title>Device Type</title>
 </head>
 <body>
 <div class="container-scroller">
