@@ -115,21 +115,21 @@ $assign_by = $_SESSION["id"];
                         </ol>
                     </nav>
                 </div>
-<!--               Display message-->
+            <!-- Display message-->
                 <?php dPMessage();?>
-
+            <!-- Display message-->
                 <div class="row">
                     <div class="col-md-10 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-heading">
-                              Create Type
+                              Create Device Type
                             </div>
                             <div class="card-body">
                                 <form action="" method="post" id="device_settings" enctype="multipart/form-data">
                                     <div class="form-group row">
                                         <label class="col-sm-1 col-form-label">Type <i class="fa fa-asterisk" style="font-size:8px;color:red;"></i></label>
                                         <div class="col-sm-5">
-                                            <input type="text" class="form-control" name="dev_type_name" id="dev_type_name" placeholder="Enter Sensor Type " required>
+                                            <input type="text" class="form-control" name="dev_type_name" id="dev_type_name" placeholder="Enter Device Type " required>
                                         </div>
                                     </div>
 

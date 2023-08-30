@@ -20,7 +20,6 @@ if (!empty($_POST['edit_type_name'])){
     $curl_post_data = array(
         'type_id' => $type_id,
         'edit_type_name' => $edit_type_name,
-
     );
     $secretkey = "SupportPassHTSSgmmi";
     $payload = array(
@@ -60,7 +59,6 @@ if (!empty($_POST['edit_type_name'])){
     header('Location:create_type.php');
     exit;
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +91,7 @@ if (!empty($_POST['edit_type_name'])){
                     <div class="col-md-10 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-heading">
-                                Edit Type
+                                Edit Device Type
                             </div>
                             <div class="card-body">
                                 <form action="" method="post" id="device_settings" enctype="multipart/form-data">
@@ -106,13 +104,12 @@ if (!empty($_POST['edit_type_name'])){
                                     $type_id  = $row['type_id'];
                                     $dev_type_name  = $row['dev_type_name'];
                                     ?>
-
                                     <div class="form-group row">
                                         <label  class="col-sm-3 col-form-label">Type:</label>
                                         <div class="col-sm-9">
                                             <input type="hidden" name="edit_type_id" id="edit_type_id" value="<?php echo $type_id; ?>">
                                             <input type="text" name="edit_type_name" id="edit_type_name" value="<?php echo $dev_type_name; ?>"
-                                                   class="form-control" placeholder="Enter Type">
+                                                   class="form-control" placeholder="Enter Device Type">
                                         </div>
                                     </div>
 
@@ -124,18 +121,15 @@ if (!empty($_POST['edit_type_name'])){
                                             <button class="btn btn-red">Cancel</button>
                                         </div>
                                     </div>
-
-
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 

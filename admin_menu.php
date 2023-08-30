@@ -89,7 +89,7 @@
               <span class="menu-icon">
                   <i class="fa-solid fa-hard-drive"></i>
               </span>
-                <span class="menu-title">Sensor Type</span>
+                <span class="menu-title">Device Type</span>
             </a>
         </li>
 
