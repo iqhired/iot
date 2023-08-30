@@ -1,6 +1,8 @@
 <?php
 	require "./vendor/autoload.php";
+	
 	use Firebase\JWT\JWT;
+	
 	$status = '0';
 	$message = "";
 	include("config.php");
@@ -20,9 +22,9 @@
 		session_unset();
 //Destroy the session
 		session_destroy();
-		if($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']){
+		if ($_SESSION['is_tab_user'] || $_SESSION['is_cell_login']) {
 			header($redirect_tab_logout_path);
-		}else{
+		} else {
 			header($redirect_logout_path);
 		}
 
@@ -35,110 +37,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="refresh" content="300">
-	<title>IOT Devices Home</title>
-	<?php include ('header.php'); ?>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="300">
+    <title>IOT Devices Home</title>
+	<?php include('header.php'); ?>
+    <style>
+
+        .ratings i {
+            color: green;
+        }
+
+        .install span {
+            font-size: 12px;
+        }
+
+        .col-md-4 {
+            margin-top: 27px;
+        }
+        img {
+            height: 60px;
+            width: 60px;
+            margin-right: 6%;
+            margin-left: 2%;
+        }
+        .ml-2{
+            font-size: initial;
+        }
+        .text-black-60 {
+            color: rgb(0 0 0 / 60%) !important;
+            font-size: small;
+        }
+        div.d-flex.flex-row.mb-3{
+            padding-bottom: 1rem !important;
+            border-bottom: 1px solid #3333 !important;
+        }
+        .fa-gear , .fa-delete-left{
+            font-size: initial;
+        }
+        .fa-gear{
+            color: #606060;
+        }
+        .fa-delete-left{
+            color: var(--col-red);
+        }
+    </style>
 </head>
 <div class="container-scroller">
-	<?php include ('admin_menu.php'); ?>
-	<!-- partial -->
-	<div class="container-fluid page-body-wrapper margin-244">
-		<!-- partial:partials/_navbar.html -->
-		<?php include ('nav.php'); ?>
-		<!-- partial -->
-		<div class="main-panel">
-			<div class="content-wrapper">
-				<div class="page-header">
-					<nav aria-label="breadcrumb">
-					</nav>
-				</div>
-				
-				<div class="row">
-					<?php
-						$sql = "SELECT * FROM `iot_devices` where is_deleted != 1";
-						$result = mysqli_query($iot_db, $sql);
-						while($row = mysqli_fetch_array($result)){
-							$id[] = $row['id'];
-							$device_name[] = $row['device_name'];
-							
-							//TODO make an api call
-							$cURLConnection = curl_init();
-							
-							curl_setopt($cURLConnection, CURLOPT_URL, 'http://13.214.116.35:3001/environment');
-							curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-							
-							$curl_response = curl_exec($cURLConnection);
-							if ($curl_response === false) {
-								$info = curl_getinfo($cURLConnection);
-								curl_close($cURLConnection);
-								die('error occured during curl exec. Additioanl info: ' . var_export($info));
-							}
-							curl_close($cURLConnection);
-							
-							$decoded = json_decode($curl_response);
-							if (isset($decoded->status) && $decoded->status == 'ERROR') {
-								die('error occured: ' . $decoded->errormessage);
-							}
-							?>
-							<div class="col-md-4 grid-margin stretch-card" onclick="cellDB('<?php echo $row["id"] ?>' , '<?php echo $row["device_name"] ?>')">
-								<div class="card">
-									
-									<div class="card-body">
-										<h4 class="card-title"><?php echo $row["device_name"]; ?>
-											
-											<button class="btn btn btn-sm"
-													id="center" style="color:white">
-												<label class="switch">
-													<input type="checkbox" name="is_active" id="is_active" value="<?php echo $row["device_id"]; ?>" <?php echo ($row['is_active']==1 ? 'checked' : '');?>>
-													<span class="slider round"></span>
-												
-												</label>
-											</button>
-											
-											<button class="btn btn-danger btn-sm float-right"
-													id="right" style="color:white">
-												<a href="device/del_device.php?device_id=<?php echo  $row["device_id"]; ?>"  >
-													<i>
-														<svg class="table-delete" xmlns="http://www.w3.org/2000/svg" color="white" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"></path></svg>
-													</i>
-												</a>
-											</button>
-										</h4>
-									</div>
-								
-								</div>
-							
-							</div>
-						<?php } ?>
-				</div>
-			
-			</div>
-		
-		</div>
-	
-	</div>
+	<?php include('admin_menu.php'); ?>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper margin-244">
+        <!-- partial:partials/_navbar.html -->
+		<?php include('nav.php'); ?>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+<!--                <div class="page-header">-->
+<!--                    <nav aria-label="breadcrumb">-->
+<!--                    </nav>-->
+<!--                </div>-->
+
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+							<?php
+								$sql = "SELECT * FROM `iot_devices` where is_deleted != 1";
+								$result = mysqli_query($iot_db, $sql);
+								while ($row = mysqli_fetch_array($result)) {
+									$created_date = new DateTime(explode(' ',$row['created_on'])[0]);
+									$current_date = new DateTime(date("Y-m-d"));
+									$period = get_period_ago($current_date,$created_date);
+                                    $edit_dev_loc = $iotURL .'/device/edit_device.php?device_id='.$row['device_id'];
+                                    $del_dev_loc = $iotURL .'/device/delete_device.php?device_id='.$row['device_id'];
+                                    $d_type_id=$row['type_id'];
+									$d_type_sql = "SELECT dev_type_name FROM `iot_device_type` where type_id = '$d_type_id' and  is_deleted != 1";
+									$d_type_res = mysqli_fetch_array(mysqli_query($iot_db, $d_type_sql));
+									?>
+                                    <div class="col-md-4">
+                                        <div class="card p-3" style="font-family: inherit">
+                                            <div class="d-flex flex-row mb-3"><img src="<?php $iotURL?>/assets/images/iot_sensor_icon.png">
+                                                <div class="d-flex flex-column ml-2">
+                                                    <span><?php echo printTextBlue($row['device_name'])?></span>
+                                                    <span class="text-black-60"><?php echo 'Added ' . $period?></span>
+                                                    <span class="text-black-60"><b>Type : </b><?php echo $d_type_res['dev_type_name']?></span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between install">
+                                                <span style="width: 50%">
+                                                    <a style="padding: 0% 5%;" href="<?php echo $edit_dev_loc?>"><i class="fa fa-gear"></i></a>
+                                                    <a id="del_device" name="del_device" href="#" data-value="<?php echo $del_dev_loc?>" class="d_Id"><i class="fa fa-delete-left"></i></a>
+                                                </span>
+                                                <span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+								<?php } ?>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 </a>
 <script>
+    $('.d_Id').click(function(e) {
+        e.preventDefault();
+        var d_ID = $(this).data('value');
+        $.ajax({
+            type: 'POST',
+            url: d_ID,
+            success: function (data) {
+                location.reload();
+            }
+        });
+    });
     function deviceDB(device_id) {
-        window.open("<?php echo site_URL . "iot_device_data.php?device_id=" ; ?>" + device_id , "_self")
+        window.open("<?php echo site_URL . "iot_device_data.php?device_id="; ?>" + device_id, "_self")
     }
 </script>
 <script>
-    function cellDB(id , device_name) {
-        window.open("<?php echo $iotURL . "device_graph.php?id=" ; ?>" + id + "<?php echo "&device_name=" ; ?>" + device_name , "_self")
+    function cellDB(id, device_name) {
+        window.open("<?php echo $iotURL . "device_graph.php?id="; ?>" + id + "<?php echo "&device_name="; ?>" + device_name, "_self")
     }
+
     // setTimeout(function () {
     //    location.reload();
     // }, 60000);
 </script>
 
 
-<?php include ('footer.php'); ?>
+<?php include('footer.php'); ?>
 
 </html>
 </body>

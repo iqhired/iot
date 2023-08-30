@@ -307,5 +307,25 @@ function displaySFMessage(){
 	function printTextBlue($string){
 		return '<span class="text-primary font-weight-bold">' . $string .'</span>';
 	}
-
+	
+	/**
+	 * @param $endDate
+	 * @param $startDate
+	 * @return string|void
+	 */
+	function get_period_ago($endDate, $startDate) {
+		$dateInterval = $endDate->diff($startDate);
+		
+		if ($dateInterval->invert==1) {
+			if ($dateInterval->y > 0) {
+				return $dateInterval->y . " year(s) ago";
+			} if ($dateInterval->m > 0) {
+				return $dateInterval->m . " month(s) ago";
+			} if ($dateInterval->d > 7) {
+				return (int)($dateInterval->d / 7) . " week(s) ago";
+			} if ($dateInterval->d > 0) {
+				return $dateInterval->d . " day(s) ago";
+			}
+		}
+	}
 ?>

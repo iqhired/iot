@@ -13,6 +13,9 @@ include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 $delete_check = $_POST['delete_check'];
+if(empty($delete_check)){
+	$delete_check[0]=$_GET['device_id'];
+}
 if (!empty($delete_check)){
     $cnt = count($delete_check);
     for ($i = 0; $i < $cnt;$i++) {

@@ -191,7 +191,7 @@ $assign_by = $_SESSION["id"];
                                                 <?php
 
                                                 $st_dashboard1 = $_POST['dev_type'];
-                                                $sql1 = "SELECT * FROM `sensor_type` where is_deleted != 1";
+                                                $sql1 = "SELECT * FROM `iot_device_type` where is_deleted != 1";
                                                 $result1 = mysqli_query($iot_db,$sql1);
                                                 while ($row1 = $result1->fetch_assoc()) {
                                                     if($st_dashboard1 == $row1['type_id'])
