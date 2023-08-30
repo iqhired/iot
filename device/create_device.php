@@ -203,7 +203,7 @@ $assign_by = $_SESSION["id"];
                                                         $entry = '';
 
                                                     }
-                                                    echo "<option value='" . $row1['type_id'] . "' $entry>" . $row1['stype_name'];"</option>";
+                                                    echo "<option value='" . $row1['type_id'] . "' $entry>" . $row1['dev_type_name'];"</option>";
                                                 }
                                                 ?>
 
