@@ -53,6 +53,33 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-icon">
+                     <i class="fa-solid fa-hard-drive"></i>
+                </span>
+            <span class="menu-title">Device Config</span>
+            </a>
+            <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item menu-items">
+                        <a class="nav-link"  href="<?php echo $iotURL; ?>device/create_device.php">
+                            <span class="menu-icon">
+                                <i class="fa-solid fa-hard-drive"></i>
+                            </span>
+                            <span class="menu-title">Add Device</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items">
+                        <a class="nav-link" href="<?php echo $iotURL; ?>sensor_type/create_type.php">
+                            <span class="menu-icon">
+                                <i class="fa-solid fa-hard-drive"></i>
+                            </span><span class="menu-title">Device Type</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
 
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo $iotURL; ?>user/create_users.php">
@@ -62,38 +89,5 @@
                 <span class="menu-title">Users</span>
             </a>
         </li>
-<!--                        <li class="nav-item menu-items">-->
-<!--                            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">-->
-<!--                              <span class="menu-icon">-->
-<!--                                 <i class="fa-solid fa-users"></i>-->
-<!--                              </span>-->
-<!--                                <span class="menu-title">Admin Config</span>-->
-<!--                            </a>-->
-<!--                            <div class="collapse" id="ui-basic">-->
-<!--                                <ul class="nav flex-column sub-menu">-->
-<!--                                    <li class="nav-item "> <a class="nav-link" href="create_users.php">Create Users</a></li>-->
-<!---->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </li>-->
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="<?php echo $iotURL; ?>device/create_device.php">
-              <span class="menu-icon">
-                  <i class="fa-solid fa-hard-drive"></i>
-              </span>
-                <span class="menu-title">Device</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="<?php echo $iotURL; ?>sensor_type/create_type.php">
-              <span class="menu-icon">
-                  <i class="fa-solid fa-hard-drive"></i>
-              </span>
-                <span class="menu-title">Device Type</span>
-            </a>
-        </li>
-
-
-
     </ul>
 </nav>
