@@ -14,7 +14,7 @@ $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 $type_id = $_GET['type_id '];
 if (!empty($type_id )){
-    $service_url = $rest_api_uri . "sensor_type/del_type.php";
+    $service_url = $rest_api_uri . "iot_device_type/del_type.php";
     $curl = curl_init($service_url);
     $curl_post_data = array(
         'type_id ' => $type_id ,

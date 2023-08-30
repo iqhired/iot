@@ -11,15 +11,15 @@ include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 
-if (!empty($_POST['edit_stype_name'])){
+if (!empty($_POST['edit_type_name'])){
     $type_id = $_POST['edit_type_id'];
-    $edit_stype_name  = $_POST['edit_stype_name'];
+    $edit_type_name  = $_POST['edit_type_name'];
 
-    $service_url = $rest_api_uri . "sensor_type/edit_type.php";
+    $service_url = $rest_api_uri . "iot_device_type/edit_type.php";
     $curl = curl_init($service_url);
     $curl_post_data = array(
         'type_id' => $type_id,
-        'edit_stype_name' => $edit_stype_name,
+        'edit_type_name' => $edit_type_name,
 
     );
     $secretkey = "SupportPassHTSSgmmi";
@@ -100,26 +100,24 @@ if (!empty($_POST['edit_stype_name'])){
                                     <?php
                                     $type_id = $_GET['type_id'];
 
-                                    $sql = "select * from sensor_type where type_id = '$type_id' and is_deleted != 1";
+                                    $sql = "select * from iot_device_type where type_id = '$type_id' and is_deleted != 1";
                                     $res = mysqli_query($iot_db, $sql);
                                     $row = mysqli_fetch_array($res);
-
                                     $type_id  = $row['type_id'];
-                                    $stype_name  = $row['stype_name'];
+                                    $dev_type_name  = $row['dev_type_name'];
                                     ?>
 
                                     <div class="form-group row">
                                         <label  class="col-sm-3 col-form-label">Type:</label>
                                         <div class="col-sm-9">
                                             <input type="hidden" name="edit_type_id" id="edit_type_id" value="<?php echo $type_id; ?>">
-
-                                            <input type="text" name="edit_stype_name" id="edit_stype_name" value="<?php echo $stype_name; ?>"
+                                            <input type="text" name="edit_type_name" id="edit_type_name" value="<?php echo $dev_type_name; ?>"
                                                    class="form-control" placeholder="Enter Type">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <div >
+                                        <div>
                                             <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-blue">Update</button>
                                         </div>&ensp;
                                         <div>

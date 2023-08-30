@@ -16,7 +16,7 @@ $delete_check = $_POST['delete_check'];
 if (!empty($delete_check)){
     $cnt = count($delete_check);
     for ($i = 0; $i < $cnt;$i++) {
-        $service_url = $rest_api_uri . "sensor_type/delete_type.php";
+        $service_url = $rest_api_uri . "iot_device_type/delete_type.php";
         $curl = curl_init($service_url);
         $curl_post_data = array(
             'delete_check' => $delete_check[$i],

@@ -12,13 +12,13 @@ include("../config.php");
 $chicagotime = date("Y-m-d H:i:s");
 $temp = "";
 $user_id = $_SESSION["id"];
-if (($_POST['fSubmit'] == 1 ) && (!empty($_POST['stype_name']))){
-    $stype_name = $_POST['stype_name'];
+if (($_POST['fSubmit'] == 1 ) && (!empty($_POST['dev_type_name']))){
+    $dev_type_name = $_POST['dev_type_name'];
 
-    $service_url = $rest_api_uri . "sensor_type/create_type.php";
+    $service_url = $rest_api_uri . "iot_device_type/create_type.php";
     $curl = curl_init($service_url);
     $curl_post_data = array(
-        'stype_name' => $stype_name,
+        'dev_type_name' => $dev_type_name,
         'created_at' => $chicagotime,
         'updated_at' => $chicagotime
     );
@@ -129,7 +129,7 @@ $assign_by = $_SESSION["id"];
                                     <div class="form-group row">
                                         <label class="col-sm-1 col-form-label">Type <i class="fa fa-asterisk" style="font-size:8px;color:red;"></i></label>
                                         <div class="col-sm-5">
-                                            <input type="text" class="form-control" name="stype_name" id="stype_name" placeholder="Enter Sensor Type " required>
+                                            <input type="text" class="form-control" name="dev_type_name" id="dev_type_name" placeholder="Enter Sensor Type " required>
                                         </div>
                                     </div>
 
@@ -193,11 +193,11 @@ $assign_by = $_SESSION["id"];
                                                 <?php
                                                 $index_left = 1;
                                                 $index_right = 2;
-                                                $c_query = "SELECT count(*) as tot_count FROM  sensor_type where is_deleted != 1";
+                                                $c_query = "SELECT count(*) as tot_count FROM  iot_device_type where is_deleted != 1";
                                                 $c_qur = mysqli_query($iot_db, $c_query);
                                                 $c_rowc = mysqli_fetch_array($c_qur);
                                                 $tot_devices = $c_rowc['tot_count'];
-                                                $query = "SELECT * FROM  sensor_type where is_deleted != 1  LIMIT " . $start_index . ',' . $tab_num_rec;
+                                                $query = "SELECT * FROM  iot_device_type where is_deleted != 1  LIMIT " . $start_index . ',' . $tab_num_rec;
                                                 $qur = mysqli_query($iot_db, $query);
                                                 while ($rowc = mysqli_fetch_array($qur)) {
                                                 ?>
@@ -210,7 +210,7 @@ $assign_by = $_SESSION["id"];
                                                     </a>
                                                 </td>
                                                 <td><?php echo  $rowc["type_id"]; ?></td>
-                                                <td><?php echo  $rowc["stype_name"]; ?></td>
+                                                <td><?php echo  $rowc["dev_type_name"]; ?></td>
 
                                             </tr>
                                             <?php } ?>
