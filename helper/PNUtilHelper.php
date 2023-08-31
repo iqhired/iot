@@ -317,14 +317,25 @@ function displaySFMessage(){
 		$dateInterval = $endDate->diff($startDate);
 		
 		if ($dateInterval->invert==1) {
-			if ($dateInterval->y > 0) {
-				return $dateInterval->y . " year(s) ago";
-			} if ($dateInterval->m > 0) {
-				return $dateInterval->m . " month(s) ago";
-			} if ($dateInterval->d > 7) {
-				return (int)($dateInterval->d / 7) . " week(s) ago";
-			} if ($dateInterval->d > 0) {
-				return $dateInterval->d . " day(s) ago";
+			if (($dateInterval->y > 0) && ($dateInterval->y == 1)) {
+				return $dateInterval->y . " year ago";
+			} else if ($dateInterval->y > 0) {
+				return $dateInterval->y . " years ago";
+			}
+			if (($dateInterval->m > 0) && ($dateInterval->m == 1)) {
+				return $dateInterval->m . " month ago";
+			} else if ($dateInterval->m > 0) {
+				return $dateInterval->m . " months ago";
+			}
+			if (($dateInterval->d > 7) && $dateInterval->d < 14) {
+				return (int)($dateInterval->d / 7) . " week ago";
+			} else if ($dateInterval->d > 7) {
+				return (int)($dateInterval->d / 7) . " weeks ago";
+			}
+			if (($dateInterval->d > 0) && ($dateInterval->d == 1)) {
+				return $dateInterval->d . " day ago";
+			} else if ($dateInterval->d > 0) {
+				return $dateInterval->d . " days ago";
 			}
 		}
 	}
