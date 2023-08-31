@@ -84,7 +84,7 @@
     <meta http-equiv="refresh" content="300">
     <title>IOT Devices Home</title>
     <link rel="stylesheet" href="<?php echo $iotURL; ?>assets/pages/css/vDeviceDashboard.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/Chart.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 
 </head>
